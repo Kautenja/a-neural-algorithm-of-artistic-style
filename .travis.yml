@@ -1,0 +1,8 @@
+language: python
+sudo: required
+python:
+  - "3.6"
+notifications:
+  email: false
+script:
+  - python3 -m unittest discover neural-styles
