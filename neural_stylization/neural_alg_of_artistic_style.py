@@ -1,5 +1,5 @@
 "A Neural Algorithm of Artistic Style."
-import time
+from tqdm import tqdm, tqdm_notebook
 from numpy.random import uniform
 from keras import backend
 from scipy.optimize import fmin_l_bfgs_b
@@ -16,22 +16,20 @@ class Canvas(object):
     """A canvas for the neural algorithm of artistic style."""
 
     # the template for the repr method for this object
-    REPR = "{}(content_path='{}', style_path='{}', output_path='{}')"
+    REPR = "{}(content_path='{}', style_path='{}')"
 
-    def __init__(self, content_path: str, style_path: str, output_path: str):
+    def __init__(self, content_path: str, style_path: str):
         """
         A canvas determining where to get content & style and where to save.
 
         Args:
             content_path: the path to the image to use as content
             style_path: the path to the image to use for style
-            output_path: the path to output images to
 
         Returns: None
         """
         self.content_path = content_path
         self.style_path = style_path
-        self.output_path = output_path
 
         # load the content image
         self.content_image = load_image(content_path)
@@ -48,29 +46,31 @@ class Canvas(object):
         self.content = backend.variable(self.content)
         self.style = backend.variable(self.style)
         self.output = backend.placeholder((1, self.height, self.width, 3))
+        data = [self.content, self.style, self.output]
+
+        # the input tensor associated with the image
+        self.input_tensor = backend.concatenate(data, axis=0)
 
     def __repr__(self):
         """Return a debugging representation of self."""
         return self.REPR.format(self.__class__.__name__,
                                 self.content_path,
-                                self.style_path,
-                                self.output_path)
+                                self.style_path)
 
     def __str__(self):
         """Return a human friendly string of self."""
         return f'Canvas of ({self.width}, {self.height})'
 
     @property
-    def input_tensor(self):
-        """Return an input tensor based on the data in this canvas."""
-        # concatentate the images into a single tensor
-        return backend.concatenate([self.content, self.style, self.output],
-                                   axis=0)
-
-    @property
     def random_noise(self):
         """Return an image of noise the same size as this canvas."""
         return uniform(0, 255, (1, self.height, self.width, 3)) - 128.0
+
+    @property
+    def random_noise_image(self):
+        """Return a decoded image of random noise in the size of this canvas."""
+        noise = self.random_noise.reshape((self.height, self.width, 3))
+        return matrix_to_image(noise)
 
 
 # content layer configurations by paper that references them
@@ -92,14 +92,15 @@ class NeuralAlgorithmOfArtisticStyle(object):
     """A Neural Algorithm of Artistic Style."""
 
     # the template for the repr method for this object
-    REPR = "{}(content_weight='{}', style_weight='{}', variation_weight='{}', content_layer={}, style_layers={})"
+    REPR = "{}(content_weight='{}', style_weight='{}', variation_weight='{}', content_layer={}, style_layers={}, is_notebook={})"
 
     def __init__(self,
                  content_weight: float=0.025,
                  style_weight: float=5.0,
                  variation_weight: float=1.0,
                  content_layer: str=CONTENT_LAYER['Gatys et al. (2015)'],
-                 style_layers: list=STYLE_LAYERS['Gatys et al. (2015)']):
+                 style_layers: list=STYLE_LAYERS['Gatys et al. (2015)'],
+                 is_notebook: bool=False):
         """
         Initialize a new neural algorithm of artistic style.
 
@@ -118,6 +119,19 @@ class NeuralAlgorithmOfArtisticStyle(object):
         self.variation_weight = variation_weight
         self.content_layer = content_layer
         self.style_layers = style_layers
+        self.is_notebook = is_notebook
+
+    @property
+    def is_notebook(self):
+        return self._is_notebook
+
+    @is_notebook.setter
+    def is_notebook(self, is_notebook: bool):
+        self._is_notebook = is_notebook
+        if is_notebook:
+            self._tqdm = tqdm_notebook
+        else:
+            self._tqdm = tqdm
 
     def __repr__(self):
         """Return a debugging representation of self."""
@@ -126,7 +140,8 @@ class NeuralAlgorithmOfArtisticStyle(object):
                                 self.style_weight,
                                 self.variation_weight,
                                 self.content_layer,
-                                self.style_layers)
+                                self.style_layers,
+                                self.is_notebook)
 
     def __call__(self, canvas: Canvas, iterations: int=1) -> Canvas:
         """
@@ -183,23 +198,22 @@ class NeuralAlgorithmOfArtisticStyle(object):
             grad_values = outs[1].flatten().astype('float64')
             return loss_value, grad_values
 
+        # build the evaluator and optimize the image
         evaluator = Evaluator(eval_loss_and_grads)
+        image = self._optimize(evaluator, canvas, iterations)
+        # clear the keras session to clear memory
+        backend.clear_session()
 
-        return self._optimize(evaluator, canvas, iterations)
+        return image
 
     def _optimize(self, evaluator: Evaluator, canvas: Canvas, iterations: int):
         """
         """
         x = canvas.random_noise
 
-        for i in range(iterations):
-            print('Start of iteration', i)
-            start_time = time.time()
+        for i in self._tqdm(range(iterations)):
             x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x.flatten(),
                                              fprime=evaluator.grads, maxfun=20)
-            print('Current loss value:', min_val)
-            end_time = time.time()
-            print('Iteration %d completed in %ds' % (i, end_time - start_time))
 
         # reshape, denormalize, and convert to an image object
         x = x.reshape((canvas.height, canvas.width, 3))
