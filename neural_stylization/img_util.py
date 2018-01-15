@@ -41,5 +41,27 @@ def image_to_matrix(img: Image, dtype: np.dtype=np.float32) -> np.ndarray:
 	return preprocess_input(img)
 
 
+def normalize(img: np.ndarray,
+              means: list=[103.939, 116.779, 123.68],
+              is_apply: bool=True):
+    """
+    Normalize an image by a set of means.
+
+    Args:
+        img: the image to normalize
+        means: the means to normalize by RGB ordering
+        is_apply: whether to apply or reverse the normalization
+
+    Returns: img after normalizing its RGB scale by the means
+    """
+    # iterate over the means
+    for index, mean in enumerate(means):
+        # apply the given mean to the given
+        img[:, :, :, index] += -mean if is_apply else mean
+    # flip image from RGB, to BGR
+    img = img[:, :, :, ::-1]
+    return img
+
+
 # explicitly specify the public API of the module
-__all__ = ['load_image', 'image_to_matrix']
+__all__ = ['load_image', 'image_to_matrix', 'normalize']
