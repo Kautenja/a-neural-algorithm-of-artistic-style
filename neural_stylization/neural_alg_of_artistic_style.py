@@ -3,26 +3,26 @@ import numpy as np
 from .vgg19 import VGG_19
 
 
-# the mean pixel values from the paper
-MEAN_PIXEL = np.array([123.68 ,  116.779,  103.939])
+class NeuralAlgorithmOfArtisticStyle(object):
+    """A Neural Algorithm of Artistic Style."""
 
+    def __init__(self,
+                 content_weight: float=0.025,
+                 style_weight: float=5.0,
+                 variation_weight: float=1.0):
+        """
+        Initialize a new neural algorithm of artistic style.
 
-class NeuralAlgorithmOfArtisticStyle(VGG_19):
-	"""A Neural Algorithm of Artistic Style."""
-
-	def __init__(self):
-		"""Initialize a new neural algorithm of artistic style."""
-		# call super with the parameters from the paper.
-		# include_top = False  # this turns off the 3 fully connected layers
-		#                      # at the end of the network
-		# pooling = 'avg'      # turns on average pooling on the output layer
-		#                      # TODO: the paper mentions "replacing the max-
-		#                      # pooling operation by average pooling improves
-		#                      # gradient flow and one receives more appealing
-		#                      # results". A) is this true? B) does this apply
-		#                      # to this layer at all, or instead the
-		#                      # MaxPooling layers in the network?
-		super().__init__(include_top=False, pooling='avg')
+        Args:
+            content_weight: determines the prevalence of the content in the
+                output
+            style_weight: determines the prevalence of the style in the output
+            variation_weight: determines the amount of noise in the output
+                (default 1.0)
+        """
+        self.content_weight = content_weight
+        self.style_weight = style_weight
+        self.variation_weight = variation_weight
 
 
 # explicitly specify the public API of the module

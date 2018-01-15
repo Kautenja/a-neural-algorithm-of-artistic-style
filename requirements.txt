@@ -1,3 +1,6 @@
 keras
 numpy
-cv2
+image
+tensorflow
+h5py
+jupyter
