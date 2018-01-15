@@ -3,7 +3,7 @@ PIP=pip3
 # the executable for Python
 PYTHON=python3
 # the directory the main framework exists in
-MAIN=neural-stylization
+MAIN=neural_stylization
 # the directory with the dataset
 DATASET=${MAIN}/dataset
 
