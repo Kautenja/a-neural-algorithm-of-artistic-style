@@ -11,10 +11,6 @@ DATASET=${MAIN}/dataset
 install:
 	${PIP} install -r requirements.txt
 
-# download the dataset for the project
-download_data:
-	cd ${DATASET} && make all
-
 # automatically detect and executes test cases in the main framework
 test:
 	${PYTHON} -m unittest discover ${MAIN}

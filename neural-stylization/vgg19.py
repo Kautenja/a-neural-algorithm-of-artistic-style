@@ -31,7 +31,7 @@ class VGG_19(Model):
     def __init__(self,
                  include_top: bool=True,
                  weights: Union[None, str]='imagenet',
-                 input_tensor: Union[None, keras.layers.Input]=None,
+                 input_tensor: Union[None, Input]=None,
                  input_shape: Union[None, tuple]=None,
                  pooling: Union[None, str]=None,
                  classes: int=1000) -> None:
@@ -121,7 +121,7 @@ class VGG_19(Model):
     def __build_input_layer(self,
                             include_top: bool,
                             weights: Union[None, str],
-                            input_tensor: Union[None, keras.layers.Input],
+                            input_tensor: Union[None, Input],
                             input_shape: Union[None, tuple]):
         # Determine proper input shape
         input_shape = _obtain_input_shape(input_shape,
