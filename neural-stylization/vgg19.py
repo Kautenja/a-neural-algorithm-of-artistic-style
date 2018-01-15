@@ -107,19 +107,19 @@ class VGG_19(Model):
 
         # store the variables for use by __repr__ and __str__
         self.init_args = [
-        	include_top,
-        	weights,
-        	input_tensor,
-        	input_shape,
-        	pooling,
-        	classes
+            include_top,
+            weights,
+            input_tensor,
+            input_shape,
+            pooling,
+            classes
         ]
 
         # build the input layer
         img_input = self._build_input_layer(include_top,
-        									weights,
-        									input_tensor,
-        									input_shape)
+                                            weights,
+                                            input_tensor,
+                                            input_shape)
         # build the main layers
         x = self._build_main_layers(img_input)
         # build the output layers
