@@ -1,4 +1,9 @@
-"""A keras implementation of the VGG 19 CNN model."""
+"""A keras implementation of the VGG 19 CNN model.
+
+This object oriented designed is based on the original code from the keras
+team here:
+https://github.com/keras-team/keras/blob/master/keras/applications/vgg19.py
+"""
 from typing import Union
 from keras.models import Model
 from keras.layers import Flatten
@@ -19,8 +24,18 @@ from keras.applications.imagenet_utils import _obtain_input_shape
 
 # the path to the pretrained weights
 WEIGHTS_PATH = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels.h5'
+# the name for the weights file on disk
+WEIGHTS_FILE = 'vgg19_weights_tf_dim_ordering_tf_kernels.h5'
+# the hash for the weights file
+WEIGHTS_HASH = 'cbe5617147190e668d6c5d5026f83318'
+
 # the path to the pretrained weights without the top (fully connected layers)
 WEIGHTS_PATH_NO_TOP = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5'
+# the name for the weights (no top) file on disk
+WEIGHTS_FILE_NO_TOP = 'vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5'
+# the hash for the weights (no top) file
+WEIGHT_HASH_NO_TOP = '253f8cb515780f3b799900260a226db6'
+
 # the format template for the representation of VGG_19
 REPR = '{}(include_top={}, weights={}, input_tensor={}, input_shape={}, pooling={}, classes={})'
 
@@ -54,7 +69,7 @@ class VGG_19(Model):
             weights: one of `None` (random initialization),
                   'imagenet' (pre-training on ImageNet),
                   or the path to the weights file to be loaded.
-            input_tensor: optional Keras tensor (i.e. output of `layers.Input()`)
+            input_tensor: optional Keras tensor (i.e. output of `Input()`)
                 to use as image input for the model.
             input_shape: optional shape tuple, only to be specified
                 if `include_top` is False (otherwise the input shape
@@ -91,14 +106,24 @@ class VGG_19(Model):
                              ' as true, `classes` should be 1000')
 
         # store the variables for use by __repr__ and __str__
-        self.init_args = [include_top, weights, input_tensor, input_shape, pooling, classes]
+        self.init_args = [
+        	include_top,
+        	weights,
+        	input_tensor,
+        	input_shape,
+        	pooling,
+        	classes
+        ]
 
         # build the input layer
-        img_input = self.__build_input_layer(include_top, weights, input_tensor, input_shape)
+        img_input = self._build_input_layer(include_top,
+        									weights,
+        									input_tensor,
+        									input_shape)
         # build the main layers
-        x = self.__build_main_layers(img_input)
+        x = self._build_main_layers(img_input)
         # build the output layers
-        x = self.__build_output_layers(x, include_top, pooling, classes)
+        x = self._build_output_layers(x, include_top, pooling, classes)
 
         # Ensure that the model takes into account
         # any potential predecessors of `input_tensor`.
@@ -111,14 +136,14 @@ class VGG_19(Model):
         super(VGG_19, self).__init__(inputs, x, name=self.__class__.__name__)
 
         # load the weights
-        self.__load_weights(include_top, weights)
+        self._load_weights(include_top, weights)
 
     def __repr__(self):
         """Return a debugging representation of this object."""
-        # combine the classename with the data list and unwrap as args for format
+        # combine the class name with the data and unwrap (*) for format
         return REPR.format(*[self.__class__.__name__] + self.init_args)
 
-    def __build_input_layer(self,
+    def _build_input_layer(self,
                             include_top: bool,
                             weights: Union[None, str],
                             input_tensor: Union[None, Input],
@@ -141,7 +166,7 @@ class VGG_19(Model):
 
         return img_input
 
-    def __build_main_layers(self, x: 'InputLayerTensor'):
+    def _build_main_layers(self, x: 'InputLayerTensor'):
         # Block 1
         x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1')(x)
         x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2')(x)
@@ -175,7 +200,7 @@ class VGG_19(Model):
 
         return x
 
-    def __build_output_layers(self,
+    def _build_output_layers(self,
                               x: 'MainLayersTensor',
                               include_top: bool,
                               pooling: Union[None, str],
@@ -194,18 +219,18 @@ class VGG_19(Model):
 
         return x
 
-    def __load_weights(self, include_top: bool, weights: Union[None, str]):
+    def _load_weights(self, include_top: bool, weights: Union[None, str]):
         if weights == 'imagenet':
             if include_top:
-                weights_path = get_file('vgg19_weights_tf_dim_ordering_tf_kernels.h5',
+                weights_path = get_file(WEIGHTS_FILE,
                                         WEIGHTS_PATH,
                                         cache_subdir='models',
-                                        file_hash='cbe5617147190e668d6c5d5026f83318')
+                                        file_hash=WEIGHTS_HASH)
             else:
-                weights_path = get_file('vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5',
+                weights_path = get_file(WEIGHTS_FILE_NO_TOP,
                                         WEIGHTS_PATH_NO_TOP,
                                         cache_subdir='models',
-                                        file_hash='253f8cb515780f3b799900260a226db6')
+                                        file_hash=WEIGHT_HASH_NO_TOP)
             self.load_weights(weights_path)
             if K.backend() == 'theano':
                 layer_utils.convert_all_kernels_in_model(self)
@@ -218,8 +243,8 @@ class VGG_19(Model):
                     layer_utils.convert_dense_weights_data_format(dense, shape, 'channels_first')
 
                 if K.backend() == 'tensorflow':
-                    warnings.warn('You are using the TensorFlow backend, yet you '
-                                  'are using the Theano '
+                    warnings.warn('You are using the TensorFlow backend, yet '
+                                  'you are using the Theano '
                                   'image data format convention '
                                   '(`image_data_format="channels_first"`). '
                                   'For best performance, set '
