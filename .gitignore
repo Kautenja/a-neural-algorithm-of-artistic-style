@@ -1,10 +1,7 @@
 #
 # Project files
 #
-.ipynb_checkpoints/
-scraped/
-build/*
-delivery/*
+
 
 #
 # MacOS
