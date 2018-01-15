@@ -1,5 +1,6 @@
 "A Neural Algorithm of Artistic Style."
 from tqdm import tqdm, tqdm_notebook
+from IPython import display
 from numpy.random import uniform
 from keras import backend
 from scipy.optimize import fmin_l_bfgs_b
@@ -156,7 +157,8 @@ class NeuralAlgorithmOfArtisticStyle(object):
         # not include the fully connected layers at the end (not interested
         # in classification). We use the input tensor from the canvas to define
         # the input dimension of the network.
-        model = VGG_19(input_tensor=canvas.input_tensor, include_top=False)
+        model = VGG_19(input_tensor=canvas.input_tensor,
+                       include_top=False)
         # the various layers in the model indexed by name
         layers = dict([(layer.name, layer.output) for layer in model.layers])
 
