@@ -22,6 +22,8 @@ from keras.applications.imagenet_utils import preprocess_input
 from keras.applications.imagenet_utils import _obtain_input_shape
 
 
+# the name of the weights dataset
+WEIGHTS = 'imagenet'
 # the path to the pretrained weights
 WEIGHTS_PATH = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels.h5'
 # the name for the weights file on disk
@@ -37,7 +39,7 @@ WEIGHTS_FILE_NO_TOP = 'vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5'
 WEIGHT_HASH_NO_TOP = '253f8cb515780f3b799900260a226db6'
 
 # the format template for the representation of VGG_19
-REPR = '{}(include_top={}, weights={}, input_tensor={}, input_shape={}, pooling={}, classes={})'
+REPR = '{}(include_top={}, input_tensor={}, input_shape={}, pooling={}, classes={})'
 
 
 class VGG_19(Model):
@@ -45,7 +47,6 @@ class VGG_19(Model):
 
     def __init__(self,
                  include_top: bool=True,
-                 weights: Union[None, str]='imagenet',
                  input_tensor: Union[None, Input]=None,
                  input_shape: Union[None, tuple]=None,
                  pooling: Union[None, str]=None,
@@ -66,9 +67,6 @@ class VGG_19(Model):
         Args:
             include_top: whether to include the 3 fully-connected
                 layers at the top of the network.
-            weights: one of `None` (random initialization),
-                  'imagenet' (pre-training on ImageNet),
-                  or the path to the weights file to be loaded.
             input_tensor: optional Keras tensor (i.e. output of `Input()`)
                 to use as image input for the model.
             input_shape: optional shape tuple, only to be specified
@@ -95,20 +93,12 @@ class VGG_19(Model):
 
         Returns: None
         """
-        if not (weights in {'imagenet', None} or os.path.exists(weights)):
-            raise ValueError('The `weights` argument should be either '
-                             '`None` (random initialization), `imagenet` '
-                             '(pre-training on ImageNet), '
-                             'or the path to the weights file to be loaded.')
-
-        if weights == 'imagenet' and include_top and classes != 1000:
-            raise ValueError('If using `weights` as imagenet with `include_top`'
-                             ' as true, `classes` should be 1000')
+        if include_top and classes != 1000:
+            raise ValueError('If using `include_top` as true, `classes` should be 1000')
 
         # store the variables for use by __repr__ and __str__
         self.init_args = [
             include_top,
-            weights,
             input_tensor,
             input_shape,
             pooling,
@@ -116,10 +106,7 @@ class VGG_19(Model):
         ]
 
         # build the input layer
-        img_input = self._build_input_layer(include_top,
-                                            weights,
-                                            input_tensor,
-                                            input_shape)
+        img_input = self._build_input_layer(include_top, input_tensor, input_shape)
         # build the main layers
         x = self._build_main_layers(img_input)
         # build the output layers
@@ -136,7 +123,7 @@ class VGG_19(Model):
         super(VGG_19, self).__init__(inputs, x, name=self.__class__.__name__)
 
         # load the weights
-        self._load_weights(include_top, weights)
+        self._load_weights(include_top)
 
     def __repr__(self):
         """Return a debugging representation of this object."""
@@ -144,17 +131,16 @@ class VGG_19(Model):
         return REPR.format(*[self.__class__.__name__] + self.init_args)
 
     def _build_input_layer(self,
-                            include_top: bool,
-                            weights: Union[None, str],
-                            input_tensor: Union[None, Input],
-                            input_shape: Union[None, tuple]):
+                           include_top: bool,
+                           input_tensor: Union[None, Input],
+                           input_shape: Union[None, tuple]):
         # Determine proper input shape
         input_shape = _obtain_input_shape(input_shape,
                                           default_size=224,
                                           min_size=48,
                                           data_format=K.image_data_format(),
                                           require_flatten=include_top,
-                                          weights=weights)
+                                          weights=WEIGHTS)
 
         if input_tensor is None:
             img_input = Input(shape=input_shape)
@@ -219,40 +205,28 @@ class VGG_19(Model):
 
         return x
 
-    def _load_weights(self, include_top: bool, weights: Union[None, str]):
-        if weights == 'imagenet':
-            if include_top:
-                weights_path = get_file(WEIGHTS_FILE,
-                                        WEIGHTS_PATH,
-                                        cache_subdir='models',
-                                        file_hash=WEIGHTS_HASH)
-            else:
-                weights_path = get_file(WEIGHTS_FILE_NO_TOP,
-                                        WEIGHTS_PATH_NO_TOP,
-                                        cache_subdir='models',
-                                        file_hash=WEIGHT_HASH_NO_TOP)
-            self.load_weights(weights_path)
-            if K.backend() == 'theano':
-                layer_utils.convert_all_kernels_in_model(self)
+    def _load_weights(self, include_top: bool) -> None:
+        """
+        Load the weights for this VGG19 model.
 
-            if K.image_data_format() == 'channels_first':
-                if include_top:
-                    maxpool = self.get_layer(name='block5_pool')
-                    shape = maxpool.output_shape[1:]
-                    dense = self.get_layer(name='fc1')
-                    layer_utils.convert_dense_weights_data_format(dense, shape, 'channels_first')
+        Args:
+            include_top: whether to include the fully connected layers
 
-                if K.backend() == 'tensorflow':
-                    warnings.warn('You are using the TensorFlow backend, yet '
-                                  'you are using the Theano '
-                                  'image data format convention '
-                                  '(`image_data_format="channels_first"`). '
-                                  'For best performance, set '
-                                  '`image_data_format="channels_last"` in '
-                                  'your Keras config '
-                                  'at ~/.keras/keras.json.')
-        elif weights is not None:
-            self.load_weights(weights)
+        Returns: None
+        """
+        # dox for the get_file method:
+        # https://www.tensorflow.org/api_docs/python/tf/keras/utils/get_file
+        # check if the top layers (fully connected) are included
+        if include_top:
+            # the path for weights WITH the top (fully connected) layers
+            weights_path = get_file(WEIGHTS_FILE, WEIGHTS_PATH,
+                                    file_hash=WEIGHTS_HASH)
+        else:
+            # the path for weights WITHOUT the top (fully connected) layers
+            weights_path = get_file(WEIGHTS_FILE_NO_TOP, WEIGHTS_PATH_NO_TOP,
+                                    file_hash=WEIGHT_HASH_NO_TOP)
+        # load the weights into self
+        self.load_weights(weights_path)
 
 
 # explicitly export the public API of the module
