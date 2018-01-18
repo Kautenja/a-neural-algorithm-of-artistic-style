@@ -11,6 +11,7 @@ from keras.layers import Dense
 from keras.layers import Input
 from keras.layers import Conv2D
 from keras.layers import AveragePooling2D
+from keras.layers import MaxPooling2D
 from keras.layers import GlobalAveragePooling2D
 from keras.layers import GlobalMaxPooling2D
 from keras.engine.topology import get_source_inputs
@@ -38,44 +39,28 @@ WEIGHTS_FILE_NO_TOP = 'vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5'
 # the hash for the weights (no top) file
 WEIGHT_HASH_NO_TOP = '253f8cb515780f3b799900260a226db6'
 
+# the number of classes in the dataset
+CLASSES = 1000
+
 # the format template for the representation of VGG_19
-REPR = '{}(include_top={}, input_tensor={}, input_shape={}, pooling={}, classes={})'
+REPR = '{}(include_top={}, input_tensor={}, pooling={})'
 
 
 class VGG_19(Model):
-    """The VGG 19 image recognition architecture."""
+    """The VGG 19 image recognition network."""
 
     def __init__(self,
                  include_top: bool=True,
                  input_tensor: Union[None, Input]=None,
-                 input_shape: Union[None, tuple]=None,
-                 pooling: Union[None, str]=None,
-                 classes: int=1000) -> None:
+                 pooling: Union[None, str]=None) -> None:
         """
-        Instantiates the VGG19 architecture.
-
-        Optionally loads weights pre-trained
-        on ImageNet. Note that when using TensorFlow,
-        for best performance you should set
-        `image_data_format='channels_last'` in your Keras config
-        at ~/.keras/keras.json.
-        The model and the weights are compatible with both
-        TensorFlow and Theano. The data format
-        convention used by the model is the one
-        specified in your Keras config file.
+        Initialize a new VGG19 network.
 
         Args:
             include_top: whether to include the 3 fully-connected
                 layers at the top of the network.
             input_tensor: optional Keras tensor (i.e. output of `Input()`)
                 to use as image input for the model.
-            input_shape: optional shape tuple, only to be specified
-                if `include_top` is False (otherwise the input shape
-                has to be `(224, 224, 3)` (with `channels_last` data format)
-                or `(3, 224, 224)` (with `channels_first` data format).
-                It should have exactly 3 inputs channels,
-                and width and height should be no smaller than 48.
-                E.g. `(200, 200, 3)` would be one valid value.
             pooling: Optional pooling mode for feature extraction
                 when `include_top` is `False`.
                 - `None` means that the output of the model will be
@@ -87,30 +72,22 @@ class VGG_19(Model):
                     the output of the model will be a 2D tensor.
                 - `max` means that global max pooling will
                     be applied.
-            classes: optional number of classes to classify images
-                into, only to be specified if `include_top` is True, and
-                if no `weights` argument is specified.
 
         Returns: None
         """
-        if include_top and classes != 1000:
-            raise ValueError('If using `include_top` as true, `classes` should be 1000')
-
         # store the variables for use by __repr__ and __str__
         self.init_args = [
             include_top,
             input_tensor,
-            input_shape,
-            pooling,
-            classes
+            pooling
         ]
 
         # build the input layer
-        img_input = self._build_input_layer(include_top, input_tensor, input_shape)
+        img_input = self._build_input_layer(include_top, input_tensor)
         # build the main layers
         x = self._build_main_layers(img_input)
         # build the output layers
-        x = self._build_output_layers(x, include_top, pooling, classes)
+        x = self._build_output_layers(x, include_top, pooling)
 
         # Ensure that the model takes into account
         # any potential predecessors of `input_tensor`.
@@ -132,27 +109,24 @@ class VGG_19(Model):
 
     def _build_input_layer(self,
                            include_top: bool,
-                           input_tensor: Union[None, Input],
-                           input_shape: Union[None, tuple]):
+                           input_tensor: Union[None, Input]) -> 'tensor':
         # Determine proper input shape
-        input_shape = _obtain_input_shape(input_shape,
+        input_shape = _obtain_input_shape(None,
                                           default_size=224,
                                           min_size=48,
                                           data_format=K.image_data_format(),
                                           require_flatten=include_top,
                                           weights=WEIGHTS)
-
+        # return the appropriate input tensor
         if input_tensor is None:
-            img_input = Input(shape=input_shape)
+            return Input(shape=input_shape)
         else:
             if not K.is_keras_tensor(input_tensor):
-                img_input = Input(tensor=input_tensor, shape=input_shape)
+                return Input(tensor=input_tensor, shape=input_shape)
             else:
-                img_input = input_tensor
+                return input_tensor
 
-        return img_input
-
-    def _build_main_layers(self, x: 'InputLayerTensor'):
+    def _build_main_layers(self, x: 'tensor') -> 'tensor':
         """
         Build and return the main blocks of the network.
 
@@ -191,10 +165,9 @@ class VGG_19(Model):
         return x
 
     def _build_output_layers(self,
-                             x: 'MainLayersTensor',
+                             x: 'tensor',
                              include_top: bool,
-                             pooling: Union[None, str],
-                             classes: int):
+                             pooling: Union[None, str]) -> 'tensor':
         """
         Build and return the output block for the network.
 
@@ -204,8 +177,6 @@ class VGG_19(Model):
                          global pooling layers
             pooling: if `include_top` is False, the type of pooling to use.
                      Either 'avg' or 'max'.
-            classes: the number of classes in the output layer of the fully
-                     connected network
 
         Returns: None
         """
@@ -214,7 +185,7 @@ class VGG_19(Model):
             x = Flatten(name='flatten')(x)
             x = Dense(4096, activation='relu', name='fc1')(x)
             x = Dense(4096, activation='relu', name='fc2')(x)
-            return Dense(classes, activation='softmax', name='predictions')(x)
+            return Dense(CLASSES, activation='softmax', name='predictions')(x)
         # otherwise if pooling is 'avg' return the global avg pooling block
         elif pooling == 'avg':
             return GlobalAveragePooling2D()(x)
