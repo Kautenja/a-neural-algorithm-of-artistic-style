@@ -6,25 +6,20 @@ https://github.com/keras-team/keras/blob/master/keras/applications/vgg19.py
 """
 from typing import Union
 from keras.models import Model
-from keras.layers import Flatten
-from keras.layers import Dense
 from keras.layers import Input
 from keras.layers import Conv2D
 from keras.layers import AveragePooling2D
 from keras.layers import MaxPooling2D
+from keras.layers import Flatten
+from keras.layers import Dense
 from keras.layers import GlobalAveragePooling2D
 from keras.layers import GlobalMaxPooling2D
 from keras.engine.topology import get_source_inputs
-from keras.utils import layer_utils
 from keras.utils.data_utils import get_file
 from keras import backend as K
-from keras.applications.imagenet_utils import decode_predictions
-from keras.applications.imagenet_utils import preprocess_input
 from keras.applications.imagenet_utils import _obtain_input_shape
 
 
-# the name of the weights dataset
-WEIGHTS = 'imagenet'
 # the path to the pretrained weights
 WEIGHTS_PATH = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels.h5'
 # the name for the weights file on disk
@@ -38,12 +33,6 @@ WEIGHTS_PATH_NO_TOP = 'https://github.com/fchollet/deep-learning-models/releases
 WEIGHTS_FILE_NO_TOP = 'vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5'
 # the hash for the weights (no top) file
 WEIGHT_HASH_NO_TOP = '253f8cb515780f3b799900260a226db6'
-
-# the number of classes in the dataset
-CLASSES = 1000
-
-# the format template for the representation of VGG_19
-REPR = '{}(include_top={}, input_tensor={}, pooling={}, global_pooling={})'
 
 
 class VGG_19(Model):
@@ -105,9 +94,10 @@ class VGG_19(Model):
         self._load_weights(include_top)
 
     def __repr__(self):
+        template = '{}(include_top={}, input_tensor={}, pooling={}, global_pooling={})'
         """Return a debugging representation of this object."""
         # combine the class name with the data and unwrap (*) for format
-        return REPR.format(*[self.__class__.__name__] + self.init_args)
+        return template.format(*[self.__class__.__name__] + self.init_args)
 
     def _build_input_block(self,
                            include_top: bool,
@@ -127,7 +117,7 @@ class VGG_19(Model):
                                           min_size=48,
                                           data_format=K.image_data_format(),
                                           require_flatten=include_top,
-                                          weights=WEIGHTS)
+                                          weights='imagenet')
         # return the appropriate input tensor
         if input_tensor is None:
             return Input(shape=input_shape)
@@ -205,7 +195,8 @@ class VGG_19(Model):
             x = Flatten(name='flatten')(x)
             x = Dense(4096, activation='relu', name='fc1')(x)
             x = Dense(4096, activation='relu', name='fc2')(x)
-            x = Dense(CLASSES, activation='softmax', name='predictions')(x)
+            # use 1000 units in the output (number of classes in ImageNet)
+            x = Dense(1000, activation='softmax', name='predictions')(x)
         # otherwise if pooling is 'avg' return the global avg pooling block
         elif global_pooling == 'avg':
             x = GlobalAveragePooling2D()(x)
