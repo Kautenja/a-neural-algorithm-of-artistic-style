@@ -43,7 +43,7 @@ WEIGHT_HASH_NO_TOP = '253f8cb515780f3b799900260a226db6'
 CLASSES = 1000
 
 # the format template for the representation of VGG_19
-REPR = '{}(include_top={}, input_tensor={}, pooling={})'
+REPR = '{}(include_top={}, input_tensor={}, pooling={}, global_pooling={})'
 
 
 class VGG_19(Model):
@@ -52,7 +52,8 @@ class VGG_19(Model):
     def __init__(self,
                  include_top: bool=True,
                  input_tensor: Union[None, Input]=None,
-                 pooling: Union[None, str]=None) -> None:
+                 pooling: str='max',
+                 global_pooling: Union[None, str]=None) -> None:
         """
         Initialize a new VGG19 network.
 
@@ -61,7 +62,7 @@ class VGG_19(Model):
                 layers at the top of the network.
             input_tensor: optional Keras tensor (i.e. output of `Input()`)
                 to use as image input for the model.
-            pooling: Optional pooling mode for feature extraction
+            global_pooling: Optional pooling mode for feature extraction
                 when `include_top` is `False`.
                 - `None` means that the output of the model will be
                     the 4D tensor output of the
@@ -77,17 +78,18 @@ class VGG_19(Model):
         """
         # store the variables for use by __repr__ and __str__
         self.init_args = [
-            include_top,
-            input_tensor,
-            pooling
+            repr(include_top),
+            repr(input_tensor),
+            repr(pooling),
+            repr(global_pooling)
         ]
 
         # build the input layer
-        img_input = self._build_input_layer(include_top, input_tensor)
+        img_input = self._build_input_block(include_top, input_tensor)
         # build the main layers
-        x = self._build_main_layers(img_input)
+        x = self._build_main_blocks(img_input, pooling)
         # build the output layers
-        x = self._build_output_layers(x, include_top, pooling)
+        x = self._build_output_block(x, include_top, global_pooling)
 
         # Ensure that the model takes into account
         # any potential predecessors of `input_tensor`.
@@ -107,9 +109,18 @@ class VGG_19(Model):
         # combine the class name with the data and unwrap (*) for format
         return REPR.format(*[self.__class__.__name__] + self.init_args)
 
-    def _build_input_layer(self,
+    def _build_input_block(self,
                            include_top: bool,
                            input_tensor: Union[None, Input]) -> 'tensor':
+        """
+        Build and return the input block for the network
+
+        Args:
+            include_top: whether to include the fully connected layers
+            input_tensor: the input tensor if any was specified
+
+        Returns: a tensor representing the network up to the input blocks
+        """
         # Determine proper input shape
         input_shape = _obtain_input_shape(None,
                                           default_size=224,
@@ -126,72 +137,83 @@ class VGG_19(Model):
             else:
                 return input_tensor
 
-    def _build_main_layers(self, x: 'tensor') -> 'tensor':
+    def _build_main_blocks(self, x: 'tensor', pooling: str) -> 'tensor':
         """
         Build and return the main blocks of the network.
 
         Args:
             x: the input blocks of the network
+            pooling: the kind of pooling to use at the end of each block
 
-        Returns: the network with the main body blocks added
+        Returns: a tensor representing the network up to the main blocks
         """
+        # setup the pooling layer initializer
+        if pooling == 'avg':
+            pool2d = AveragePooling2D
+        elif pooling == 'max':
+            pool2d = MaxPooling2D
+        else:
+            raise ValueError('`pooling` should be either: "avg", "max"')
+        # build the blocks
         # Block 1
         x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1')(x)
         x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2')(x)
-        x = AveragePooling2D((2, 2), strides=(2, 2), name='block1_pool')(x)
+        x = pool2d((2, 2), strides=(2, 2), name='block1_pool')(x)
         # Block 2
         x = Conv2D(128, (3, 3), activation='relu', padding='same', name='block2_conv1')(x)
         x = Conv2D(128, (3, 3), activation='relu', padding='same', name='block2_conv2')(x)
-        x = AveragePooling2D((2, 2), strides=(2, 2), name='block2_pool')(x)
+        x = pool2d((2, 2), strides=(2, 2), name='block2_pool')(x)
         # Block 3
         x = Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv1')(x)
         x = Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv2')(x)
         x = Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv3')(x)
         x = Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv4')(x)
-        x = AveragePooling2D((2, 2), strides=(2, 2), name='block3_pool')(x)
+        x = pool2d((2, 2), strides=(2, 2), name='block3_pool')(x)
         # Block 4
         x = Conv2D(512, (3, 3), activation='relu', padding='same', name='block4_conv1')(x)
         x = Conv2D(512, (3, 3), activation='relu', padding='same', name='block4_conv2')(x)
         x = Conv2D(512, (3, 3), activation='relu', padding='same', name='block4_conv3')(x)
         x = Conv2D(512, (3, 3), activation='relu', padding='same', name='block4_conv4')(x)
-        x = AveragePooling2D((2, 2), strides=(2, 2), name='block4_pool')(x)
+        x = pool2d((2, 2), strides=(2, 2), name='block4_pool')(x)
         # Block 5
         x = Conv2D(512, (3, 3), activation='relu', padding='same', name='block5_conv1')(x)
         x = Conv2D(512, (3, 3), activation='relu', padding='same', name='block5_conv2')(x)
         x = Conv2D(512, (3, 3), activation='relu', padding='same', name='block5_conv3')(x)
         x = Conv2D(512, (3, 3), activation='relu', padding='same', name='block5_conv4')(x)
-        x = AveragePooling2D((2, 2), strides=(2, 2), name='block5_pool')(x)
+        x = pool2d((2, 2), strides=(2, 2), name='block5_pool')(x)
 
         return x
 
-    def _build_output_layers(self,
-                             x: 'tensor',
-                             include_top: bool,
-                             pooling: Union[None, str]) -> 'tensor':
+    def _build_output_block(self,
+                            x: 'tensor',
+                            include_top: bool,
+                            global_pooling: Union[None, str]) -> 'tensor':
         """
         Build and return the output block for the network.
 
         Args:
             x: the existing layers in the model to build onto
             include_top: whether to use the fully connected layers or the
-                         global pooling layers
-            pooling: if `include_top` is False, the type of pooling to use.
-                     Either 'avg' or 'max'.
+                global pooling layers
+            global_pooling: if `include_top` is False, the type of pooling to
+                use. Either 'avg' or 'max'.
 
-        Returns: None
+        Returns: a tensor representing the network up to the output blocks
         """
         # if include_top is set, build the fully connected output block
         if include_top:
             x = Flatten(name='flatten')(x)
             x = Dense(4096, activation='relu', name='fc1')(x)
             x = Dense(4096, activation='relu', name='fc2')(x)
-            return Dense(CLASSES, activation='softmax', name='predictions')(x)
+            x = Dense(CLASSES, activation='softmax', name='predictions')(x)
         # otherwise if pooling is 'avg' return the global avg pooling block
-        elif pooling == 'avg':
-            return GlobalAveragePooling2D()(x)
+        elif global_pooling == 'avg':
+            x = GlobalAveragePooling2D()(x)
         # otherwise if pooling is 'avg' return the global max pooling block
-        elif pooling == 'max':
-            return GlobalMaxPooling2D()(x)
+        elif global_pooling == 'max':
+            x = GlobalMaxPooling2D()(x)
+
+        return x
 
     def _load_weights(self, include_top: bool) -> None:
         """

@@ -158,7 +158,8 @@ class NeuralAlgorithmOfArtisticStyle(object):
         # in classification). We use the input tensor from the canvas to define
         # the input dimension of the network.
         model = VGG_19(input_tensor=canvas.input_tensor,
-                       include_top=False)
+                       include_top=False,
+                       pooling='avg')
         # the various layers in the model indexed by name
         layers = dict([(layer.name, layer.output) for layer in model.layers])
 
