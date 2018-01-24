@@ -2,7 +2,8 @@
 
 An **implementation** of the paper
 [_A Neural Algorithm of Artistic Style_](https://arxiv.org/abs/1508.06576).
-The paper can also be found [here](a-neural-algorithm-of-artistic-style.pdf).
+The paper can also be found
+[here](papers/a-neural-algorithm-of-artistic-style.pdf).
 
 ## Getting Started
 

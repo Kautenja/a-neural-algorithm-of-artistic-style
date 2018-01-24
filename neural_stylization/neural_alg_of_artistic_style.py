@@ -1,77 +1,13 @@
-"A Neural Algorithm of Artistic Style."
+"""A Neural Algorithm of Artistic Style."""
 from tqdm import tqdm, tqdm_notebook
-from IPython import display
-from numpy.random import uniform
 from keras import backend
 from scipy.optimize import fmin_l_bfgs_b
-from .img_util import load_image
-from .img_util import image_to_matrix, matrix_to_image
-from .img_util import normalize, denormalize
+from ._img_util import denormalize, matrix_to_image
 from .vgg19 import VGG_19
 from .loss_functions import gram_matrix
 from .loss_functions import content_loss, style_loss, total_variation_loss
 from .loss_functions import Evaluator
-
-
-class Canvas(object):
-    """A canvas for the neural algorithm of artistic style."""
-
-    # the template for the repr method for this object
-    REPR = "{}(content_path='{}', style_path='{}')"
-
-    def __init__(self, content_path: str, style_path: str):
-        """
-        A canvas determining where to get content & style and where to save.
-
-        Args:
-            content_path: the path to the image to use as content
-            style_path: the path to the image to use for style
-
-        Returns: None
-        """
-        self.content_path = content_path
-        self.style_path = style_path
-
-        # load the content image
-        self.content_image = load_image(content_path)
-        self.content = normalize(image_to_matrix(self.content_image))
-
-        # store the height of the canvas based on the content size
-        self.height, self.width = self.content.shape[1], self.content.shape[2]
-
-        # load the style image (using the dimensions of the content)
-        self.style_image = load_image(style_path, (self.width, self.height))
-        self.style = normalize(image_to_matrix(self.style_image))
-
-        # load the variables into tensorflow
-        self.content = backend.variable(self.content)
-        self.style = backend.variable(self.style)
-        self.output = backend.placeholder((1, self.height, self.width, 3))
-        data = [self.content, self.style, self.output]
-
-        # the input tensor associated with the image
-        self.input_tensor = backend.concatenate(data, axis=0)
-
-    def __repr__(self):
-        """Return a debugging representation of self."""
-        return self.REPR.format(self.__class__.__name__,
-                                self.content_path,
-                                self.style_path)
-
-    def __str__(self):
-        """Return a human friendly string of self."""
-        return f'Canvas of ({self.width}, {self.height})'
-
-    @property
-    def random_noise(self):
-        """Return an image of noise the same size as this canvas."""
-        return uniform(0, 255, (1, self.height, self.width, 3)) - 128.0
-
-    @property
-    def random_noise_image(self):
-        """Return a decoded image of random noise in the size of this canvas."""
-        noise = self.random_noise.reshape((self.height, self.width, 3))
-        return matrix_to_image(noise)
+from .canvas import Canvas
 
 
 # content layer configurations by paper that references them
