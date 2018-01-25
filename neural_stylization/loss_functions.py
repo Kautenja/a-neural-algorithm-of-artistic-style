@@ -10,7 +10,16 @@ def gram_matrix(x):
 
 
 def content_loss(content, combination):
-    return K.sum(K.square(combination - content))
+    """
+    Return the content loss between the content and combinations tensors.
+
+    Args:
+        content: the original content tensor to measure loss from
+        combination: the combination image to reduce the loss of
+
+    Returns: the scalar loss between `content` and `combination`
+    """
+    return 0.5 * K.sum(K.square(combination - content))
 
 
 def style_loss(style, combination, width, height):

@@ -126,6 +126,8 @@ class VGG_19(Model):
         Returns: a tensor representing the network up to the input blocks
         """
         # Determine proper input shape
+        # can probably remove this. Check here for how:
+        # https://github.com/keras-team/keras/blob/master/keras/applications/imagenet_utils.py
         input_shape = _obtain_input_shape(None,
                                           default_size=224,
                                           min_size=48,
