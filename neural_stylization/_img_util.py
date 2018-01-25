@@ -55,39 +55,41 @@ def matrix_to_image(img: np.ndarray) -> Image:
 	return Image.fromarray(rgb_pixels)
 
 
-def normalize(img: np.ndarray, means: list=[103.939, 116.779, 123.68]):
+# the BGR means from the ImageNet database
+IMAGENET_MEANS = np.array([103.939, 116.779, 123.68])
+
+
+def normalize(img: np.ndarray):
     """
     Normalize an image by a set of means.
 
     Args:
         img: the image to normalize (assuming ML frame shape)
-        means: the means to normalize by RGB ordering (default Imagenet means)
 
     Returns: img after normalizing its RGB scale by the means
     """
-    # iterate over the means
-    for index, mean in enumerate(means):
-        img[:, :, :, index] -= mean
     # flip image from RGB, to BGR
     img = img[:, :, :, ::-1]
+    # vector subtract the means from ImageNet to the image
+    img[:, :, :, np.arange(IMAGENET_MEANS.shape[0])] -= IMAGENET_MEANS
+
     return img
 
 
-def denormalize(img: np.ndarray, means: list=[103.939, 116.779, 123.68]):
+def denormalize(img: np.ndarray):
     """
     De-normalize an image by a set of means.
 
     Args:
         img: the image to normalize (assuming just the image shape)
-        means: the means to normalize by RGB ordering (default Imagenet means)
 
     Returns: img after normalizing its RGB scale by the means
     """
+    # vector add the means from ImageNet to the image
+    img[:, :, np.arange(IMAGENET_MEANS.shape[0])] += IMAGENET_MEANS
     # flip image from BGR, to RGB
     img = img[:, :, ::-1]
-    # iterate over the means
-    for index, mean in enumerate(means):
-        img[:, :, index] += mean
+
     return img
 
 
