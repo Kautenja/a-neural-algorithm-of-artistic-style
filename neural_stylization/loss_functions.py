@@ -4,6 +4,17 @@ from keras import backend as K
 
 
 def gram_matrix(x):
+    """
+    Return a gram matrix for the given input matrix.
+
+    Args:
+        x: the matrix to calculate the gram matrix of
+
+    Returns: the gram matrix of x
+    """
+    # permute the matrix such that it can be flattened along the k axis.
+    # Flatten to 2D batches then take the dot product between these matrices
+    # to produce the gram matrix
     features = K.batch_flatten(K.permute_dimensions(x, (2, 0, 1)))
     gram = K.dot(features, K.transpose(features))
     return gram
@@ -19,6 +30,7 @@ def content_loss(content, combination):
 
     Returns: the scalar loss between `content` and `combination`
     """
+    # squared euclidean distance, exactly how it is in the paper
     return 0.5 * K.sum(K.square(combination - content))
 
 
