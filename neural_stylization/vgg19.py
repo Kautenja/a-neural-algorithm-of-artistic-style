@@ -20,8 +20,8 @@ from keras.applications.imagenet_utils import _obtain_input_shape
 
 
 # the definition for a tensor type as defined by the keras documentation:
-# https://keras.io/backend/    scroll to the `is_keras_tensor` section for
-# a description of this type
+# https://keras.io/backend/
+# scroll to the `is_keras_tensor` section for a description of this type
 Tensor = Union[Input, Layer]
 
 
@@ -54,9 +54,17 @@ class VGG_19(Model):
         Args:
             include_top: whether to include the 3 fully-connected
                 layers at the top of the network.
+                - True: includes the dense layers at the end for classification
+                    on the 1000 ImageNet classes
+                - False: leaves the fully connected layers out for feature
+                    extraction or image synthesis or whatever other application
             input_tensor: optional Keras tensor (i.e. output of `Input()`)
                 to use as image input for the model.
             pooling: the kind of pooling layers to use
+                - 'max': this is the default value for standard VGG19. This
+                    pooling method produces cleaner classification results
+                - 'average': this is the optional value for VGG19. Gatys et
+                    al. find that this produces smoother synthetic images.
 
         Returns: None
         """
@@ -87,15 +95,7 @@ class VGG_19(Model):
 
     @property
     def include_top(self):
-        """
-        Return the immutable include_top flag for this network.
-
-        If this value is True, then this network is setup for classification
-        and the fully connected layers are in place.
-
-        If this value is False, then this network is setup for synthesis /
-        feature extraction
-        """
+        """Return the immutable include_top flag for this network."""
         return self._include_top
 
     @property
@@ -105,16 +105,7 @@ class VGG_19(Model):
 
     @property
     def pooling(self):
-        """
-        Return the method used in the pooling layers of the network.
-
-        If this value is 'max', then each block finishes with a max pooling
-        layer. This is more applicable to image classification for sharper
-        dilation.
-
-        If this value is 'mean', then each block finished with a mean pooling
-        layer. This is more applicable to image synthesis for smooth images.
-        """
+        """Return the method used in the pooling layers of the network."""
         return self._pooling
 
     def __repr__(self):
