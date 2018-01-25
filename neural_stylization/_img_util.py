@@ -1,7 +1,10 @@
 """Image utility methods for the project."""
 from PIL import Image
 import numpy as np
-from keras.applications.imagenet_utils import preprocess_input
+
+
+# the BGR means from the ImageNet database
+IMAGENET_MEANS = np.array([103.939, 116.779, 123.68])
 
 
 def load_image(img_path: str, size: tuple=None) -> Image:
@@ -36,9 +39,8 @@ def image_to_matrix(img: Image, dtype: np.dtype=np.float32) -> np.ndarray:
 	# dimensions and d is the color depth (1 for grayscale, 3 for color (RGB))
 	img = np.asarray(img, dtype=dtype)
 	img = np.expand_dims(img, axis=0)
-	# pass the array through the preprocessing method provided by keras. this
-	# adjusts the image to account for the ImageNet dataset.
-	return preprocess_input(img)
+
+	return img
 
 
 def matrix_to_image(img: np.ndarray) -> Image:
@@ -53,10 +55,6 @@ def matrix_to_image(img: np.ndarray) -> Image:
 	# clip the image into rgb pixel values instead of [0, 1] floats
 	rgb_pixels = np.clip(img, 0, 255).astype('uint8')
 	return Image.fromarray(rgb_pixels)
-
-
-# the BGR means from the ImageNet database
-IMAGENET_MEANS = np.array([103.939, 116.779, 123.68])
 
 
 def normalize(img: np.ndarray):
