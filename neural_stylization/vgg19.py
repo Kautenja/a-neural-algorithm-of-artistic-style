@@ -12,8 +12,6 @@ from keras.layers import AveragePooling2D
 from keras.layers import MaxPooling2D
 from keras.layers import Flatten
 from keras.layers import Dense
-from keras.layers import GlobalAveragePooling2D
-from keras.layers import GlobalMaxPooling2D
 from keras.engine.topology import get_source_inputs
 from keras.utils.data_utils import get_file
 from keras import backend as K
@@ -41,8 +39,7 @@ class VGG_19(Model):
     def __init__(self,
                  include_top: bool=True,
                  input_tensor: Union[None, Input]=None,
-                 pooling: str='max',
-                 global_pooling: Union[None, str]=None) -> None:
+                 pooling: str='max') -> None:
         """
         Initialize a new VGG19 network.
 
@@ -51,34 +48,28 @@ class VGG_19(Model):
                 layers at the top of the network.
             input_tensor: optional Keras tensor (i.e. output of `Input()`)
                 to use as image input for the model.
-            global_pooling: Optional pooling mode for feature extraction
-                when `include_top` is `False`.
-                - `None` means that the output of the model will be
-                    the 4D tensor output of the
-                    last convolutional layer.
-                - `avg` means that global average pooling
-                    will be applied to the output of the
-                    last convolutional layer, and thus
-                    the output of the model will be a 2D tensor.
-                - `max` means that global max pooling will
-                    be applied.
+            pooling: the kind of pooling layers to use
 
         Returns: None
         """
-        # store the variables for use by __repr__ and __str__
-        self.init_args = [
-            repr(include_top),
-            repr(input_tensor),
-            repr(pooling),
-            repr(global_pooling)
-        ]
+        # setup the private instance variables for this object
+        self._include_top = include_top
+        self._input_tensor = input_tensor
+        self._pooling = pooling
+
+        # # store the variables for use by __repr__ and __str__
+        # self.init_args = [
+        #     repr(include_top),
+        #     repr(input_tensor),
+        #     repr(pooling)
+        # ]
 
         # build the input layer
-        img_input = self._build_input_block(include_top, input_tensor)
+        img_input = self._build_input_block()
         # build the main layers
-        x = self._build_main_blocks(img_input, pooling)
+        x = self._build_main_blocks(img_input)
         # build the output layers
-        x = self._build_output_block(x, include_top, global_pooling)
+        x = self._build_output_block(x)
 
         # Ensure that the model takes into account
         # any potential predecessors of `input_tensor`.
@@ -91,23 +82,54 @@ class VGG_19(Model):
         super(VGG_19, self).__init__(inputs, x, name=self.__class__.__name__)
 
         # load the weights
-        self._load_weights(include_top)
+        self._load_weights()
+
+    @property
+    def include_top(self):
+        """
+        Return the immutable include_top flag for this network.
+
+        If this value is True, then this network is setup for classification
+        and the fully connected layers are in place.
+
+        If this value is False, then this network is setup for synthesis /
+        feature extraction
+        """
+        return self._include_top
+
+    @property
+    def input_tensor(self):
+        """Return the immutable input tensor for the network."""
+        return self._input_tensor
+
+    @property
+    def pooling(self):
+        """
+        Return the method used in the pooling layers of the network.
+
+        If this value is 'max', then each block finishes with a max pooling
+        layer. This is more applicable to image classification for sharper
+        dilation.
+
+        If this value is 'mean', then each block finished with a mean pooling
+        layer. This is more applicable to image synthesis for smooth images.
+        """
+        return self._pooling
 
     def __repr__(self):
-        template = '{}(include_top={}, input_tensor={}, pooling={}, global_pooling={})'
+        template = '{}(include_top={}, input_tensor={}, pooling={})'
         """Return a debugging representation of this object."""
         # combine the class name with the data and unwrap (*) for format
-        return template.format(*[self.__class__.__name__] + self.init_args)
+        return template.format(*[
+            self.__class__.__name__,
+            self.include_top,
+            self.input_tensor,
+            self.pooling
+        ])
 
-    def _build_input_block(self,
-                           include_top: bool,
-                           input_tensor: Union[None, Input]) -> 'tensor':
+    def _build_input_block(self) -> 'tensor':
         """
         Build and return the input block for the network
-
-        Args:
-            include_top: whether to include the fully connected layers
-            input_tensor: the input tensor if any was specified
 
         Returns: a tensor representing the network up to the input blocks
         """
@@ -116,35 +138,31 @@ class VGG_19(Model):
                                           default_size=224,
                                           min_size=48,
                                           data_format=K.image_data_format(),
-                                          require_flatten=include_top,
+                                          require_flatten=self.include_top,
                                           weights='imagenet')
         # return the appropriate input tensor
-        if input_tensor is None:
+        if self.input_tensor is None:
             return Input(shape=input_shape)
         else:
-            if not K.is_keras_tensor(input_tensor):
-                return Input(tensor=input_tensor, shape=input_shape)
+            if not K.is_keras_tensor(self.input_tensor):
+                return Input(tensor=self.input_tensor, shape=input_shape)
             else:
-                return input_tensor
+                return self.input_tensor
 
-    def _build_main_blocks(self, x: 'tensor', pooling: str) -> 'tensor':
+    def _build_main_blocks(self, x: 'tensor') -> 'tensor':
         """
         Build and return the main blocks of the network.
 
         Args:
             x: the input blocks of the network
-            pooling: the kind of pooling to use at the end of each block
 
         Returns: a tensor representing the network up to the main blocks
         """
         # setup the pooling layer initializer
-        if pooling == 'avg':
+        if self.pooling == 'avg':
             pool2d = AveragePooling2D
-        elif pooling == 'max':
+        elif self.pooling == 'max':
             pool2d = MaxPooling2D
-        else:
-            raise ValueError('`pooling` should be either: "avg", "max"')
-        # build the blocks
         # Block 1
         x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1')(x)
         x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2')(x)
@@ -174,39 +192,26 @@ class VGG_19(Model):
 
         return x
 
-    def _build_output_block(self,
-                            x: 'tensor',
-                            include_top: bool,
-                            global_pooling: Union[None, str]) -> 'tensor':
+    def _build_output_block(self, x: 'tensor') -> 'tensor':
         """
         Build and return the output block for the network.
 
         Args:
             x: the existing layers in the model to build onto
-            include_top: whether to use the fully connected layers or the
-                global pooling layers
-            global_pooling: if `include_top` is False, the type of pooling to
-                use. Either 'avg' or 'max'.
 
         Returns: a tensor representing the network up to the output blocks
         """
         # if include_top is set, build the fully connected output block
-        if include_top:
+        if self.include_top:
             x = Flatten(name='flatten')(x)
             x = Dense(4096, activation='relu', name='fc1')(x)
             x = Dense(4096, activation='relu', name='fc2')(x)
             # use 1000 units in the output (number of classes in ImageNet)
             x = Dense(1000, activation='softmax', name='predictions')(x)
-        # otherwise if pooling is 'avg' return the global avg pooling block
-        elif global_pooling == 'avg':
-            x = GlobalAveragePooling2D()(x)
-        # otherwise if pooling is 'avg' return the global max pooling block
-        elif global_pooling == 'max':
-            x = GlobalMaxPooling2D()(x)
 
         return x
 
-    def _load_weights(self, include_top: bool) -> None:
+    def _load_weights(self) -> None:
         """
         Load the weights for this VGG19 model.
 
@@ -218,7 +223,7 @@ class VGG_19(Model):
         # dox for the get_file method:
         # https://www.tensorflow.org/api_docs/python/tf/keras/utils/get_file
         # check if the top layers (fully connected) are included
-        if include_top:
+        if self.include_top:
             # the path for weights WITH the top (fully connected) layers
             weights_path = get_file(WEIGHTS_FILE, WEIGHTS_PATH,
                                     file_hash=WEIGHTS_HASH)
