@@ -6,6 +6,7 @@ https://github.com/keras-team/keras/blob/master/keras/applications/vgg19.py
 """
 from typing import Union
 from keras.models import Model
+from keras.layers import Layer
 from keras.layers import Input
 from keras.layers import Conv2D
 from keras.layers import AveragePooling2D
@@ -18,12 +19,19 @@ from keras import backend as K
 from keras.applications.imagenet_utils import _obtain_input_shape
 
 
+# the definition for a tensor type as defined by the keras documentation:
+# https://keras.io/backend/    scroll to the `is_keras_tensor` section for
+# a description of this type
+Tensor = Union[Input, Layer]
+
+
 # the path to the pretrained weights
 WEIGHTS_PATH = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels.h5'
 # the name for the weights file on disk
 WEIGHTS_FILE = 'vgg19_weights_tf_dim_ordering_tf_kernels.h5'
 # the hash for the weights file
 WEIGHTS_HASH = 'cbe5617147190e668d6c5d5026f83318'
+
 
 # the path to the pretrained weights without the top (fully connected layers)
 WEIGHTS_PATH_NO_TOP = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5'
@@ -72,10 +80,10 @@ class VGG_19(Model):
             inputs = img_input
 
         # call the super initializer
-        super(VGG_19, self).__init__(inputs, x, name=self.__class__.__name__)
+        super().__init__(inputs, x, name=self.__class__.__name__)
 
         # load the weights
-        self._load_weights()
+        self.load_weights()
 
     @property
     def include_top(self):
@@ -120,7 +128,7 @@ class VGG_19(Model):
             self.pooling
         ])
 
-    def _build_input_block(self) -> 'tensor':
+    def _build_input_block(self) -> Tensor:
         """
         Build and return the input block for the network
 
@@ -145,7 +153,7 @@ class VGG_19(Model):
             # the tensor is already set up, return it as is
             return self.input_tensor
 
-    def _build_main_blocks(self, x: 'tensor') -> 'tensor':
+    def _build_main_blocks(self, x: Tensor) -> Tensor:
         """
         Build and return the main blocks of the network.
 
@@ -188,7 +196,7 @@ class VGG_19(Model):
 
         return x
 
-    def _build_output_block(self, x: 'tensor') -> 'tensor':
+    def _build_output_block(self, x: Tensor) -> Tensor:
         """
         Build and return the output block for the network.
 
@@ -207,15 +215,8 @@ class VGG_19(Model):
 
         return x
 
-    def _load_weights(self) -> None:
-        """
-        Load the weights for this VGG19 model.
-
-        Args:
-            include_top: whether to include the fully connected layers
-
-        Returns: None
-        """
+    def load_weights(self) -> None:
+        """Load the weights for this VGG19 model."""
         # dox for the get_file method:
         # https://www.tensorflow.org/api_docs/python/tf/keras/utils/get_file
         # check if the top layers (fully connected) are included
@@ -228,7 +229,7 @@ class VGG_19(Model):
             weights_path = get_file(WEIGHTS_FILE_NO_TOP, WEIGHTS_PATH_NO_TOP,
                                     file_hash=WEIGHT_HASH_NO_TOP)
         # load the weights into self
-        self.load_weights(weights_path)
+        super().load_weights(weights_path)
 
 
 # explicitly export the public API of the module
