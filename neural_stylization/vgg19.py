@@ -57,13 +57,6 @@ class VGG_19(Model):
         self._input_tensor = input_tensor
         self._pooling = pooling
 
-        # # store the variables for use by __repr__ and __str__
-        # self.init_args = [
-        #     repr(include_top),
-        #     repr(input_tensor),
-        #     repr(pooling)
-        # ]
-
         # build the input layer
         img_input = self._build_input_block()
         # build the main layers
