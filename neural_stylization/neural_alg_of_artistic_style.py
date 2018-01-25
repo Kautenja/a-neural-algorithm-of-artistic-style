@@ -97,7 +97,7 @@ class NeuralAlgorithmOfArtisticStyle(object):
                        include_top=False,
                        pooling='avg')
         # the various layers in the model indexed by name
-        layers = dict([(layer.name, layer.output) for layer in model.layers])
+        layers = {layer.name: layer.output for layer in model.layers}
 
         # the loss variable for accumulating the loss
         loss = backend.variable(0.0)

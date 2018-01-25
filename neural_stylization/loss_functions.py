@@ -1,16 +1,16 @@
 """Methods representing various loss functions."""
 import numpy as np
-from keras import backend
+from keras import backend as K
 
 
 def gram_matrix(x):
-    features = backend.batch_flatten(backend.permute_dimensions(x, (2, 0, 1)))
-    gram = backend.dot(features, backend.transpose(features))
+    features = K.batch_flatten(K.permute_dimensions(x, (2, 0, 1)))
+    gram = K.dot(features, K.transpose(features))
     return gram
 
 
 def content_loss(content, combination):
-    return backend.sum(backend.square(combination - content))
+    return K.sum(K.square(combination - content))
 
 
 def style_loss(style, combination, width, height):
@@ -18,15 +18,15 @@ def style_loss(style, combination, width, height):
     C = gram_matrix(combination)
     channels = 3
     size = height * width
-    return backend.sum(backend.square(S - C)) / (4. * (channels ** 2) * (size ** 2))
+    return K.sum(K.square(S - C)) / (4. * (channels ** 2) * (size ** 2))
 
 
 def total_variation_loss(canvas):
     h = canvas.height
     w = canvas.width
-    a = backend.square(canvas.output[:, :h-1, :w-1, :] - canvas.output[:, 1:, :w-1, :])
-    b = backend.square(canvas.output[:, :h-1, :w-1, :] - canvas.output[:, :h-1, 1:, :])
-    return backend.sum(backend.pow(a + b, 1.25))
+    a = K.square(canvas.output[:, :h-1, :w-1, :] - canvas.output[:, 1:, :w-1, :])
+    b = K.square(canvas.output[:, :h-1, :w-1, :] - canvas.output[:, :h-1, 1:, :])
+    return K.sum(K.pow(a + b, 1.25))
 
 
 class Evaluator(object):
