@@ -1,5 +1,6 @@
 """A Neural Algorithm of Artistic Style."""
 from tqdm import tqdm, tqdm_notebook
+from PIL import Image
 from keras import backend
 from scipy.optimize import fmin_l_bfgs_b
 from ._img_util import denormalize, matrix_to_image
@@ -24,12 +25,20 @@ STYLE_LAYERS = {
                               'block4_conv3', 'block5_conv3']
 }
 
+# the template for the repr method for this object
+REPR = """{}(
+    content_weight={},
+    style_weight={},
+    variation_weight={},
+    content_layer='{}',
+    style_layers={},
+    is_notebook={}
+)
+""".lstrip()
+
 
 class NeuralAlgorithmOfArtisticStyle(object):
     """A Neural Algorithm of Artistic Style."""
-
-    # the template for the repr method for this object
-    REPR = "{}(content_weight='{}', style_weight='{}', variation_weight='{}', content_layer={}, style_layers={}, is_notebook={})"
 
     def __init__(self,
                  content_weight: float=0.025,
@@ -37,7 +46,7 @@ class NeuralAlgorithmOfArtisticStyle(object):
                  variation_weight: float=1.0,
                  content_layer: str=CONTENT_LAYER['Gatys et al. (2015)'],
                  style_layers: list=STYLE_LAYERS['Gatys et al. (2015)'],
-                 is_notebook: bool=False):
+                 is_notebook: bool=False) -> None:
         """
         Initialize a new neural algorithm of artistic style.
 
@@ -59,44 +68,52 @@ class NeuralAlgorithmOfArtisticStyle(object):
         self.is_notebook = is_notebook
 
     @property
-    def is_notebook(self):
+    def is_notebook(self) -> bool:
+        """Return a bool determining if Jupyter features are enabled."""
         return self._is_notebook
 
     @is_notebook.setter
-    def is_notebook(self, is_notebook: bool):
+    def is_notebook(self, is_notebook: bool) -> None:
         self._is_notebook = is_notebook
+        # set the tqdm pointer based on the setting
         if is_notebook:
             self._tqdm = tqdm_notebook
         else:
             self._tqdm = tqdm
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """Return a debugging representation of self."""
-        return self.REPR.format(self.__class__.__name__,
-                                self.content_weight,
-                                self.style_weight,
-                                self.variation_weight,
-                                self.content_layer,
-                                self.style_layers,
-                                self.is_notebook)
+        return REPR.format(*[
+            self.__class__.__name__,
+            self.content_weight,
+            self.style_weight,
+            self.variation_weight,
+            self.content_layer,
+            self.style_layers,
+            self.is_notebook
+        ])
 
-    def __call__(self, canvas: Canvas, iterations: int=1) -> Canvas:
+    def __call__(self, canvas: Canvas, iterations: int=1) -> Image:
         """
-        Optimize the loss between a content and style image on a canvas.
+        Optimize the loss between the content and style of the given canvas.
 
         Args:
-            canvas: the canvas to draw inspiration from and to draw to
+            canvas: the canvas of content and styles to synthesize from
+            iterations: the number of iterations of optimization to run
 
-        Returns: a mutated canvas with the optimized image
+        Returns: a synthesized image based on content and style of the canvas
         """
         # instantiate a new VGG_19 model. include_top tells the model to
         # not include the fully connected layers at the end (not interested
         # in classification). We use the input tensor from the canvas to define
-        # the input dimension of the network.
+        # the input dimension of the network. This allows us to synthesize
+        # images of whatever size we want. Lastly, like Gatys et al. (2015)
+        # we replace the MaxPooling layers with AveragePooling layers with
+        # the `pooling` keyword argument
         model = VGG_19(input_tensor=canvas.input_tensor,
                        include_top=False,
                        pooling='avg')
-        # the various layers in the model indexed by name
+        # create a dictionary of the layers in the model
         layers = {layer.name: layer.output for layer in model.layers}
 
         # the loss variable for accumulating the loss
