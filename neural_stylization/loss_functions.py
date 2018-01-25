@@ -4,7 +4,7 @@ from keras import backend as K
 from tensorflow import tensordot
 
 
-def gram_matrix(x):
+def gram(x):
     """
     Return a gram matrix for the given input matrix.
 
@@ -32,12 +32,27 @@ def content_loss(content, combination):
     return 0.5 * K.sum(K.square(combination - content))
 
 
-def style_loss(style, combination, width, height):
-    S = gram_matrix(style)
-    C = gram_matrix(combination)
-    channels = 3
-    size = height * width
-    return K.sum(K.square(S - C)) / (4. * (channels ** 2) * (size ** 2))
+def style_loss(style, combination, width, height, channels=3):
+    """
+    Return the style loss for the given style and combination matrices.
+
+    Args:
+        style: the original style image to measure loss from
+        combination: the combination image to reduce the loss of
+        width: the width of the image
+        height: the height of the image
+        channels: the number of channels in the image (Default 3, RGB/BGR)
+
+    Retursn: the scalar loss between `style` and `combination`
+    """
+    # calculate the factor that multiplies by the sum. It's originally a
+    # fractional piece of one, but we'll just divide to save the unnecessary
+    # extra steps
+    factor = 4.0 * channels**2 * (width * height)**2
+    # take the squared euclidean distance between the gram matrices of both
+    # the style and combination image. Divide this by the factor described
+    # above
+    return K.sum(K.square(gram(style) - gram(combination))) / factor
 
 
 def total_variation_loss(canvas):

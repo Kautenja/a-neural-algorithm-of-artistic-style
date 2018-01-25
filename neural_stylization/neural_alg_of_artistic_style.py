@@ -5,7 +5,6 @@ from keras import backend
 from scipy.optimize import fmin_l_bfgs_b
 from ._img_util import denormalize, matrix_to_image
 from .vgg19 import VGG_19
-from .loss_functions import gram_matrix
 from .loss_functions import content_loss, style_loss, total_variation_loss
 from .loss_functions import Evaluator
 from .canvas import Canvas
