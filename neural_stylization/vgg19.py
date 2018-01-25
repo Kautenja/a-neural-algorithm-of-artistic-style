@@ -140,14 +140,17 @@ class VGG_19(Model):
                                           data_format=K.image_data_format(),
                                           require_flatten=self.include_top,
                                           weights='imagenet')
-        # return the appropriate input tensor
+        # setup the input tensor
         if self.input_tensor is None:
+            # no input tensor specified, build a blank one
             return Input(shape=input_shape)
+        elif not K.is_keras_tensor(self.input_tensor):
+            # tensor provided, but probably a numpy array, create a keras (tf)
+            # tensor and return it
+            return Input(tensor=self.input_tensor, shape=input_shape)
         else:
-            if not K.is_keras_tensor(self.input_tensor):
-                return Input(tensor=self.input_tensor, shape=input_shape)
-            else:
-                return self.input_tensor
+            # the tensor is already set up, return it as is
+            return self.input_tensor
 
     def _build_main_blocks(self, x: 'tensor') -> 'tensor':
         """
@@ -160,35 +163,35 @@ class VGG_19(Model):
         """
         # setup the pooling layer initializer
         if self.pooling == 'avg':
-            pool2d = AveragePooling2D
+            Pool2D = AveragePooling2D
         elif self.pooling == 'max':
-            pool2d = MaxPooling2D
+            Pool2D = MaxPooling2D
         # Block 1
         x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv1')(x)
         x = Conv2D(64, (3, 3), activation='relu', padding='same', name='block1_conv2')(x)
-        x = pool2d((2, 2), strides=(2, 2), name='block1_pool')(x)
+        x = Pool2D((2, 2), strides=(2, 2), name='block1_pool')(x)
         # Block 2
         x = Conv2D(128, (3, 3), activation='relu', padding='same', name='block2_conv1')(x)
         x = Conv2D(128, (3, 3), activation='relu', padding='same', name='block2_conv2')(x)
-        x = pool2d((2, 2), strides=(2, 2), name='block2_pool')(x)
+        x = Pool2D((2, 2), strides=(2, 2), name='block2_pool')(x)
         # Block 3
         x = Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv1')(x)
         x = Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv2')(x)
         x = Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv3')(x)
         x = Conv2D(256, (3, 3), activation='relu', padding='same', name='block3_conv4')(x)
-        x = pool2d((2, 2), strides=(2, 2), name='block3_pool')(x)
+        x = Pool2D((2, 2), strides=(2, 2), name='block3_pool')(x)
         # Block 4
         x = Conv2D(512, (3, 3), activation='relu', padding='same', name='block4_conv1')(x)
         x = Conv2D(512, (3, 3), activation='relu', padding='same', name='block4_conv2')(x)
         x = Conv2D(512, (3, 3), activation='relu', padding='same', name='block4_conv3')(x)
         x = Conv2D(512, (3, 3), activation='relu', padding='same', name='block4_conv4')(x)
-        x = pool2d((2, 2), strides=(2, 2), name='block4_pool')(x)
+        x = Pool2D((2, 2), strides=(2, 2), name='block4_pool')(x)
         # Block 5
         x = Conv2D(512, (3, 3), activation='relu', padding='same', name='block5_conv1')(x)
         x = Conv2D(512, (3, 3), activation='relu', padding='same', name='block5_conv2')(x)
         x = Conv2D(512, (3, 3), activation='relu', padding='same', name='block5_conv3')(x)
         x = Conv2D(512, (3, 3), activation='relu', padding='same', name='block5_conv4')(x)
-        x = pool2d((2, 2), strides=(2, 2), name='block5_pool')(x)
+        x = Pool2D((2, 2), strides=(2, 2), name='block5_pool')(x)
 
         return x
 
