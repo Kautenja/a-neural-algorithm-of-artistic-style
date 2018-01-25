@@ -1,6 +1,7 @@
 """Methods representing various loss functions."""
 import numpy as np
 from keras import backend as K
+from tensorflow import tensordot
 
 
 def gram_matrix(x):
@@ -12,12 +13,9 @@ def gram_matrix(x):
 
     Returns: the gram matrix of x
     """
-    # permute the matrix such that it can be flattened along the k axis.
-    # Flatten to 2D batches then take the dot product between these matrices
-    # to produce the gram matrix
-    features = K.batch_flatten(K.permute_dimensions(x, (2, 0, 1)))
-    gram = K.dot(features, K.transpose(features))
-    return gram
+    # the gram matrix is defined as the inner product of a tensor over the
+    # i,j pairing.
+    return tensordot(x, K.transpose(x), 2)
 
 
 def content_loss(content, combination):
