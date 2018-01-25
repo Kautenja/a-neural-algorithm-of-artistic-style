@@ -1,19 +1,17 @@
 """An abstraction of a canvas for the neural algorithm of artistic style."""
-from keras import backend as K
 import numpy as np
+from keras import backend as K
+from PIL import Image
 from ._img_util import load_image, normalize, image_to_matrix, matrix_to_image
 
 
 class Canvas(object):
     """A canvas for the neural algorithm of artistic style."""
 
-    # the template for the repr method for this object
-    REPR = "{}(content_path='{}', style_path='{}')"
-
     def __init__(self,
-                content_path: str,
-                style_path: str,
-                dimensions: tuple=None) -> None:
+                 content_path: str,
+                 style_path: str,
+                 dimensions: tuple=None) -> None:
         """
         A canvas determining where to get content & style and where to save.
 
@@ -55,9 +53,13 @@ class Canvas(object):
 
     def __repr__(self) -> str:
         """Return a debugging representation of self."""
-        return self.REPR.format(self.__class__.__name__,
-                                self.content_path,
-                                self.style_path)
+        template = "{}(content_path='{}', style_path='{}', dimensions={})"
+        return template.format(*[
+            self.__class__.__name__,
+            self.content_path,
+            self.style_path,
+            (self.width, self.height)
+        ])
 
     def __str__(self) -> str:
         """Return a human friendly string of self."""
@@ -74,7 +76,7 @@ class Canvas(object):
         return np.random.uniform(0, 255, self.shape) - 128.0
 
     @property
-    def random_noise_image(self) -> 'Image':
+    def random_noise_image(self) -> Image:
         """Return a decoded image of random noise in the size of this canvas."""
         noise = self.random_noise.reshape((self.height, self.width, 3))
         return matrix_to_image(noise)

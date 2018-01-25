@@ -4,3 +4,4 @@ image
 tensorflow
 h5py
 jupyter
+tqdm
