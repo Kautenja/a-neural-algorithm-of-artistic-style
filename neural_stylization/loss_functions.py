@@ -43,7 +43,7 @@ def style_loss(style, combination, width, height, channels=3):
         height: the height of the image
         channels: the number of channels in the image (Default 3, RGB/BGR)
 
-    Retursn: the scalar loss between `style` and `combination`
+    Returns: the scalar loss between `style` and `combination`
     """
     # calculate the factor that multiplies by the sum. It's originally a
     # fractional piece of one, but we'll just divide to save the unnecessary
