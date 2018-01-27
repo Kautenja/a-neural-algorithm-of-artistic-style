@@ -48,7 +48,6 @@ class JupyterPlot(object):
         plt.title(self.title)
         # update the x axis
         plt.xlabel(self.xlabel)
-        plt.xticks(np.arange(len(self.data)))
         # update the y axis
         plt.ylabel(self.ylabel)
         # clear the current output of the Jupyter notebook
