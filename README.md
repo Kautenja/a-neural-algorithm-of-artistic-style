@@ -5,6 +5,8 @@ An **implementation** of the paper
 The paper can also be found
 [here](papers/a-neural-algorithm-of-artistic-style.pdf).
 
+![Stylized Photograph](img/output/tubingen-scream.png)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your
