@@ -5,9 +5,15 @@ An **implementation** of the paper
 The paper can also be found
 [here](papers/a-neural-algorithm-of-artistic-style.pdf).
 
+![Samford](img/output/samford.png)
+
 ![Tubingen Scream](img/output/tubingen-scream.png)
 
 ![Tubingen Seated Nudes](img/output/tubingen-seated-nudes.png)
+
+![Tubingen Starry Starry Night](img/output/tubingen-starry-starry-night.png)
+
+![Tubingen Shipwreck](img/output/tubingen-shipwreck.png)
 
 ## Getting Started
 
