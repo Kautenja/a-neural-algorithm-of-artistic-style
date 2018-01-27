@@ -1,7 +1,7 @@
 """Methods representing various loss functions."""
 import numpy as np
 from keras import backend as K
-from tensorflow import tensordot
+from keras.layers import dot
 
 
 def gram(matrix):
@@ -30,16 +30,13 @@ def content_loss(content, combination):
     return 0.5 * K.sum(K.square(combination - content))
 
 
-def style_loss(style, combination, width, height, channels: int=3):
+def style_loss(style, combination):
     """
     Return the style loss between the style and combinations tensors.
 
     Args:
         style: the output of a layer for the style image
         combination: the output of a layer for the combination image
-        width: the width of the image
-        height: the height of the image
-        channels: the number of channels in the image (Default 3, RGB)
 
     Returns: the loss between `style` and `combination`
     """
