@@ -2,7 +2,8 @@
 from tqdm import tqdm, tqdm_notebook
 from PIL import Image
 from keras import backend
-from scipy.optimize import fmin_l_bfgs_b
+from scipy.optimize import fmin_l_bfgs_b as optimize
+# from scipy.optimize import fmin_tnc as optimize
 from ._img_util import denormalize, matrix_to_image
 from .vgg19 import VGG_19
 from .loss_functions import content_loss, style_loss, total_variation_loss
@@ -119,20 +120,24 @@ class NeuralAlgorithmOfArtisticStyle(object):
         loss = backend.variable(0.0)
 
         # Calculate the content loss
-        layer_features = layers[self.content_layer]
-        content_image_features = layer_features[0, :, :, :]
-        combination_features = layer_features[2, :, :, :]
+        layer = layers[self.content_layer]
+        # the content image is the first item in the layer tensor
+        content = layer[0, :, :, :]
+        # the output image is the last (3rd) item in the layer tensor
+        combination = layer[2, :, :, :]
         # multiply the content loss by the content weight
-        loss += self.content_weight * content_loss(content_image_features,
-                                                   combination_features)
+        loss += self.content_weight * content_loss(content, combination)
 
         # iterate over the style layers to stylize the image
         for layer_name in self.style_layers:
-            layer_features = layers[layer_name]
-            style_features = layer_features[1, :, :, :]
-            combination_features = layer_features[2, :, :, :]
-            sl = style_loss(style_features, combination_features,
-                            canvas.width, canvas.height)
+            layer = layers[layer_name]
+            # the style image is in the 2nd item in the layer tensor
+            style = layer[1, :, :, :]
+            # the output image is the last (3rd) item in the layer tensor
+            combination = layer[2, :, :, :]
+            # multiply the style weight (average over the layers) times the
+            # style loss for the current layer
+            sl = style_loss(style, combination, canvas.width, canvas.height)
             loss += (self.style_weight / len(self.style_layers)) * sl
 
         # apply the weighted variation loss for noise
@@ -167,8 +172,8 @@ class NeuralAlgorithmOfArtisticStyle(object):
         x = canvas.random_noise
 
         for i in self._tqdm(range(iterations)):
-            x, min_val, info = fmin_l_bfgs_b(evaluator.loss, x.flatten(),
-                                             fprime=evaluator.grads, maxfun=20)
+            x, min_val, info = optimize(evaluator.loss, x.flatten(),
+                                        fprime=evaluator.grads, maxfun=20)
 
         # reshape, denormalize, and convert to an image object
         x = x.reshape((canvas.height, canvas.width, 3))

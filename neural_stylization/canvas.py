@@ -48,7 +48,7 @@ class Canvas(object):
         self.output = K.placeholder((1, self.height, self.width, 3))
         data = [self.content, self.style, self.output]
 
-        # the input tensor associated with the image
+        # the input tensor produced by all three images combined
         self.input_tensor = K.concatenate(data, axis=0)
 
     def __repr__(self) -> str:

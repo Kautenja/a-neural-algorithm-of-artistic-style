@@ -93,6 +93,20 @@ class VGG_19(Model):
         # load the weights
         self.load_weights()
 
+        # set outputs as a dictionary of layer names to output variables
+        self.outputs = {layer.name: layer.output for layer in self.layers}
+
+    def __getitem__(self, key: str) -> Tensor:
+        """
+        Return the output of the given layer.
+
+        Args:
+            key: the key of the layer to get the output of
+
+        Returns: the output of the layer in question
+        """
+        return self.outputs[key]
+
     @property
     def include_top(self):
         """Return the immutable include_top flag for this network."""
@@ -205,6 +219,9 @@ class VGG_19(Model):
             x = Dense(4096, activation='relu', name='fc2')(x)
             # use 1000 units in the output (number of classes in ImageNet)
             x = Dense(1000, activation='softmax', name='predictions')(x)
+        # else:
+        #     from keras.layers import GlobalAveragePooling2D
+        #     x = GlobalAveragePooling2D()(x)
 
         return x
 
