@@ -219,9 +219,6 @@ class VGG_19(Model):
             x = Dense(4096, activation='relu', name='fc2')(x)
             # use 1000 units in the output (number of classes in ImageNet)
             x = Dense(1000, activation='softmax', name='predictions')(x)
-        # else:
-        #     from keras.layers import GlobalAveragePooling2D
-        #     x = GlobalAveragePooling2D()(x)
 
         return x
 
