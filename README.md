@@ -11,7 +11,7 @@ The paper can also be found
 
 ![Tubingen Seated Nudes](img/output/tubingen-seated-nudes.png)
 
-![Tubingen Starry Starry Night](img/output/tubingen-starry-starry-night.png)
+![Tubingen Starry Starry Night](img/output/starry-starry-night.png)
 
 ![Tubingen Shipwreck](img/output/tubingen-shipwreck.png)
 
