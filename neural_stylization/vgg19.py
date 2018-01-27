@@ -94,7 +94,7 @@ class VGG_19(Model):
         self.load_weights()
 
         # set outputs as a dictionary of layer names to output variables
-        self.outputs = {layer.name: layer.output for layer in self.layers}
+        self.output_tensors = {layer.name: layer.output for layer in self.layers}
 
     def __getitem__(self, key: str) -> Tensor:
         """
@@ -105,7 +105,7 @@ class VGG_19(Model):
 
         Returns: the output of the layer in question
         """
-        return self.outputs[key]
+        return self.output_tensors[key]
 
     @property
     def include_top(self):
