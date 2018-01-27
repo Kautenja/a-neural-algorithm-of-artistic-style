@@ -5,8 +5,5 @@ tensorflow
 h5py
 jupyter
 tqdm
-<<<<<<< HEAD
-=======
 IPython
 ipywidgets
->>>>>>> 079fe4d2e66f75c64f6a51ba537692dd90d8654b

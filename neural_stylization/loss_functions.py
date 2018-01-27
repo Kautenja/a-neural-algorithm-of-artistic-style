@@ -47,12 +47,8 @@ def style_loss(style, combination):
         style: the output of a layer for the style image
         combination: the output of a layer for the combination image
 
-<<<<<<< HEAD
-    Returns: the scalar loss between `style` and `combination`
-=======
     Returns:
         the loss between `style` and `combination`
->>>>>>> 079fe4d2e66f75c64f6a51ba537692dd90d8654b
     """
     # M_l is the width times the height of the current layer
     Ml = int(style.shape[0] * style.shape[1])
