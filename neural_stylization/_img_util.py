@@ -72,7 +72,7 @@ def normalize(image: np.ndarray, inplace: bool=False):
     Normalize an image by a set of means.
 
     Args:
-        image: the image to normalize (assuming ML frame shape)
+        image: the image to normalize assuming shape [1, height, width, channel]
         inplace: whether to perform the operation of the array in-place
 
     Returns:
