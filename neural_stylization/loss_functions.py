@@ -32,7 +32,8 @@ def content_loss(content, combination):
         content: the output of a layer for the content image
         combination: the output of a layer for the combination image
 
-    Returns: the loss between `content` and `combination`
+    Returns:
+        the loss between `content` and `combination`
     """
     # squared euclidean distance, exactly how it is in the paper
     return 0.5 * K.sum(K.square(combination - content))
@@ -46,7 +47,8 @@ def style_loss(style, combination):
         style: the output of a layer for the style image
         combination: the output of a layer for the combination image
 
-    Returns: the loss between `style` and `combination`
+    Returns:
+        the loss between `style` and `combination`
     """
     # M_l is the width times the height of the current layer
     Ml = int(style.shape[0] * style.shape[1])
@@ -58,11 +60,23 @@ def style_loss(style, combination):
     return K.sum(K.square(gram(style) - gram(combination))) / (4.0 * Nl**2 * Ml**2)
 
 
-def total_variation_loss(canvas):
-    h = canvas.shape[1]
-    w = canvas.shape[2]
-    a = K.square(canvas[:, :h-1, :w-1, :] - canvas[:, 1:, :w-1, :])
-    b = K.square(canvas[:, :h-1, :w-1, :] - canvas[:, :h-1, 1:, :])
+def total_variation_loss(combination):
+    """
+    Return the total variation loss for the combination image.
+
+    Args:
+        combination: the combination tensor to return the variation loss of
+
+    Returns:
+        the total variation loss of the combination tensor
+    """
+    # store the dimensions for indexing from thee combination
+    h, w = combination.shape[1], combination.shape[2]
+    # use a 1 pixel tall buffer on the rowwise axis to smooth vertical pixels
+    a = K.square(combination[:, :h-1, :w-1, :] - combination[:, 1:, :w-1, :])
+    # use a 1 pixel wide buffer on the columnwise axis to smooth horizontal
+    # pixels
+    b = K.square(combination[:, :h-1, :w-1, :] - combination[:, :h-1, 1:, :])
     return K.sum(K.pow(a + b, 1.25))
 
 
