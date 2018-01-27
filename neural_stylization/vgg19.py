@@ -93,6 +93,20 @@ class VGG_19(Model):
         # load the weights
         self.load_weights()
 
+        # set outputs as a dictionary of layer names to output variables
+        self.output_tensors = {layer.name: layer.output for layer in self.layers}
+
+    def __getitem__(self, key: str) -> Tensor:
+        """
+        Return the output of the given layer.
+
+        Args:
+            key: the key of the layer to get the output of
+
+        Returns: the output of the layer in question
+        """
+        return self.output_tensors[key]
+
     @property
     def include_top(self):
         """Return the immutable include_top flag for this network."""
