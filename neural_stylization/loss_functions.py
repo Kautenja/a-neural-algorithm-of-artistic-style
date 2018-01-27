@@ -12,56 +12,16 @@ def gram(matrix):
 
     Returns: the gram matrix of `matrix`
     """
+    # flatten the 3D tensor by converting each filter's 2D matrix of points
+    # to a vector. thus we have the matrix:
+    # [filter_width x filter_height, num_filters]
     g = K.reshape(matrix, (matrix.shape[0] * matrix.shape[1], matrix.shape[2]))
+    # take inner product over all the vectors to produce the Gram matrix over
+    # the number of filters
     g = K.dot(K.transpose(g), g)
+    # TODO: test this with an image that is taller than wider to ensure the
+    # directionality of the dot operation translates
     return g
-
-
-# def gram(matrix):
-    """
-    Return a gram matrix for the given input matrix.
-
-    Args:
-        matrix: the matrix to calculate the gram matrix of
-
-    Returns: the gram matrix of `matrix`
-    """
-    # print(matrix.shape)
-    # d = dot([K.transpose(matrix), K.transpose(matrix)], axes=2)
-    # print(d.shape)
-    # print(K.sum(d, axis=0).shape)
-    # return d
-    # return K.sum()
-    # print(matrix.shape)
-    # d = dot([matrix, matrix], axes=0)
-    # print(d.shape)
-    # print(d.shape)
-    # return d
-
-# def gram(matrix):
-#     """
-#     Return a gram matrix for the given input matrix.
-
-#     Args:
-#         matrix: the matrix to calculate the gram matrix of
-
-#     Returns: the gram matrix of `matrix`
-#     """
-#     print(matrix.shape)
-#     d = dot([matrix, matrix], axes=0)
-#     print(d.shape)
-#     print()
-#     return d
-#     return K.sum()
-
-# def gram(v):
-
-    # size = v.shape[0] * v.shape[1]
-    # features = K.permute_dimensions(v, (1, size, v.shape[2]))
-    # if size < dim[2]:
-    #     return K.dot(features, K.transpose(features))
-    # else:
-    #     return K.dot(K.transpose(features), features)
 
 
 def content_loss(content, combination):
