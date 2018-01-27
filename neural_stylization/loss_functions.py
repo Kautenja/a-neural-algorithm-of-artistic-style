@@ -58,16 +58,17 @@ def style_loss(style, combination):
     return K.sum(K.square(gram(style) - gram(combination))) / (4.0 * Nl**2 * Ml**2)
 
 
-# def total_variation_loss(canvas):
-#     h = canvas.height
-#     w = canvas.width
-#     a = K.square(canvas.output[:, :h-1, :w-1, :] - canvas.output[:, 1:, :w-1, :])
-#     b = K.square(canvas.output[:, :h-1, :w-1, :] - canvas.output[:, :h-1, 1:, :])
-#     return K.sum(K.pow(a + b, 1.25))
+def total_variation_loss(canvas):
+    h = canvas.shape[1]
+    w = canvas.shape[2]
+    a = K.square(canvas[:, :h-1, :w-1, :] - canvas[:, 1:, :w-1, :])
+    b = K.square(canvas[:, :h-1, :w-1, :] - canvas[:, :h-1, 1:, :])
+    return K.sum(K.pow(a + b, 1.25))
 
 
 # explicitly export the public API
 __all__ = [
     'content_loss',
-    'style_loss'
+    'style_loss',
+    'total_variation_loss'
 ]
