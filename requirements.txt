@@ -5,3 +5,5 @@ tensorflow
 h5py
 jupyter
 tqdm
+IPython
+ipywidgets
