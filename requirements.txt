@@ -7,3 +7,4 @@ jupyter
 tqdm
 IPython
 ipywidgets
+scipy
