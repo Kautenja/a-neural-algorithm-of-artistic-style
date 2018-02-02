@@ -1,5 +1,4 @@
 """Methods representing various loss functions."""
-import numpy as np
 from keras import backend as K
 
 
@@ -11,6 +10,7 @@ def gram(matrix):
         matrix: the matrix to calculate the gram matrix of
 
     Returns: the gram matrix of `matrix`
+
     """
     # flatten the 3D tensor by converting each filter's 2D matrix of points
     # to a vector. thus we have the matrix:
@@ -34,6 +34,7 @@ def content_loss(content, combination):
 
     Returns:
         the loss between `content` and `combination`
+
     """
     # squared euclidean distance, exactly how it is in the paper
     return 0.5 * K.sum(K.square(combination - content))
@@ -49,35 +50,53 @@ def style_loss(style, combination):
 
     Returns:
         the loss between `style` and `combination`
+
     """
     # M_l is the width times the height of the current layer
-    Ml = int(style.shape[0] * style.shape[1])
+    Ml_2 = int(style.shape[0] * style.shape[1])**2
     # N_l is the number of distinct filters in the layer
-    Nl = int(style.shape[2])
+    Nl_2 = int(style.shape[2])**2
 
     # take the squared euclidean distance between the gram matrices of both
-    # the style and combination image. multiply by the coefficient
-    return K.sum(K.square(gram(style) - gram(combination))) / (4.0 * Nl**2 * Ml**2)
+    # the style and combination image. divide by the constant scaling factor
+    # based on parameterized sizes
+    return K.sum(K.square(gram(style) - gram(combination))) / (4 * Nl_2 * Ml_2)
 
 
-def total_variation_loss(combination):
+def total_variation_loss(combination, kind='anisotropic'):
     """
     Return the total variation loss for the combination image.
 
     Args:
         combination: the combination tensor to return the variation loss of
+        kind: the kind of total variation loss to use (default 'anisotropic')
 
     Returns:
         the total variation loss of the combination tensor
+
     """
     # store the dimensions for indexing from thee combination
     h, w = combination.shape[1], combination.shape[2]
-    # use a 1 pixel tall buffer on the rowwise axis to smooth vertical pixels
-    a = K.square(combination[:, :h-1, :w-1, :] - combination[:, 1:, :w-1, :])
-    # use a 1 pixel wide buffer on the columnwise axis to smooth horizontal
-    # pixels
-    b = K.square(combination[:, :h-1, :w-1, :] - combination[:, :h-1, 1:, :])
-    return K.sum(K.pow(a + b, 1.25))
+    if kind == 'anisotropic':
+        # take the absolute value between this image, and the image one pixel
+        # down, and one pixel to the right. take the absolute value as
+        # specified by anisotropic loss
+        a = K.abs(combination[:, :h-1, :w-1, :] - combination[:, 1:, :w-1, :])
+        b = K.abs(combination[:, :h-1, :w-1, :] - combination[:, :h-1, 1:, :])
+        # add up all the differences
+        return K.sum(a + b)
+    elif kind == 'isotropic':
+        # take the absolute value between this image, and the image one pixel
+        # down, and one pixel to the right. take the square root as specified
+        # by isotropic loss
+        a = K.square(combination[:, :h-1, :w-1, :] - combination[:, 1:, :w-1, :])
+        b = K.square(combination[:, :h-1, :w-1, :] - combination[:, :h-1, 1:, :])
+        # take the vector square root of all the pixel differences, then sum
+        # them all up
+        return K.sum(K.pow(a + b, 2))
+    else:
+        # kind can only be two values, raise an error on unexpected kind value
+        raise ValueError("`kind` should be 'anisotropic' or 'isotropic'")
 
 
 # explicitly export the public API
