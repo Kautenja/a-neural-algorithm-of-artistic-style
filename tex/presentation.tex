@@ -253,6 +253,8 @@
 \end{figure}
 \end{frame}
 
+
+
 \begin{frame}{Style Representation}
 Style representation is achived via the ``Gram Matrix'' $G$. Gram matrix is
 an $N_l \times N_l$ matrix which calculates the correlations between
@@ -414,6 +416,9 @@ The total style loss is:
 \end{figure}
 \end{frame}
 
+
+
+% Style transfer loss (total loss)
 \begin{frame}{Style Transfer}
 To transfer the style of an artwork $\textbf{a}$, onto some content image
 $\textbf{p}$, we form the joint loss function of $L_{content}$ and
@@ -428,10 +433,9 @@ $L_{style}$:
 where $\alpha$ and $\beta$ are the arbitrary weighting factors of the content
 and style loss respectively. Gatys et al. find the best results using a ratio
 of $\alpha / \beta \in [5*10^{-4}, 5*10^{-3}]$.
-
 \end{frame}
 
-% VGG19
+% VGG19 for style transfer
 \begin{frame}{Style Transfer}
 \begin{figure}[ht]
 \centering
@@ -439,6 +443,7 @@ of $\alpha / \beta \in [5*10^{-4}, 5*10^{-3}]$.
 \includegraphics[width=0.9\textwidth]{img/vgg19/transfer/layers}
 \end{figure}
 \end{frame}
+% Gatys et al. visualize of network passes
 \begin{frame}{Style Transfer}
 \begin{figure}[ht]
 \centering
@@ -447,6 +452,7 @@ of $\alpha / \beta \in [5*10^{-4}, 5*10^{-3}]$.
 \end{figure}
 \end{frame}
 
+% 4 pane with the 4 stylized artworks
 \begin{frame}{Style Transfer}
 \FourQuad{
     \begin{figure}[ht]
