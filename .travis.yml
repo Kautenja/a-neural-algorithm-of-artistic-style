@@ -1,8 +1,0 @@
-language: python
-sudo: required
-python:
-  - "3.6"
-notifications:
-  email: false
-script:
-  - make test

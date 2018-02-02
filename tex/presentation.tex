@@ -19,6 +19,14 @@
     \usetikzlibrary{decorations.pathreplacing}
     \usetikzlibrary{shadows.blur}
     \usetikzlibrary{shapes.symbols}
+
+\newcommand\FourQuad[4]{%
+    \begin{minipage}[b][.35\textheight][t]{.47\textwidth}#1\end{minipage}\hfill%
+    \begin{minipage}[b][.35\textheight][t]{.47\textwidth}#2\end{minipage}\\[0.5em]
+    \begin{minipage}[b][.35\textheight][t]{.47\textwidth}#3\end{minipage}\hfill
+    \begin{minipage}[b][.35\textheight][t]{.47\textwidth}#4\end{minipage}%
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \AtBeginSection[]{
     \begin{frame}
@@ -298,5 +306,35 @@ The total loss is:
 \includegraphics[width=\textwidth]{img/style/block5_conv1.png}
 \end{figure}
 \end{frame}
+
+\begin{frame}{Style Transfer}
+\FourQuad{
+    \begin{figure}[ht]
+    \centering
+    \caption{Shipwreck}
+    \includegraphics[width=0.8\textwidth]{img/transfer/shipwreck}
+    \end{figure}
+}{
+\vfill
+    \begin{figure}[ht]
+    \centering
+    \caption{Starry Starry Night}
+    \includegraphics[width=0.8\textwidth]{img/transfer/starry-starry-night}
+    \end{figure}
+}{
+    \begin{figure}[ht]
+    \centering
+    \caption{Seated Nudes}
+    \includegraphics[width=0.8\textwidth]{img/transfer/seated-nudes}
+    \end{figure}
+}{
+    \begin{figure}[ht]
+    \centering
+    \caption{Scream}
+    \includegraphics[width=0.8\textwidth]{img/transfer/scream}
+    \end{figure}
+}
+\end{frame}
+
 
 \end{document}
