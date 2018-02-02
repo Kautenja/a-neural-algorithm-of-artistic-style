@@ -94,13 +94,14 @@
         \includegraphics[width=.8\textwidth]{levels.jpg}
     \end{figure}
 \end{frame}
+
 \begin{frame}{Content Representation}
     \begin{itemize}
         \item Gradient descent is performed on a white noise image
             ($\mathbf{\overrightarrow{x}}$) and a content image
             ($\mathbf{\overrightarrow{p}}$)
         \item $F^l$ and $P^l$: Respective feature maps of the
-    noise image and the original image
+            noise image and the original image
         \item Goal: Reduce the squared-error loss between $F^l$ and $P^l$.
     \begin{equation}
         \mathcal{L}(\overrightarrow{p}, \overrightarrow{x}, l) =
@@ -108,6 +109,7 @@
     \end{equation}
     \end{itemize}
 \end{frame}
+
 \begin{frame}{Content Representation}
     The gradient of this loss with respect to activations in $l$ can be easily
     calculated:
@@ -120,6 +122,71 @@
         \end{cases}
     \end{equation}
 \end{frame}
+
+\begin{frame}{Content Reconstruction}
+\begin{figure}[ht]
+    \begin{minipage}[b]{0.45\linewidth}
+        \centering
+        \caption{white noise image $\overrightarrow{x}$}
+        \includegraphics[width=\textwidth]{img/content/noise.png}
+    \end{minipage}
+    \hspace{0.5cm}
+    \begin{minipage}[b]{0.45\linewidth}
+        \centering
+        \caption{content image $\overrightarrow{p}$}
+        \includegraphics[width=\textwidth]{img/content/tubingen.png}
+    \end{minipage}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Content Reconstruction}
+\begin{figure}[ht]
+\centering
+\caption{Block 1 Conv 1}
+\includegraphics[width=\textwidth]{img/content/block1_conv1.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Content Reconstruction}
+\begin{figure}[ht]
+\centering
+\caption{Block 2 Conv 1}
+\includegraphics[width=\textwidth]{img/content/block2_conv1.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Content Reconstruction}
+\begin{figure}[ht]
+\centering
+\caption{Block 3 Conv 1}
+\includegraphics[width=\textwidth]{img/content/block3_conv1.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Content Reconstruction}
+\begin{figure}[ht]
+\centering
+\caption{Block 4 Conv 1}
+\includegraphics[width=\textwidth]{img/content/block4_conv1.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Content Reconstruction}
+\begin{figure}[ht]
+\centering
+\caption{Block 5 Conv 1}
+\includegraphics[width=\textwidth]{img/content/block5_conv1.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Content Reconstruction}
+\begin{figure}[ht]
+\centering
+\caption{Block 4 Conv 2}
+\includegraphics[width=\textwidth]{img/content/block4_conv2.png}
+\end{figure}
+\end{frame}
+
 \begin{frame}{Style Representation}
 Style representation is achived via the ``Gram Matrix'' $G$. Gram matrix is
 an $N_l \times N_l$ matrix which calculates the correlations between
@@ -141,6 +208,7 @@ Contribution of layer $l$ to the total loss is
     = \mathbf{1}^T(\mathbf{G} - \mathbf{A})(\mathbf{G} - \mathbf{A})^T
 \end{equation}
 \end{frame}
+
 \begin{frame}{Style Representation}
 The total loss is:
 \begin{equation}
@@ -151,6 +219,7 @@ The total loss is:
     (4(\mathbf{G}^l - \mathbf{A}^l) \times \mathbf{F}^l)_{ij}
 \end{equation}
 \end{frame}
+
 \begin{frame}{Style Representation}
 \begin{equation}
     \frac{\partial \mathcal{L}_{style}}{\partial F^l_{ij}} = \frac{\partial E_l}{\partial F^l_{ij}} =
@@ -181,4 +250,5 @@ The total loss is:
     \end{tikzpicture}
     \end{figure}
 \end{frame}
+
 \end{document}
