@@ -179,14 +179,6 @@
 \end{figure}
 \end{frame}
 
-\begin{frame}{Content Reconstruction}
-\begin{figure}[ht]
-\centering
-\caption{Block 4 Conv 2}
-\includegraphics[width=\textwidth]{img/content/block4_conv2.png}
-\end{figure}
-\end{frame}
-
 \begin{frame}{Style Representation}
 Style representation is achived via the ``Gram Matrix'' $G$. Gram matrix is
 an $N_l \times N_l$ matrix which calculates the correlations between
@@ -249,6 +241,62 @@ The total loss is:
         \draw [myEdgeStyle] (e.east) to node  [red][below] (ef2) {$1$} (f.west) ;
     \end{tikzpicture}
     \end{figure}
+\end{frame}
+
+\begin{frame}{Style Reconstruction}
+\begin{figure}[ht]
+    \begin{minipage}[b]{0.45\linewidth}
+        \centering
+        \caption{white noise image $\overrightarrow{x}$}
+        \includegraphics[width=\textwidth]{img/style/noise.png}
+    \end{minipage}
+    \hspace{0.5cm}
+    \begin{minipage}[b]{0.45\linewidth}
+        \centering
+        \caption{artwork image $\overrightarrow{a}$}
+        \includegraphics[width=\textwidth]{img/style/starry_night.png}
+    \end{minipage}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Style Reconstruction}
+\begin{figure}[ht]
+\centering
+\caption{Block 1 Conv 1}
+\includegraphics[width=\textwidth]{img/style/block1_conv1.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Style Reconstruction}
+\begin{figure}[ht]
+\centering
+\caption{Block 1 Conv 1, Block 2 Conv 1}
+\includegraphics[width=\textwidth]{img/style/block2_conv1.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Style Reconstruction}
+\begin{figure}[ht]
+\centering
+\caption{Block 1 Conv 1, Block 2 Conv 1, Block 3 Conv 1}
+\includegraphics[width=\textwidth]{img/style/block3_conv1.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Style Reconstruction}
+\begin{figure}[ht]
+\centering
+\caption{Block 1 Conv 1, Block 2 Conv 1, Block 3 Conv 1, Block 4 Conv 1}
+\includegraphics[width=\textwidth]{img/style/block4_conv1.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Style Reconstruction}
+\begin{figure}[ht]
+\centering
+\caption{Block 1 Conv 1, Block 2 Conv 1, Block 3 Conv 1, Block 4 Conv 1, Block 5 Conv 1}
+\includegraphics[width=\textwidth]{img/style/block5_conv1.png}
+\end{figure}
 \end{frame}
 
 \end{document}
