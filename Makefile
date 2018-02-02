@@ -11,6 +11,20 @@ DATASET=${MAIN}/dataset
 install:
 	${PIP} install -r requirements.txt
 
-# automatically detect and executes test cases in the main framework
-test:
-	${PYTHON} -m unittest discover ${MAIN}
+# make a build directory
+build:
+	mkdir -p build
+
+# make the presentation
+presentation: build
+	cd tex && pdflatex presentation
+	cp tex/presentation.pdf build
+
+# make the report using bibtex to compile references
+report: build
+	cd tex && \
+		pdflatex report && \
+		bibtex report && \
+		pdflatex report && \
+		pdflatex report
+	cp tex/report.pdf build
