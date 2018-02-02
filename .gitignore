@@ -2,15 +2,15 @@
 # Project files
 #
 build/
-*.pdf
-*.aux
-*.nav
-*.log
-*.out
-*.snm
-*.toc
-*.bbl
-*.blg
+tex/*.pdf
+tex/*.aux
+tex/*.nav
+tex/*.log
+tex/*.out
+tex/*.snm
+tex/*.toc
+tex/*.bbl
+tex/*.blg
 
 #
 # MacOS
