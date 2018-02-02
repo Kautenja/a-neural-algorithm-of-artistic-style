@@ -308,6 +308,31 @@ The total style loss is:
 \end{frame}
 
 \begin{frame}{Style Transfer}
+To transfer the style of an artwork $\textbf{a}$, onto some content image
+$\textbf{p}$, we form the joint loss function of $L_{content}$ and
+$L_{style}$:
+
+\begin{equation}
+    \mathcal{L}_{total}(\mathbf{p}, \mathbf{a}, \mathbf{x}) =
+    \alpha \mathcal{L}_{content}(\mathbf{p}, \mathbf{x}) +
+    \beta \mathcal{L}_{style}(\mathbf{a}, \mathbf{x})
+\end{equation}
+
+where $\alpha$ and $\beta$ are the arbitrary weighting factors of the content
+and style loss respectively. Gatys et al. find the best results using a ratio
+of $\alpha / \beta \in [5*10^{-4}, 5*10^{-3}]$.
+
+\end{frame}
+
+\begin{frame}{Style Transfer}
+\begin{figure}[ht]
+\centering
+\caption{Style Transfer Architecture}
+\includegraphics[width=\textwidth]{img/style-transfer}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Style Transfer}
 \FourQuad{
     \begin{figure}[ht]
     \centering
