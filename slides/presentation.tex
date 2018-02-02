@@ -71,10 +71,10 @@
 
 \begin{frame}{Notations}
     \begin{itemize}
-        \item $\mathbf{\overrightarrow{p}}$: The original, content image
-        \item $\mathbf{\overrightarrow{a}}$: The original, artwork image
-        \item $\mathbf{\overrightarrow{x}}$: The image to be generated. It is
-            initiated as a random noise image.
+        \item $\mathbf{p}$: The original, content image
+        \item $\mathbf{a}$: The original, artwork image
+        \item $\mathbf{x}$: The image to be generated. It is initiated as a
+            random noise image.
         \item $F^l$: \textbf{Feature Map} at level l, is the result of appling
             filters at level $l$. If $N_l$ filters are applier at level $l$,
             then this feature map has a depth of $N_l$.
@@ -98,14 +98,14 @@
 \begin{frame}{Content Representation}
     \begin{itemize}
         \item Gradient descent is performed on a white noise image
-            ($\mathbf{\overrightarrow{x}}$) and a content image
-            ($\mathbf{\overrightarrow{p}}$)
+            ($\mathbf{x}$) and a content image
+            ($\mathbf{p}$)
         \item $F^l$ and $P^l$: Respective feature maps of the
             noise image and the original image
         \item Goal: Reduce the squared-error loss between $F^l$ and $P^l$.
     \begin{equation}
-        \mathcal{L}(\overrightarrow{p}, \overrightarrow{x}, l) =
-        \frac{1}{2} \sum_{i,j}{(F^l_{ij} - P^l_{ij})^2}
+        \mathcal{L}(\mathbf{p}, \mathbf{x}, l) =
+        \frac{1}{2} \sum_{i=1}^{N_l}\sum_{j=1}^{M_l}{(F^l_{ij} - P^l_{ij})^2}
     \end{equation}
     \end{itemize}
 \end{frame}
@@ -127,13 +127,13 @@
 \begin{figure}[ht]
     \begin{minipage}[b]{0.45\linewidth}
         \centering
-        \caption{white noise image $\overrightarrow{x}$}
+        \caption{white noise image $\mathbf{x}$}
         \includegraphics[width=\textwidth]{img/content/noise.png}
     \end{minipage}
     \hspace{0.5cm}
     \begin{minipage}[b]{0.45\linewidth}
         \centering
-        \caption{content image $\overrightarrow{p}$}
+        \caption{content image $\mathbf{p}$}
         \includegraphics[width=\textwidth]{img/content/tubingen.png}
     \end{minipage}
 \end{figure}
@@ -247,13 +247,13 @@ The total loss is:
 \begin{figure}[ht]
     \begin{minipage}[b]{0.45\linewidth}
         \centering
-        \caption{white noise image $\overrightarrow{x}$}
+        \caption{white noise image $\mathbf{x}$}
         \includegraphics[width=\textwidth]{img/style/noise.png}
     \end{minipage}
     \hspace{0.5cm}
     \begin{minipage}[b]{0.45\linewidth}
         \centering
-        \caption{artwork image $\overrightarrow{a}$}
+        \caption{artwork image $\mathbf{a}$}
         \includegraphics[width=\textwidth]{img/style/starry_night.png}
     \end{minipage}
 \end{figure}
