@@ -9,6 +9,7 @@
 %packages for definitions%%%%%%%%%%%%%%
 \usepackage{blindtext}
 \usepackage{scrextend}
+\usepackage{amsmath}
 \addtokomafont{labelinglabel}{\sffamily}
 \usepackage{tikz}
     \usetikzlibrary{shapes}
@@ -56,8 +57,8 @@
 }
 \tikzset{
     myArrow/.style={
-    single arrow, 
-    draw, 
+    single arrow,
+    draw,
     text width =.3cm,
     scale=.8,
     shade, shading=axis, left color=orange, right color=yellow,
@@ -70,13 +71,14 @@
 
 \begin{frame}{Notations}
     \begin{itemize}
-        \item $\mathbf{a}$: The original image
-        \item $\mathbf{x}$: The image to be generated. It is initiated as
-            a random noise image.
-        \item $F^l$: \textbf{Feature Map} at level l, is the result of appling filters at level $l$.
-            If $N_l$ filters are applier at level $l$, then this feature
-            map has a depth of $N_l$.
-        \item $N_l$: The number of filters applier at level $l$. This is 
+        \item $\mathbf{\overrightarrow{p}}$: The original, content image
+        \item $\mathbf{\overrightarrow{a}}$: The original, artwork image
+        \item $\mathbf{\overrightarrow{x}}$: The image to be generated. It is
+            initiated as a random noise image.
+        \item $F^l$: \textbf{Feature Map} at level l, is the result of appling
+            filters at level $l$. If $N_l$ filters are applier at level $l$,
+            then this feature map has a depth of $N_l$.
+        \item $N_l$: The number of filters applier at level $l$. This is
             the same as the depts of the feature map at level
             $l$.
         \item $M_l$: the dimension of the feature map at level l, which
@@ -94,25 +96,28 @@
 \end{frame}
 \begin{frame}{Content Representation}
     \begin{itemize}
-        \item Gradient descent is performed on a white noise image ($\mathbf{x}$).
+        \item Gradient descent is performed on a white noise image
+            ($\mathbf{\overrightarrow{x}}$) and a content image
+            ($\mathbf{\overrightarrow{p}}$)
         \item $F^l$ and $P^l$: Respective feature maps of the
     noise image and the original image
-        \item Goal: Reduce the overal difference
-    between $F^l$ and $P^l$. 
+        \item Goal: Reduce the squared-error loss between $F^l$ and $P^l$.
     \begin{equation}
-        \mathcal{L}(p, x) = \sum_{l=1}^{L} {E_l}
-    \end{equation}
-    where $E_l$ is
-    \begin{equation}
-        {E_l} = \frac{1}{2} \sum_{i=1}^{N_l}\sum_{j=1}^{M_l}{(F^l_{ij} - P^l_{ij})^2}
+        \mathcal{L}(\overrightarrow{p}, \overrightarrow{x}, l) =
+        \frac{1}{2} \sum_{i,j}{(F^l_{ij} - P^l_{ij})^2}
     \end{equation}
     \end{itemize}
 \end{frame}
 \begin{frame}{Content Representation}
-    The gradient can be easily calculated:
+    The gradient of this loss with respect to activations in $l$ can be easily
+    calculated:
     \begin{equation}
-        \frac{\partial \mathcal{L}_{style}}{\partial F^l_{ij}} = \frac{\partial E_l}{\partial F^l_{ij}} = 
-        = (\mathbf{F}^l - \mathbf{P}^l)_{ij}
+        \frac{\partial \mathcal{L}_{content}}{\partial F^l_{ij}}
+        =
+        \begin{cases}
+            (F^l - P^l)_{ij} & \iff F^l_{ij} > 0 \\
+            0 & \iff F^l_{ij} < 0 \\
+        \end{cases}
     \end{equation}
 \end{frame}
 \begin{frame}{Style Representation}
@@ -129,7 +134,7 @@ different filter responses.
 \begin{frame}{Style Representation}
 Given $G^l$ and $A^l$ as respective Gram matrices of the
 noise image and the original image, our goal is to reduce the overal difference
-between $G^l$ and $A^l$. In ths sense, 
+between $G^l$ and $A^l$. In ths sense,
 Contribution of layer $l$ to the total loss is
 \begin{equation}
     E_l = \frac{1}{4N_l^2M_l^2} \sum_{i}^{N_l}\sum_{j}^{N_l}{(G^l_{ij} - A^l_{ij})^2}
@@ -142,13 +147,13 @@ The total loss is:
     \mathcal{L}_{style}(\mathbf{a}, \mathbf{x}) = \sum_{l=0}^L {w_l E_l }
 \end{equation}
 \begin{equation}
-    \frac{\partial \mathcal{L}_{style}}{\partial F^l_{ij}} = \frac{\partial E_l}{\partial F^l_{ij}} = 
+    \frac{\partial \mathcal{L}_{style}}{\partial F^l_{ij}} = \frac{\partial E_l}{\partial F^l_{ij}} =
     (4(\mathbf{G}^l - \mathbf{A}^l) \times \mathbf{F}^l)_{ij}
 \end{equation}
 \end{frame}
 \begin{frame}{Style Representation}
 \begin{equation}
-    \frac{\partial \mathcal{L}_{style}}{\partial F^l_{ij}} = \frac{\partial E_l}{\partial F^l_{ij}} = 
+    \frac{\partial \mathcal{L}_{style}}{\partial F^l_{ij}} = \frac{\partial E_l}{\partial F^l_{ij}} =
     (4(\mathbf{G}^l - \mathbf{A}^l) \times \mathbf{F}^l)_{ij}
 \end{equation}
     \begin{figure}
