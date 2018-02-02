@@ -1,7 +1,16 @@
 #
 # Project files
 #
-
+build/
+*.pdf
+*.aux
+*.nav
+*.log
+*.out
+*.snm
+*.toc
+*.bbl
+*.blg
 
 #
 # MacOS
