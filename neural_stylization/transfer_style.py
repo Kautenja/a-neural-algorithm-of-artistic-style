@@ -1,4 +1,23 @@
 """A mechanism for transferring style of art to content."""
+import numpy as np
+from typing import Callable
+from keras import backend as K
+from neural_stylization.vgg19 import VGG_19
+from neural_stylization._img_util import normalize
+from neural_stylization._img_util import denormalize
+from neural_stylization._img_util import load_image
+from neural_stylization._img_util import image_to_matrix
+from neural_stylization._img_util import matrix_to_image
+from neural_stylization.loss_functions import content_loss, style_loss
+
+
+# the template for the class's repr method
+TEMPLATE = """{}(
+	content_layer_name={},
+	content_weight={},
+	style_layer_names={},
+	style_weight={}
+)""".lstrip()
 
 
 class Stylizer(object):
@@ -32,18 +51,32 @@ class Stylizer(object):
 		self.style_layer_names = style_layer_names
 		self.style_weight = style_weight
 
+	def __repr__(self) -> str:
+		"""Return an executable string representation of this object."""
+		return TEMPLATE.format(*[
+			self.__class__.__name__,
+			repr(self.content_layer_name),
+			self.content_weight,
+			self.style_layer_names,
+			self.style_weight
+		])
+
 	@property
 	def content_style_ratio(self) -> float:
 		"""Return the ratio of content weight to style weight."""
 		return self.content_weight / self.style_weight
 
-	def _load_images(self, content_path: str, style_path: str) -> tuple:
+	def _load_images(self,
+					 content_path: str,
+					 style_path: str,
+					 image_size: tuple=None) -> tuple:
 		"""
 		Load the content and style images from disk and normalize them.
 
 		Args:
 			content_path: the path to the content image
 			style_path: the path to the style image
+			image_size: the optional image size to load the images as
 
 		Returns: a tuple of content, style numpy matrices
 		"""
@@ -108,7 +141,7 @@ class Stylizer(object):
 
 		# STYLE LOSS
 		# iterate over the list of all the layers that we want to include
-		for style_layer_name in self.style_layers_names:
+		for style_layer_name in self.style_layer_names:
 		    # extract the layer's out that we have interest in for
 		    # reconstruction
 		    style_layer_output = model[style_layer_name]
@@ -117,7 +150,7 @@ class Stylizer(object):
 		    loss_s = style_loss(style_layer_output[1], style_layer_output[2])
 		    # Apply the lazy w_l factor of dividing by the size of the
 		    # styling layer list. multiply the style weight in here
-		    loss += loss_s * self.style_weight / len(self.style_layers_names)
+		    loss += loss_s * self.style_weight / len(self.style_layer_names)
 
 		# TOTAL VARIATION LOSS
 		# add the total variation loss based on the euclidean distance
@@ -146,19 +179,37 @@ class Stylizer(object):
 		#         to the loss
 		return K.function([canvas], [loss, grads])
 
-	def stylilze(self,
-				 content_path: str,
-				 style_path: str,
-				 optimizer,
-				 image_size: tuple=None,
-				 noise_range: tuple=(0, 1)):
+	def stylize(self,
+				content_path: str,
+				style_path: str,
+				optimizer,
+				iterations: int=1000,
+				image_size: tuple=None,
+				noise_range: tuple=(0, 1),
+				callback: Callable=None):
 		"""
+		Stylize the given content image with the give style image.
+
+		Args:
+			content_path: the path to the content image to load
+			style_path: the path to the style image to load
+			optimizer: the optimizer to use
+			iterations: the number of iterations to perform (optimization)
+			image_size: the custom size to load images if any
+			noise_range: the custom range for initializing random noise
+			callback: the optional callback method for optimizer iterations
+
+		Returns: the image as a result of blending content with style
 		"""
 		# load the images
-		content, style = self._load_images(content_path, style_path)
+		content, style = self._load_images(content_path, style_path, image_size)
 		# build the inputs tensor from the images
 		model, canvas = self._build_model(content, style)
 		# build the iteration function
 		loss_grads = self._build_loss_grads(model, canvas)
 		# generate some white noise
-		noise = np.random.uniform(*noise_range, content.shape)
+		noise = np.random.uniform(*noise_range, canvas.shape)
+		# optimize the white noise
+		image = optimizer.minimize(noise, loss_grads, iterations, callback)
+		# return the optimized image
+		return matrix_to_image(denormalize(image.reshape(canvas.shape)[0]))
