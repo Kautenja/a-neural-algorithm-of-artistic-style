@@ -24,6 +24,7 @@ def load_image(image_path: str, size: tuple=None) -> Image:
 	if size is not None:
 		# apply the size to the image
 		image = image.resize(size)
+
 	return image
 
 
@@ -40,8 +41,8 @@ def image_to_matrix(image: Image, dtype: np.dtype=np.float32) -> np.ndarray:
 	# convert the image to a numpy matrix of [height, width, channel]
 	image = np.asarray(image, dtype=dtype)
 	# expand the image into the 4th dimension.
-	# i.e. [frame, height, wight, channel] but with just a single frame of this
-	# image.
+	# i.e. [frame, height, wight, channel] but with just a single frame of
+	# this image.
 	image = np.expand_dims(image, axis=0)
 
 	return image
@@ -64,6 +65,7 @@ def matrix_to_image(image: np.ndarray, channel_range: tuple=(0, 255)) -> Image:
 	# graphics processing. As such, convert the type to a single byte to
 	# satisfy this constraint.
 	image = np.clip(image, *channel_range).astype('uint8')
+
 	return Image.fromarray(image)
 
 
