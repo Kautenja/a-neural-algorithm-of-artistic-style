@@ -13,7 +13,6 @@ from keras.layers import AveragePooling2D
 from keras.layers import MaxPooling2D
 from keras.layers import Flatten
 from keras.layers import Dense
-from keras.utils.data_utils import get_file
 from keras import backend as K
 
 
@@ -21,22 +20,6 @@ from keras import backend as K
 # https://keras.io/backend/
 # scroll to the `is_keras_tensor` section for a description of this type
 Tensor = Union[Input, Layer]
-
-
-# the path to the pretrained weights
-WEIGHTS_PATH = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels.h5'
-# the name for the weights file on disk
-WEIGHTS_FILE = 'vgg19_weights_tf_dim_ordering_tf_kernels.h5'
-# the hash for the weights file
-WEIGHTS_HASH = 'cbe5617147190e668d6c5d5026f83318'
-
-
-# the path to the pretrained weights without the top (fully connected layers)
-WEIGHTS_PATH_NO_TOP = 'https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5'
-# the name for the weights (no top) file on disk
-WEIGHTS_FILE_NO_TOP = 'vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5'
-# the hash for the weights (no top) file
-WEIGHT_HASH_NO_TOP = '253f8cb515780f3b799900260a226db6'
 
 
 # the size of imagenet images (for shaping the CNN for classification)
@@ -224,13 +207,18 @@ class VGG_19(Model):
         # https://www.tensorflow.org/api_docs/python/tf/keras/utils/get_file
         # check if the top layers (fully connected) are included
         if self.include_top:
-            # the path for weights WITH the top (fully connected) layers
-            weights_path = get_file(WEIGHTS_FILE, WEIGHTS_PATH,
-                                    file_hash=WEIGHTS_HASH)
+            # download the weights with FC layers and store the path to load
+            # into this model
+            from keras.utils.data_utils import get_file
+            weights_path = get_file(
+                'vgg19_weights_tf_dim_ordering_tf_kernels.h5',
+                'https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels.h5',
+                file_hash='cbe5617147190e668d6c5d5026f83318'
+            )
         else:
-            # the path for weights WITHOUT the top (fully connected) layers
-            weights_path = get_file(WEIGHTS_FILE_NO_TOP, WEIGHTS_PATH_NO_TOP,
-                                    file_hash=WEIGHT_HASH_NO_TOP)
+            # load the weights from disk
+            from os.path import dirname
+            weights_path = '{}/data/notop.h5'.format(dirname(__file__))
         # load the weights into self
         super().load_weights(weights_path)
 
