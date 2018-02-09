@@ -3,11 +3,11 @@ import numpy as np
 from typing import Callable
 from keras import backend as K
 from neural_stylization.vgg19 import VGG_19
-from neural_stylization._img_util import normalize
-from neural_stylization._img_util import denormalize
-from neural_stylization._img_util import load_image
-from neural_stylization._img_util import image_to_matrix
-from neural_stylization._img_util import matrix_to_image
+from neural_stylization.img_util import normalize
+from neural_stylization.img_util import denormalize
+from neural_stylization.img_util import load_image
+from neural_stylization.img_util import image_to_matrix
+from neural_stylization.img_util import matrix_to_image
 from neural_stylization.loss_functions import content_loss, style_loss
 
 
@@ -125,6 +125,7 @@ class Stylizer(object):
 
 		Args:
 			model: the model to extract layers from
+			canvas: the input to the model thats being mutated
 
 		Returns: a function to calculate loss and gradients from an input X
 		"""
@@ -182,8 +183,8 @@ class Stylizer(object):
 	def stylize(self,
 				content_path: str,
 				style_path: str,
-				optimizer,
-				iterations: int=1000,
+				optimizer: 'optimizers.Optimizer',
+				iterations: int=10,
 				image_size: tuple=None,
 				noise_range: tuple=(0, 1),
 				callback: Callable=None):
@@ -210,6 +211,10 @@ class Stylizer(object):
 		# generate some white noise
 		noise = np.random.uniform(*noise_range, canvas.shape)
 		# optimize the white noise
-		image = optimizer.minimize(noise, loss_grads, iterations, callback)
+		image = optimizer.minimize(noise,
+								   canvas.shape,
+								   loss_grads,
+								   iterations,
+								   callback)
 		# return the optimized image
 		return matrix_to_image(denormalize(image.reshape(canvas.shape)[0]))

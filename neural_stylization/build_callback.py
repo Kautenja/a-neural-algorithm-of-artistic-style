@@ -20,8 +20,8 @@ def build_callback(out_dir: str):
     for file in glob('{}/*.png'.format(out_dir)):
         os.remove(file)
 
-    from neural_stylization._img_util import denormalize
-    from neural_stylization._img_util import matrix_to_image
+    from neural_stylization.img_util import denormalize
+    from neural_stylization.img_util import matrix_to_image
 
     def denormalize_and_display(image, i) -> None:
         """
