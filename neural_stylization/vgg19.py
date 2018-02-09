@@ -13,10 +13,8 @@ from keras.layers import AveragePooling2D
 from keras.layers import MaxPooling2D
 from keras.layers import Flatten
 from keras.layers import Dense
-from keras.engine.topology import get_source_inputs
 from keras.utils.data_utils import get_file
 from keras import backend as K
-from keras.applications.imagenet_utils import _obtain_input_shape
 
 
 # the definition for a tensor type as defined by the keras documentation:
@@ -41,6 +39,10 @@ WEIGHTS_FILE_NO_TOP = 'vgg19_weights_tf_dim_ordering_tf_kernels_notop.h5'
 WEIGHT_HASH_NO_TOP = '253f8cb515780f3b799900260a226db6'
 
 
+# the size of imagenet images (for shaping the CNN for classification)
+IMAGE_NET_SIZE=224
+
+
 class VGG_19(Model):
     """The VGG 19 image recognition network."""
 
@@ -63,7 +65,7 @@ class VGG_19(Model):
             pooling: the kind of pooling layers to use
                 - 'max': this is the default value for standard VGG19. This
                     pooling method produces cleaner classification results
-                - 'average': this is the optional value for VGG19. Gatys et
+                - 'avg': this is the optional value for VGG19. Gatys et
                     al. find that this produces smoother synthetic images.
 
         Returns: None
@@ -74,21 +76,14 @@ class VGG_19(Model):
         self._pooling = pooling
 
         # build the input layer
-        img_input = self._build_input_block()
+        input_block = self._build_input_block()
         # build the main layers
-        x = self._build_main_blocks(img_input)
+        x = self._build_main_blocks(input_block)
         # build the output layers
         x = self._build_output_block(x)
 
-        # Ensure that the model takes into account
-        # any potential predecessors of `input_tensor`.
-        if input_tensor is not None:
-            inputs = get_source_inputs(input_tensor)
-        else:
-            inputs = img_input
-
         # call the super initializer
-        super().__init__(inputs, x, name=self.__class__.__name__)
+        super().__init__(input_block, x)
 
         # load the weights
         self.load_weights()
@@ -139,25 +134,26 @@ class VGG_19(Model):
 
         Returns: a tensor representing the network up to the input blocks
         """
-        # Determine proper input shape
-        # can probably remove this. Check here for how:
-        # https://github.com/keras-team/keras/blob/master/keras/applications/imagenet_utils.py
-        input_shape = _obtain_input_shape(None,
-                                          default_size=224,
-                                          min_size=48,
-                                          data_format=K.image_data_format(),
-                                          require_flatten=self.include_top,
-                                          weights='imagenet')
+        # make sure the channel format is setup correctly (tensorflow)
+        if K.image_data_format() != 'channels_last':
+            raise ValueError('image_data_format should be: "channels_last"')
+
+        # if classification, the shape is predefined (assume RGB channels)
+        if self.include_top:
+            input_shape = (IMAGE_NET_SIZE, IMAGE_NET_SIZE, 3)
+        # no input_shape provided, image synthesis or feature extraction
+        else:
+            input_shape = (None, None, 3)
+
         # setup the input tensor
         if self.input_tensor is None:
-            # no input tensor specified, build a blank one
+            # no input tensor specified, build a new one with the given shape
             return Input(shape=input_shape)
         elif not K.is_keras_tensor(self.input_tensor):
-            # tensor provided, but probably a numpy array, create a keras (tf)
-            # tensor and return it
+            # tensor provided, but not a keras tensor, convert to keras tensor
             return Input(tensor=self.input_tensor, shape=input_shape)
         else:
-            # the tensor is already set up, return it as is
+            # already a keras tensor / input layer. return as is
             return self.input_tensor
 
     def _build_main_blocks(self, x: Tensor) -> Tensor:
