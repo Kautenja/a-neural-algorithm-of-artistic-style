@@ -5,13 +5,13 @@ An **implementation** of the paper
 
 ![Monet](tex/img/transfer/monet.png)
 
-![Scream](tex/img/scream.png)
+![Scream](tex/img/transfer/scream.png)
 
-![Seated Nudes](tex/img/seated-nudes.png)
+![Seated Nudes](tex/img/transfer/seated-nudes.png)
 
-![Starry Starry Night](tex/img/starry-starry-night.png)
+![Starry Starry Night](tex/img/transfer/starry-starry-night.png)
 
-![Shipwreck](tex/img/shipwreck.png)
+![Shipwreck](tex/img/transfer/shipwreck.png)
 
 ![Kandinsky](tex/img/transfer/kandinsky.png)
 
