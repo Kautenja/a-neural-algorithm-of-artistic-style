@@ -22,8 +22,14 @@ from keras import backend as K
 Tensor = Union[Input, Layer]
 
 
-# the size of imagenet images (for shaping the CNN for classification)
-IMAGE_NET_SIZE=224
+def download_include_top() -> str:
+    """Download the ImageNet Weights with FC Layers and return the path."""
+    from keras.utils.data_utils import get_file
+    return get_file(
+        'vgg19_weights_tf_dim_ordering_tf_kernels.h5',
+        'https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels.h5',
+        file_hash='cbe5617147190e668d6c5d5026f83318'
+    )
 
 
 class VGG_19(Model):
@@ -69,7 +75,7 @@ class VGG_19(Model):
         super().__init__(input_block, x)
 
         # load the weights
-        self.load_weights()
+        self.load_imagenet_weights()
 
         # set outputs as a dictionary of layer names to output variables
         self.output_tensors = {layer.name: layer.output for layer in self.layers}
@@ -101,10 +107,9 @@ class VGG_19(Model):
         return self._pooling
 
     def __repr__(self):
-        template = '{}(include_top={}, input_tensor={}, pooling={})'
         """Return a debugging representation of this object."""
         # combine the class name with the data and unwrap (*) for format
-        return template.format(*[
+        return '{}(include_top={}, input_tensor={}, pooling={})'.format(*[
             self.__class__.__name__,
             self.include_top,
             self.input_tensor,
@@ -123,9 +128,11 @@ class VGG_19(Model):
 
         # if classification, the shape is predefined (assume RGB channels)
         if self.include_top:
-            input_shape = (IMAGE_NET_SIZE, IMAGE_NET_SIZE, 3)
+            # the default size for imagenet images (224x224 RGB)
+            input_shape = (224, 224, 3)
         # no input_shape provided, image synthesis or feature extraction
         else:
+            # the default size for an size in-specific RGB image
             input_shape = (None, None, 3)
 
         # setup the input tensor
@@ -191,7 +198,8 @@ class VGG_19(Model):
 
         Returns: a tensor representing the network up to the output blocks
         """
-        # if include_top is set, build the fully connected output block
+        # check if the model is using the fully connected layers and build if
+        # it is using them.
         if self.include_top:
             x = Flatten(name='flatten')(x)
             x = Dense(4096, activation='relu', name='fc1')(x)
@@ -201,26 +209,18 @@ class VGG_19(Model):
 
         return x
 
-    def load_weights(self) -> None:
-        """Load the weights for this VGG19 model."""
-        # dox for the get_file method:
-        # https://www.tensorflow.org/api_docs/python/tf/keras/utils/get_file
-        # check if the top layers (fully connected) are included
+    def load_imagenet_weights(self) -> None:
+        """Load the pre-trained ImageNet weights for this VGG19 model."""
+        # check if the model is using the Fully Connected layers
         if self.include_top:
-            # download the weights with FC layers and store the path to load
-            # into this model
-            from keras.utils.data_utils import get_file
-            weights_path = get_file(
-                'vgg19_weights_tf_dim_ordering_tf_kernels.h5',
-                'https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg19_weights_tf_dim_ordering_tf_kernels.h5',
-                file_hash='cbe5617147190e668d6c5d5026f83318'
-            )
+            # download the fully connected layer weights
+            weights_path = download_include_top()
         else:
-            # load the weights from disk
+            # load the CNN layer weights from disk
             from os.path import dirname
             weights_path = '{}/data/notop.h5'.format(dirname(__file__))
         # load the weights into self
-        super().load_weights(weights_path)
+        self.load_weights(weights_path)
 
 
 # explicitly export the public API of the module
