@@ -2,6 +2,22 @@
 from keras import backend as K
 
 
+def content_loss(content, combination):
+    """
+    Return the content loss between the content and combinations tensors.
+
+    Args:
+        content: the output of a layer for the content image
+        combination: the output of a layer for the combination image
+
+    Returns:
+        the loss between `content` and `combination`
+
+    """
+    # squared euclidean distance, exactly how it is in the paper
+    return 0.5 * K.sum(K.square(combination - content))
+
+
 def gram(matrix):
     """
     Return a gram matrix for the given input matrix.
@@ -22,22 +38,6 @@ def gram(matrix):
     # TODO: test this with an image that is taller than wider to ensure the
     # directionality of the dot operation translates
     return g
-
-
-def content_loss(content, combination):
-    """
-    Return the content loss between the content and combinations tensors.
-
-    Args:
-        content: the output of a layer for the content image
-        combination: the output of a layer for the combination image
-
-    Returns:
-        the loss between `content` and `combination`
-
-    """
-    # squared euclidean distance, exactly how it is in the paper
-    return 0.5 * K.sum(K.square(combination - content))
 
 
 def style_loss(style, combination):
@@ -63,45 +63,4 @@ def style_loss(style, combination):
     return K.sum(K.square(gram(style) - gram(combination))) / (4 * Nl_2 * Ml_2)
 
 
-def total_variation_loss(combination, kind='anisotropic'):
-    """
-    Return the total variation loss for the combination image.
-
-    Args:
-        combination: the combination tensor to return the variation loss of
-        kind: the kind of total variation loss to use (default 'anisotropic')
-
-    Returns:
-        the total variation loss of the combination tensor
-
-    """
-    # store the dimensions for indexing from thee combination
-    h, w = combination.shape[1], combination.shape[2]
-    if kind == 'anisotropic':
-        # take the absolute value between this image, and the image one pixel
-        # down, and one pixel to the right. take the absolute value as
-        # specified by anisotropic loss
-        a = K.abs(combination[:, :h-1, :w-1, :] - combination[:, 1:, :w-1, :])
-        b = K.abs(combination[:, :h-1, :w-1, :] - combination[:, :h-1, 1:, :])
-        # add up all the differences
-        return K.sum(a + b)
-    elif kind == 'isotropic':
-        # take the absolute value between this image, and the image one pixel
-        # down, and one pixel to the right. take the square root as specified
-        # by isotropic loss
-        a = K.square(combination[:, :h-1, :w-1, :] - combination[:, 1:, :w-1, :])
-        b = K.square(combination[:, :h-1, :w-1, :] - combination[:, :h-1, 1:, :])
-        # take the vector square root of all the pixel differences, then sum
-        # them all up
-        return K.sum(K.pow(a + b, 2))
-    else:
-        # kind can only be two values, raise an error on unexpected kind value
-        raise ValueError("`kind` should be 'anisotropic' or 'isotropic'")
-
-
-# explicitly export the public API
-__all__ = [
-    'content_loss',
-    'style_loss',
-    'total_variation_loss'
-]
+__all__ = ['content_loss', 'style_loss']

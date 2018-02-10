@@ -4,11 +4,11 @@ from PIL import Image
 from typing import Callable
 from keras import backend as K
 from .vgg19 import VGG_19
-from .img_util import load_image
-from .img_util import normalize
-from .img_util import denormalize
-from .img_util import image_to_matrix
-from .img_util import matrix_to_image
+from .util.img_util import load_image
+from .util.img_util import normalize
+from .util.img_util import denormalize
+from .util.img_util import image_to_matrix
+from .util.img_util import matrix_to_image
 from .loss_functions import style_loss
 from .optimizers.l_bfgs import L_BFGS
 

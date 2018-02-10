@@ -1,5 +1,6 @@
 """An implementation of a basic gradient descent algorithm."""
 from typing import Callable
+from tqdm import tqdm
 import numpy as np
 
 
@@ -43,7 +44,7 @@ class SGD(object):
 
         Returns: an optimized X about the loss and gradients given
         """
-        for i in range(iterations):
+        for i in tqdm(range(iterations)):
             # pass the input through the loss function and generate gradients
             loss_i, grads_i = loss_grads([X])
             # move the input based on the gradients and learning rate

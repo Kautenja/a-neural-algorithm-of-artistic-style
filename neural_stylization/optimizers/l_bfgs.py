@@ -1,6 +1,7 @@
 """An interface to the L-BFGS Algorithm."""
 import numpy as np
 from typing import Callable
+from tqdm import tqdm
 from scipy.optimize import fmin_l_bfgs_b
 
 
@@ -75,7 +76,7 @@ class L_BFGS(object):
         # assign the custom method to self for loss / gradient calculation
         self.loss_and_gradients = loss_and_gradients
 
-        for i in range(iterations):
+        for i in tqdm(range(iterations)):
             # pass X through an iteration of LBFGS
             X, min_val, info = fmin_l_bfgs_b(self.loss, X,
                                              fprime=self.gradients,

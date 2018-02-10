@@ -3,13 +3,13 @@ import numpy as np
 from PIL import Image
 from typing import Callable
 from keras import backend as K
-from neural_stylization.vgg19 import VGG_19
-from neural_stylization.img_util import normalize
-from neural_stylization.img_util import denormalize
-from neural_stylization.img_util import load_image
-from neural_stylization.img_util import image_to_matrix
-from neural_stylization.img_util import matrix_to_image
-from neural_stylization.loss_functions import content_loss, style_loss
+from .vgg19 import VGG_19
+from .util.img_util import normalize
+from .util.img_util import denormalize
+from .util.img_util import load_image
+from .util.img_util import image_to_matrix
+from .util.img_util import matrix_to_image
+from .loss_functions import content_loss, style_loss
 
 
 # the template for the class's repr method

@@ -16,9 +16,7 @@ from keras.layers import Dense
 from keras import backend as K
 
 
-# the definition for a tensor type as defined by the keras documentation:
-# https://keras.io/backend/
-# scroll to the `is_keras_tensor` section for a description of this type
+# the definition for a tensor type as defined by Keras
 Tensor = Union[Input, Layer]
 
 
