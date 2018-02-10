@@ -1,5 +1,6 @@
 """A mechanism for transferring style of art to content."""
 import numpy as np
+from PIL import Image
 from typing import Callable
 from keras import backend as K
 from neural_stylization.vgg19 import VGG_19
@@ -119,7 +120,7 @@ class Stylizer(object):
 
 		return model, canvas
 
-	def _build_loss_grads(self, model, canvas):
+	def _build_loss_grads(self, model, canvas) -> Callable:
 		"""
 		Build the optimization methods for stylizing the image from a model.
 
@@ -153,11 +154,6 @@ class Stylizer(object):
 		    # styling layer list. multiply the style weight in here
 		    loss += loss_s * self.style_weight / len(self.style_layer_names)
 
-		# TOTAL VARIATION LOSS
-		# add the total variation loss based on the euclidean distance
-		# between shifted points
-		# loss += total_variation_weight * total_variation_loss(canvas)
-
 		# GRADIENTS
 		# calculate the gradients of the input image with respect to
 		# the loss. i.e. backpropagate the loss through the network
@@ -187,7 +183,7 @@ class Stylizer(object):
 				iterations: int=10,
 				image_size: tuple=None,
 				noise_range: tuple=(0, 1),
-				callback: Callable=None):
+				callback: Callable=None) -> Image:
 		"""
 		Stylize the given content image with the give style image.
 
@@ -203,7 +199,9 @@ class Stylizer(object):
 		Returns: the image as a result of blending content with style
 		"""
 		# load the images
-		content, style = self._load_images(content_path, style_path, image_size)
+		content, style = self._load_images(content_path,
+										   style_path,
+										   image_size)
 		# build the inputs tensor from the images
 		model, canvas = self._build_model(content, style)
 		# build the iteration function
@@ -218,3 +216,6 @@ class Stylizer(object):
 								   callback)
 		# return the optimized image
 		return matrix_to_image(denormalize(image.reshape(canvas.shape)[0]))
+
+
+__all__ = ['Stylizer']
