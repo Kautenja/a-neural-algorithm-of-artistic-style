@@ -23,7 +23,7 @@ def reconstruct_content(content_path: str,
     Reconstruct the given content image at the given VGG19 layer.
 
     Args:
-        content: the content image to reconstruct
+        content_path: the path to the content image to reconstruct
         layer_name: the layer to reconstruct the content from
         optimizer: the optimizer for minimizing the content loss
         iterations: the number of iterations to run the optimizer
@@ -45,7 +45,7 @@ def reconstruct_content(content_path: str,
     # load the content image into keras as a constant, it never changes
     content = K.constant(content, name='Content')
     # create a placeholder for the trained image, this variable trains
-    canvas = K.placeholder(content.shape, name='Cavnas')
+    canvas = K.placeholder(content.shape, name='Canvas')
     # combine the content and canvas tensors along the frame axis (0) into a
     # 4D tensor of shape [2, height, width, channels]
     tensor = K.concatenate([content, canvas], axis=0)
