@@ -214,6 +214,9 @@ class Stylizer(object):
 								   loss_grads,
 								   iterations,
 								   callback)
+		# clear the Keras session
+		K.clear_session()
+
 		# return the optimized image
 		return matrix_to_image(denormalize(image.reshape(canvas.shape)[0]))
 

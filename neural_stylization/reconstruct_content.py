@@ -69,6 +69,9 @@ def reconstruct_content(content_path: str,
     # optimize the white noise to reconstruct the content
     image = optimizer.minimize(noise, canvas.shape, step, iterations, callback)
 
+    # clear the Keras session
+    K.clear_session()
+
     # de-normalize the image (from ImageNet means) and convert back to binary
     return matrix_to_image(denormalize(image.reshape(canvas.shape)[0]))
 
