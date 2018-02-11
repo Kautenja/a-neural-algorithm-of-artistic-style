@@ -8,9 +8,11 @@ def build_callback(out_dir: str):
     Args:
         out_dir: the name of the artwork directory to store frames in
 
-    Returns: a callable method for denormalizing, displaying, and saving frames
+    Returns:
+        a callable method for de-normalizing, displaying, and saving frames
+
     """
-    # make the directory if it doesnt exist
+    # make the directory if it doesn't exist
     import os
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
@@ -26,17 +28,19 @@ def build_callback(out_dir: str):
 
     def denormalize_and_display(image, i) -> None:
         """
-        Denormalize an iteration of optimization to display.
+        De-normalize an iteration of optimization to display.
 
         Args:
-            image: the image to denormalize and display
+            image: the image to de-normalize and display
             i: the iteration of optimization
 
-        Returns: None
+        Returns:
+            None
+
         """
         # clear the existing output
         display.clear_output(wait=True)
-        # denormalize the image and conver to binary
+        # de-normalize the image and convert to binary
         image = matrix_to_image(denormalize(image[0]))
         # write the image to disk in the appropriate spot
         image.save('{}/{}.png'.format(out_dir, i))

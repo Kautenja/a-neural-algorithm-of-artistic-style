@@ -1,5 +1,4 @@
-"""An animated plot for Jupyter notebook to visualize loop data realtime."""
-import numpy as np
+"""An animated plot for Jupyter notebook to visualize loop data real-time."""
 from matplotlib import pyplot as plt
 from IPython import display
 
@@ -10,13 +9,17 @@ class JupyterPlot(object):
     def __init__(self,
                  title: str='Title',
                  xlabel: str='X Value',
-                 ylabel: str='Y Value'):
+                 ylabel: str='Y Value') -> None:
         """
-        Initialize a new interative plot.
+        Initialize a new Jupyter plot.
 
         Args:
             xlabel: the string to display on the x axis
             ylabel: the string to display on the y axis
+
+        Returns:
+            None
+
         """
         if not isinstance(title, str):
             raise TypeError('title must be of type: str')
@@ -31,14 +34,16 @@ class JupyterPlot(object):
         # initialize the list of fitnesses
         self.data = []
 
-    def __call__(self, datum: list):
+    def __call__(self, datum: list) -> None:
         """
         Update the plot with new data.
 
         Args:
             datum: the new data point to add and plot
 
-        Returns: None
+        Returns:
+            None
+
         """
         # append the data to the list
         self.data.append(datum)

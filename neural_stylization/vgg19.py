@@ -1,6 +1,6 @@
-"""A keras implementation of the VGG 19 CNN model.
+"""A Keras implementation of the VGG 19 CNN model.
 
-This object oriented designed is based on the original code from the keras
+This object oriented designed is based on the original code from the Keras
 team here:
 https://github.com/keras-team/keras/blob/master/keras/applications/vgg19.py
 """
@@ -55,7 +55,9 @@ class VGG_19(Model):
                 - 'avg': this is the optional value for VGG19. Gatys et
                     al. find that this produces smoother synthetic images.
 
-        Returns: None
+        Returns:
+            None
+
         """
         # setup the private instance variables for this object
         self._include_top = include_top
@@ -85,7 +87,9 @@ class VGG_19(Model):
         Args:
             key: the key of the layer to get the output of
 
-        Returns: the output of the layer in question
+        Returns:
+            the output of the layer in question
+
         """
         return self.output_tensors[key]
 
@@ -116,17 +120,19 @@ class VGG_19(Model):
 
     def _build_input_block(self) -> Tensor:
         """
-        Build and return the input block for the network
+        Build and return the input block for the network.
 
-        Returns: a tensor representing the network up to the input blocks
+        Returns:
+            a tensor representing the network up to the input blocks
+
         """
-        # make sure the channel format is setup correctly (tensorflow)
+        # make sure the channel format is setup correctly (TensorFlow)
         if K.image_data_format() != 'channels_last':
             raise ValueError('image_data_format should be: "channels_last"')
 
         # if classification, the shape is predefined (assume RGB channels)
         if self.include_top:
-            # the default size for imagenet images (224x224 RGB)
+            # the default size for ImageNet images (224 x 224 x RGB)
             input_shape = (224, 224, 3)
         # no input_shape provided, image synthesis or feature extraction
         else:
@@ -138,10 +144,10 @@ class VGG_19(Model):
             # no input tensor specified, build a new one with the given shape
             return Input(shape=input_shape)
         elif not K.is_keras_tensor(self.input_tensor):
-            # tensor provided, but not a keras tensor, convert to keras tensor
+            # tensor provided, but not a Keras tensor, convert to Keras tensor
             return Input(tensor=self.input_tensor, shape=input_shape)
         else:
-            # already a keras tensor / input layer. return as is
+            # already a Keras tensor / input layer. return as is
             return self.input_tensor
 
     def _build_main_blocks(self, x: Tensor) -> Tensor:
@@ -151,7 +157,9 @@ class VGG_19(Model):
         Args:
             x: the input blocks of the network
 
-        Returns: a tensor representing the network up to the main blocks
+        Returns:
+            a tensor representing the network up to the main blocks
+
         """
         # setup the pooling layer initializer
         if self.pooling == 'avg':
@@ -194,7 +202,9 @@ class VGG_19(Model):
         Args:
             x: the existing layers in the model to build onto
 
-        Returns: a tensor representing the network up to the output blocks
+        Returns:
+            a tensor representing the network up to the output blocks
+
         """
         # check if the model is using the fully connected layers and build if
         # it is using them.

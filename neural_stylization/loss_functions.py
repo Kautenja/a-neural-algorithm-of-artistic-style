@@ -18,26 +18,24 @@ def content_loss(content, combination):
     return 0.5 * K.sum(K.square(combination - content))
 
 
-def gram(matrix):
+def gram(x):
     """
     Return a gram matrix for the given input matrix.
 
     Args:
-        matrix: the matrix to calculate the gram matrix of
+        x: the matrix to calculate the gram matrix of
 
-    Returns: the gram matrix of `matrix`
+    Returns:
+        the gram matrix of x
 
     """
     # flatten the 3D tensor by converting each filter's 2D matrix of points
     # to a vector. thus we have the matrix:
     # [filter_width x filter_height, num_filters]
-    g = K.reshape(matrix, (matrix.shape[0] * matrix.shape[1], matrix.shape[2]))
+    F = K.reshape(x, (x.shape[0] * x.shape[1], x.shape[2]))
     # take inner product over all the vectors to produce the Gram matrix over
     # the number of filters
-    g = K.dot(K.transpose(g), g)
-    # TODO: test this with an image that is taller than wider to ensure the
-    # directionality of the dot operation translates
-    return g
+    return K.dot(K.transpose(F), F)
 
 
 def style_loss(style, combination):
@@ -53,14 +51,14 @@ def style_loss(style, combination):
 
     """
     # M_l is the width times the height of the current layer
-    Ml_2 = int(style.shape[0] * style.shape[1])**2
+    Ml2 = int(style.shape[0] * style.shape[1])**2
     # N_l is the number of distinct filters in the layer
-    Nl_2 = int(style.shape[2])**2
+    Nl2 = int(style.shape[2])**2
 
     # take the squared euclidean distance between the gram matrices of both
     # the style and combination image. divide by the constant scaling factor
     # based on parameterized sizes
-    return K.sum(K.square(gram(style) - gram(combination))) / (4 * Nl_2 * Ml_2)
+    return K.sum(K.square(gram(style) - gram(combination))) / (4 * Nl2 * Ml2)
 
 
 __all__ = ['content_loss', 'style_loss']
