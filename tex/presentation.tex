@@ -104,7 +104,7 @@
     \end{figure}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{VGG19}
 \begin{figure}[H]
 \centering
 \caption{VGG19 Image Classification Architecture}
@@ -112,7 +112,7 @@
 \end{figure}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{VGG19}
 \begin{figure}[H]
 \centering
 \caption{VGG19 Image Feature Extraction Architecture}
@@ -120,7 +120,7 @@
 \end{figure}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{VGG19}
 \begin{figure}[H]
 \centering
 \caption{Gatys et al. VGG19 Image Synthesis Architecture}
@@ -452,35 +452,81 @@ of $\alpha / \beta \in [5*10^{-4}, 5*10^{-3}]$.
 \end{figure}
 \end{frame}
 
-% 4 pane with the 4 stylized artworks
+% picture of Tubingen, the content image p
 \begin{frame}{Style Transfer}
+\begin{figure}[H]
+\centering
+\caption{Content Image \textbf{p}, Tubingen Germany}
+\includegraphics[width=\textwidth]{img/content/tubingen}
+\end{figure}
+\end{frame}
+
+% 4 pane with the 4 Artworks for stylization
+\begin{frame}{Style Transfer}
+\begin{figure}
+\centering
+\caption{Artwork Image \textbf{a}}
 \FourQuad{
     \begin{figure}[ht]
     \centering
     \caption*{The Shipwreck of the Minotaur}
-    \includegraphics[width=0.8\textwidth]{img/transfer/shipwreck}
+    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/artworks/shipwreck}
     \end{figure}
 }{
 \vfill
     \begin{figure}[ht]
     \centering
     \caption*{The Starry Night}
-    \includegraphics[width=0.8\textwidth]{img/transfer/starry-starry-night}
+    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/artworks/starry-starry-night}
     \end{figure}
 }{
     \begin{figure}[ht]
     \centering
-    \caption*{Seated Nudes}
-    \includegraphics[width=0.8\textwidth]{img/transfer/seated-nudes}
+    \caption*{Seated Nude}
+    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/artworks/seated-nude}
     \end{figure}
 }{
     \begin{figure}[ht]
     \centering
     \caption*{The Scream}
-    \includegraphics[width=0.8\textwidth]{img/transfer/scream}
+    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/artworks/scream}
     \end{figure}
 }
+\end{figure}
 \end{frame}
 
+% 4 pane with the 4 stylized artworks
+\begin{frame}{Style Transfer}
+\begin{figure}
+\centering
+\caption{Stylized Image \textbf{x}}
+\FourQuad{
+    \begin{figure}[ht]
+    \centering
+    \caption*{The Shipwreck of the Minotaur}
+    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/transfer/shipwreck}
+    \end{figure}
+}{
+\vfill
+    \begin{figure}[ht]
+    \centering
+    \caption*{The Starry Night}
+    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/transfer/starry-starry-night}
+    \end{figure}
+}{
+    \begin{figure}[ht]
+    \centering
+    \caption*{Seated Nude}
+    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/transfer/seated-nudes}
+    \end{figure}
+}{
+    \begin{figure}[ht]
+    \centering
+    \caption*{The Scream}
+    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/transfer/scream}
+    \end{figure}
+}
+\end{figure}
+\end{frame}
 
 \end{document}
