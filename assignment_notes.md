@@ -3,8 +3,8 @@
 -   implementation
 -   demo
 -   review
-  -   pros and cons
-  -   opinions vs. claims
+    -   pros and cons
+    -   opinions vs. claims
   
 # Suggestions
 
