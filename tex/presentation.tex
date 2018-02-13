@@ -39,7 +39,7 @@
     \vfill
     \end{frame}
 }
-\title{A Neural Algorithm of Artistic Style \\ { \tiny Leon A. Gatys, Alexander S. Ecker, Matthias Bethge}}
+\title{A Neural Algorithm of Artistic Style \\ { \tiny \citeA{gatys2016image}}}
 \author{Behnam Rasoolian, Christian Kauten}
 \institute{Auburn University}
 \definecolor{auburn_orange}{RGB}{221, 85, 12}
@@ -77,6 +77,53 @@
 }
 
 \frame{\titlepage}
+\begin{frame}{Introduction}
+    \begin{itemize}
+    \item[] It is a variation of texture transfer problem:\\
+    Given a source image, synthesize a new texture which preserves the
+    semantic content of the original image.
+    \item[] Inputs:
+        \begin{enumerate}
+            \item An input image that represents the content
+            \item A work of art that represents the style
+        \end{enumerate}
+    \item[] Output:
+        \begin{enumerate}
+            \item A new image that is perceptually similar in style to
+            the work of art and in content to the original image.
+        \end{enumerate}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Literature Review}
+    Comparable to generative Adversarial 
+    Networks \cite{dosovitskiy2016generating}. 
+    \begin{itemize}
+        \item Trains a generative network
+            that does image generation.
+        \item Solves a different problem:
+            \begin{itemize}
+                \item[] Input: Image category
+                \item[] Output: an image that looks like
+            the items in that category.
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+\begin{frame}{Approach in this paper}
+    \begin{enumerate}
+        \item Pick an already trained CNN, in this
+            case, VGG19.
+        \item Train a white noise image based on a
+            loss function that captures the content of 
+            them image.
+        \item Train a second white noise image
+            based on another loss function that
+            aims at capturing the style of the
+            image
+        \item Linearly combine the two images to
+            generate the output.
+    \end{enumerate}
+\end{frame}
 
 \begin{frame}{Notations}
     \begin{itemize}
@@ -107,24 +154,24 @@
 \begin{frame}{VGG19}
 \begin{figure}[H]
 \centering
-\caption{VGG19 Image Classification Architecture}
 \includegraphics[width=\textwidth]{img/vgg19/classification}
+\caption{VGG19 Image Classification Architecture}
 \end{figure}
 \end{frame}
 
 \begin{frame}{VGG19}
 \begin{figure}[H]
 \centering
+\includegraphics[width=.9\textwidth]{img/vgg19/feature-extraction}
 \caption{VGG19 Image Feature Extraction Architecture}
-\includegraphics[width=\textwidth]{img/vgg19/feature-extraction}
 \end{figure}
 \end{frame}
 
 \begin{frame}{VGG19}
 \begin{figure}[H]
 \centering
+\includegraphics[width=.9\textwidth]{img/vgg19/synthesis}
 \caption{Gatys et al. VGG19 Image Synthesis Architecture}
-\includegraphics[width=\textwidth]{img/vgg19/synthesis}
 \end{figure}
 \end{frame}
 
@@ -177,15 +224,16 @@
 \begin{frame}{Content Reconstruction}
 \begin{figure}[ht]
 \centering
+\includegraphics[width=0.8\textwidth]{img/vgg19/content/block1_conv1}
 \caption{Block 1 Conv 1}
-\includegraphics[width=0.9\textwidth]{img/vgg19/content/block1_conv1}
 \end{figure}
 \end{frame}
+
 \begin{frame}{Content Reconstruction}
 \begin{figure}[ht]
 \centering
+\includegraphics[width=.9\textwidth]{img/content/block1_conv1.png}
 \caption{Block 1 Conv 1}
-\includegraphics[width=\textwidth]{img/content/block1_conv1.png}
 \end{figure}
 \end{frame}
 
@@ -193,15 +241,15 @@
 \begin{frame}{Content Reconstruction}
 \begin{figure}[ht]
 \centering
-\caption{Block 2 Conv 1}
 \includegraphics[width=0.9\textwidth]{img/vgg19/content/block2_conv1}
+\caption{Block 2 Conv 1}
 \end{figure}
 \end{frame}
 \begin{frame}{Content Reconstruction}
 \begin{figure}[ht]
 \centering
+\includegraphics[width=.9\textwidth]{img/content/block2_conv1.png}
 \caption{Block 2 Conv 1}
-\includegraphics[width=\textwidth]{img/content/block2_conv1.png}
 \end{figure}
 \end{frame}
 
@@ -209,15 +257,15 @@
 \begin{frame}{Content Reconstruction}
 \begin{figure}[ht]
 \centering
-\caption{Block 3 Conv 1}
 \includegraphics[width=0.9\textwidth]{img/vgg19/content/block3_conv1}
+\caption{Block 3 Conv 1}
 \end{figure}
 \end{frame}
 \begin{frame}{Content Reconstruction}
 \begin{figure}[ht]
 \centering
-\caption{Block 3 Conv 1}
 \includegraphics[width=\textwidth]{img/content/block3_conv1.png}
+\caption{Block 3 Conv 1}
 \end{figure}
 \end{frame}
 
@@ -225,15 +273,15 @@
 \begin{frame}{Content Reconstruction}
 \begin{figure}[ht]
 \centering
-\caption{Block 4 Conv 1}
 \includegraphics[width=0.9\textwidth]{img/vgg19/content/block4_conv1}
+\caption{Block 4 Conv 1}
 \end{figure}
 \end{frame}
 \begin{frame}{Content Reconstruction}
 \begin{figure}[ht]
 \centering
-\caption{Block 4 Conv 1}
 \includegraphics[width=\textwidth]{img/content/block4_conv1.png}
+\caption{Block 4 Conv 1}
 \end{figure}
 \end{frame}
 
@@ -527,6 +575,11 @@ of $\alpha / \beta \in [5*10^{-4}, 5*10^{-3}]$.
     \end{figure}
 }
 \end{figure}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{References}
+    \bibliographystyle{apacite}
+    \bibliography{references}
 \end{frame}
 
 \end{document}
