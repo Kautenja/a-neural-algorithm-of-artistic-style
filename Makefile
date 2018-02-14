@@ -24,6 +24,15 @@ presentation: build
 	cd tex && pdflatex presentation
 	cp tex/presentation.pdf ${BUILD}
 
+# make the presentation using bibtex to compile references
+presentation_w_ref: build
+	cd tex && \
+		${PDFLATEX} presentation && \
+		${BIBTEX} presentation && \
+		${PDFLATEX} presentation && \
+		${PDFLATEX} presentation
+	cp tex/presentation.pdf ${BUILD}
+
 # make the report without references
 report: build
 	cd tex && ${PDFLATEX} report
