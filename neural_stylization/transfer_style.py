@@ -56,6 +56,7 @@ class Stylizer(object):
         self.content_weight = content_weight
         self.style_layer_names = style_layer_names
         self.style_weight = style_weight
+        self.total_variation_weight = total_variation_weight
 
     def __repr__(self) -> str:
         """Return an executable string representation of this object."""
