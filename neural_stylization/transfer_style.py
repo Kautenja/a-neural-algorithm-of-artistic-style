@@ -9,7 +9,7 @@ from .util.img_util import denormalize
 from .util.img_util import load_image
 from .util.img_util import image_to_matrix
 from .util.img_util import matrix_to_image
-from .loss_functions import content_loss, style_loss
+from .loss_functions import content_loss, style_loss, total_variation_loss
 
 
 # the template for the class's __repr__ method
@@ -34,7 +34,8 @@ class Stylizer(object):
                     'block4_conv1',
                     'block5_conv1'
                  ],
-                 style_weight: float=10000.0) -> None:
+                 style_weight: float=10000.0,
+                 total_variation_weight: float=0.0) -> None:
         """
         Initialize a new neural stylization algorithm.
 
@@ -43,6 +44,8 @@ class Stylizer(object):
             content_weight: the weight to attribute to content loss
             style_layer_names: the names of the layers to extract style from
             style_weight: the weight to attribute to style loss
+            total_variation_weight: the amount of total variation denoising to
+                apply to the synthetic images
 
         Returns:
             None
@@ -163,6 +166,12 @@ class Stylizer(object):
             # Apply the weighting for the layer by averaging against the total
             # layers and applying the style weight (beta)
             loss = loss + sl * self.style_weight / len(self.style_layer_names)
+
+        # TOTAL VARIATION LOSS
+        # Gatys et al. don't use the total variation de-noising in their paper
+        # (or at least they never mention it) so the weight is 0.0 by
+        # default, but can be applied if desired
+        loss = loss + self.total_variation_weight * total_variation_loss(canvas)
 
         # GRADIENTS
         # calculate the gradients of the input image with respect to
