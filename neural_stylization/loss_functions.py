@@ -61,4 +61,40 @@ def style_loss(style, combination):
     return K.sum(K.square(gram(style) - gram(combination))) / (4 * Nl2 * Ml2)
 
 
-__all__ = ['content_loss', 'style_loss']
+def total_variation_loss(x, kind='isotropic'):
+    """
+    Return the total variation loss for the image x.
+
+    Args:
+        x: the image tensor to return the variation loss of
+        kind: the kind of total variation loss to use (default 'anisotropic')
+
+    Returns:
+        the total variation loss of the image x
+
+    """
+    # store the dimensions for indexing from the image x
+    h, w = x.shape[1], x.shape[2]
+    if kind == 'anisotropic':
+        # take the absolute value between this image, and the image one pixel
+        # down, and one pixel to the right. take the absolute value as
+        # specified by anisotropic loss
+        a = K.abs(x[:, :h-1, :w-1, :] - x[:, 1:, :w-1, :])
+        b = K.abs(x[:, :h-1, :w-1, :] - x[:, :h-1, 1:, :])
+        # add up all the differences
+        return K.sum(a + b)
+    elif kind == 'isotropic':
+        # take the absolute value between this image, and the image one pixel
+        # down, and one pixel to the right. take the square root as specified
+        # by isotropic loss
+        a = K.square(x[:, :h-1, :w-1, :] - x[:, 1:, :w-1, :])
+        b = K.square(x[:, :h-1, :w-1, :] - x[:, :h-1, 1:, :])
+        # take the vector square root of all the pixel differences, then sum
+        # them all up
+        return K.sum(K.pow(a + b, 2))
+    else:
+        # kind can only be two values, raise an error on unexpected kind value
+        raise ValueError("`kind` should be 'anisotropic' or 'isotropic'")
+
+
+__all__ = ['content_loss', 'style_loss', 'total_variation_loss']
