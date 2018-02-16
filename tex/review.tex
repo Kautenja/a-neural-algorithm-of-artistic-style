@@ -5,12 +5,13 @@
 % to compile a camera-ready version, add the [final] option, e.g.:
 \usepackage[final]{nips_2017}
 
-\usepackage[utf8]{inputenc} 
-\usepackage[T1]{fontenc}    
-\usepackage[pagebackref=true]{hyperref}    
-\usepackage{url}            
-\usepackage{nicefrac}      
-\usepackage{microtype}   
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[pagebackref=true]{hyperref}
+\usepackage{url}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage[nolist,nohyperlinks]{acronym}
 
 %% Import general packages
 \usepackage{
@@ -43,7 +44,80 @@
 \hypertarget{paper-summary}{%
 \section{Paper Summary}\label{paper-summary}}
 
-\cite{gatys2016image}
+In their arXiv preprint, \textit{A Neural Algorithm of Artistic Style},
+\cite{gatys2016image} prove a level of separability between the
+\textit{content} of an image, and the \textit{style} that characterizes it.
+Using a \ac{CNN} trained to classify images on the ImageNet benchmark, they
+transfer the style of famous works of art, onto the content of arbitrary
+photographs. To do so, they define loss functions between the activation maps
+of various layers in the network that measure either content, or style loss.
+Minimizing the joint loss between a white noise image $\textbf{x}$ and both a
+content image $\textbf{p}$ and style image $\textbf{a}$ transfers the global
+features of $\textbf{p}$, with the local styles of $\textbf{a}$ onto the white
+noise image $\textbf{x}$. Put simply, their algorithm paints photographs using
+arbitrary works of art as a palette.
+
+\subsection{Representation}
+
+\subsubsection{Content}
+
+This work relies heavily on the understanding of convolutional layers. As a
+collection of image filters, each layer extracts unique features from its
+input image. As such, \cite{gatys2016image} postulate that as the layer depth
+increases, the network cares more about the \textit{content} of the image.
+That is to say, deeper layers have a more specific understanding of what
+composes an image, whereas the shallower layers primarily understand the image
+as raw pixels. This leads to their definition of
+\textit{content representation} as the activations from deep layers in the
+network.
+
+To objectively measure the difference of content between two images,
+\cite{gatys2016image} define a loss function $\mathcal{L}_{content}$. Given a
+content image $\textbf{p}$, a white noise image $\textbf{x}$, and an arbitrary
+layer $l$, the activations at $l$ for $\textbf{p}$ and $\textbf{x}$ are
+defined as $P^l$ and $F^l$ respectively. The $\mathcal{L}_{content}$ loss then
+is the squared euclidean distance between $P^l$ and $F^l$:
+
+% TODO: note the M_l and N_l variables in the above paragraph
+\begin{equation}
+\mathcal{L}_{content}(\mathbf{p}, \mathbf{x}, l) =
+\frac{1}{2} \sum_{i=1}^{N_l}\sum_{j=1}^{M_l}{(F^l_{ij} - P^l_{ij})^2}
+\end{equation}
+
+\subsubsection{Style}
+
+Much like the content representation, style representation relies on the
+feature responses of particular layers in the \ac{CNN}. However, this
+representation uses a different feature space. Converting each activation
+map to a \textit{gram matrix}, allows the extraction of just the
+\textit{texture} from a given image. It does so by computing the correlations
+between different filters in an arbitrary convolutional layer $l$. More
+simply, the gram matrix $G^l$ for an activation map $F^l$ is the inner product
+of feature maps:
+
+\begin{equation}
+G_{i j}^l = \sum_{k}^{M_l} F_{i k}^l F_{j k}^l
+\end{equation}
+
+With a new feature space representation of raw texture, \cite{gatys2016image}
+define an additional loss function $\mathcal{L}_{style}$ between an artwork
+image $\textbf{a}$, and a white noise image $\textbf{x}$ for some
+convolutional layer $l$. First, the activations at $l$ for $\textbf{a}$ and
+$\textbf{x}$ are transformed to their respective gram matrices $A^l$, and
+$G^l$. Then, much like the content loss, we define $\mathcal{L}_{style}$ as
+the squared euclidean distance between the gram matrices $A^l$, and $G^l$:
+
+\begin{equation}
+E_l =
+\frac{1}{4 N_l^2 M_l^2}
+\sum_{i=1}^{N_l}\sum_{j=1}^{M_l}
+(G^l_{ij} - A^l_{ij})^2
+\end{equation}
+
+\begin{equation}
+\mathcal{L}_{style}(\mathbf{a}, \mathbf{x}, l) = \sum_{l=0}^L w_l E_l
+\end{equation}
+
 
 \hypertarget{strengths}{%
 \section{Strengths}\label{strengths}}
@@ -59,5 +133,10 @@
 
 \bibliographystyle{my-unsrtnat}
 \bibliography{references}
+
+% a collection of Acronyms
+\begin{acronym}
+\acro{CNN}{Convolutional Neural Network}
+\end{acronym}
 
 \end{document}
