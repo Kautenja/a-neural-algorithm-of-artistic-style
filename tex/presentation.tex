@@ -1,4 +1,5 @@
 \documentclass{beamer}
+\usepackage{amsmath}
 \usepackage{apacite}
 \usepackage{caption}
 \usepackage[font=small, labelfont=bf]{subcaption}
@@ -20,7 +21,7 @@
     \usetikzlibrary{shadows.blur}
     \usetikzlibrary{shapes.symbols}
 
-% a new command for a four quadrant slide
+% a new command for a four quadrant slide mardas
 \newcommand\FourQuad[4]{%
     \begin{minipage}[b][.35\textheight][t]{.47\textwidth}#1\end{minipage}\hfill%
     \begin{minipage}[b][.35\textheight][t]{.47\textwidth}#2\end{minipage}\\[0.5em]
@@ -155,7 +156,7 @@
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{img/vgg19/classification}
-\caption{VGG19 Image Classification Architecture}
+\caption*{VGG19 Image Classification Architecture}
 \end{figure}
 \end{frame}
 
@@ -163,7 +164,7 @@
 \begin{figure}[H]
 \centering
 \includegraphics[width=.9\textwidth]{img/vgg19/feature-extraction}
-\caption{VGG19 Image Feature Extraction Architecture}
+\caption*{VGG19 Image Feature Extraction Architecture}
 \end{figure}
 \end{frame}
 
@@ -171,7 +172,7 @@
 \begin{figure}[H]
 \centering
 \includegraphics[width=.9\textwidth]{img/vgg19/synthesis}
-\caption{Gatys et al. VGG19 Image Synthesis Architecture}
+\caption*{Gatys et al. VGG19 Image Synthesis Architecture}
 \end{figure}
 \end{frame}
 
@@ -208,13 +209,13 @@
 \begin{figure}[ht]
     \begin{minipage}[b]{0.45\linewidth}
         \centering
-        \caption{white noise image $\mathbf{x}$}
+        \caption*{white noise image $\mathbf{x}$}
         \includegraphics[width=\textwidth]{img/content/noise}
     \end{minipage}
     \hspace{0.5cm}
     \begin{minipage}[b]{0.45\linewidth}
         \centering
-        \caption{content image $\mathbf{p}$}
+        \caption*{content image $\mathbf{p}$}
         \includegraphics[width=\textwidth]{img/content/tubingen}
     \end{minipage}
 \end{figure}
@@ -225,7 +226,7 @@
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.8\textwidth]{img/vgg19/content/block1_conv1}
-\caption{Block 1 Conv 1}
+\caption*{Block 1 Conv 1}
 \end{figure}
 \end{frame}
 
@@ -233,7 +234,7 @@
 \begin{figure}[ht]
 \centering
 \includegraphics[width=.9\textwidth]{img/content/block1_conv1.png}
-\caption{Block 1 Conv 1}
+\caption*{Block 1 Conv 1}
 \end{figure}
 \end{frame}
 
@@ -242,14 +243,14 @@
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.9\textwidth]{img/vgg19/content/block2_conv1}
-\caption{Block 2 Conv 1}
+\caption*{Block 2 Conv 1}
 \end{figure}
 \end{frame}
 \begin{frame}{Content Reconstruction}
 \begin{figure}[ht]
 \centering
 \includegraphics[width=.9\textwidth]{img/content/block2_conv1.png}
-\caption{Block 2 Conv 1}
+\caption*{Block 2 Conv 1}
 \end{figure}
 \end{frame}
 
@@ -258,14 +259,14 @@
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.9\textwidth]{img/vgg19/content/block3_conv1}
-\caption{Block 3 Conv 1}
+\caption*{Block 3 Conv 1}
 \end{figure}
 \end{frame}
 \begin{frame}{Content Reconstruction}
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{img/content/block3_conv1.png}
-\caption{Block 3 Conv 1}
+\caption*{Block 3 Conv 1}
 \end{figure}
 \end{frame}
 
@@ -274,14 +275,14 @@
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.9\textwidth]{img/vgg19/content/block4_conv1}
-\caption{Block 4 Conv 1}
+\caption*{Block 4 Conv 1}
 \end{figure}
 \end{frame}
 \begin{frame}{Content Reconstruction}
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{img/content/block4_conv1.png}
-\caption{Block 4 Conv 1}
+\caption*{Block 4 Conv 1}
 \end{figure}
 \end{frame}
 
@@ -289,14 +290,14 @@
 \begin{frame}{Content Reconstruction}
 \begin{figure}[ht]
 \centering
-\caption{Block 5 Conv 1}
+\caption*{Block 5 Conv 1}
 \includegraphics[width=0.9\textwidth]{img/vgg19/content/block5_conv1}
 \end{figure}
 \end{frame}
 \begin{frame}{Content Reconstruction}
 \begin{figure}[ht]
 \centering
-\caption{Block 5 Conv 1}
+\caption*{Block 5 Conv 1}
 \includegraphics[width=\textwidth]{img/content/block5_conv1.png}
 \end{figure}
 \end{frame}
@@ -372,13 +373,13 @@ The total style loss is:
 \begin{figure}[ht]
     \begin{minipage}[b]{0.45\linewidth}
         \centering
-        \caption{white noise image $\mathbf{x}$}
+        \caption*{white noise image $\mathbf{x}$}
         \includegraphics[width=\textwidth]{img/style/noise.png}
     \end{minipage}
     \hspace{0.5cm}
     \begin{minipage}[b]{0.45\linewidth}
         \centering
-        \caption{artwork image $\mathbf{a}$}
+        \caption*{artwork image $\mathbf{a}$}
         \includegraphics[width=\textwidth]{img/style/starry_night.png}
     \end{minipage}
 \end{figure}
@@ -388,14 +389,14 @@ The total style loss is:
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
 \centering
-\caption{Conv 1 of Block 1}
+\caption*{Conv 1 of Block 1}
 \includegraphics[width=0.9\textwidth]{img/vgg19/style/block1_conv1}
 \end{figure}
 \end{frame}
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
 \centering
-\caption{Conv 1 of Block 1}
+\caption*{Conv 1 of Block 1}
 \includegraphics[width=\textwidth]{img/style/block1_conv1.png}
 \end{figure}
 \end{frame}
@@ -404,14 +405,14 @@ The total style loss is:
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
 \centering
-\caption{Conv 1 of Block 1, 2}
+\caption*{Conv 1 of Block 1, 2}
 \includegraphics[width=0.9\textwidth]{img/vgg19/style/block2_conv1}
 \end{figure}
 \end{frame}
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
 \centering
-\caption{Conv 1 of Block 1, 2}
+\caption*{Conv 1 of Block 1, 2}
 \includegraphics[width=\textwidth]{img/style/block2_conv1.png}
 \end{figure}
 \end{frame}
@@ -420,14 +421,14 @@ The total style loss is:
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
 \centering
-\caption{Conv 1 of Block 1, 2, 3}
+\caption*{Conv 1 of Block 1, 2, 3}
 \includegraphics[width=0.9\textwidth]{img/vgg19/style/block3_conv1}
 \end{figure}
 \end{frame}
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
 \centering
-\caption{Conv 1 of Block 1, 2, 3}
+\caption*{Conv 1 of Block 1, 2, 3}
 \includegraphics[width=\textwidth]{img/style/block3_conv1.png}
 \end{figure}
 \end{frame}
@@ -436,14 +437,14 @@ The total style loss is:
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
 \centering
-\caption{Conv 1 of Block 1, 2, 3, 4}
+\caption*{Conv 1 of Block 1, 2, 3, 4}
 \includegraphics[width=0.9\textwidth]{img/vgg19/style/block4_conv1}
 \end{figure}
 \end{frame}
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
 \centering
-\caption{Conv 1 of Block 1, 2, 3, 4}
+\caption*{Conv 1 of Block 1, 2, 3, 4}
 \includegraphics[width=\textwidth]{img/style/block4_conv1.png}
 \end{figure}
 \end{frame}
@@ -452,14 +453,14 @@ The total style loss is:
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
 \centering
-\caption{Conv 1 of Block 1, 2, 3, 4, 5}
+\caption*{Conv 1 of Block 1, 2, 3, 4, 5}
 \includegraphics[width=0.9\textwidth]{img/vgg19/style/block5_conv1}
 \end{figure}
 \end{frame}
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
 \centering
-\caption{Conv 1 of Block 1, 2, 3, 4, 5}
+\caption*{Conv 1 of Block 1, 2, 3, 4, 5}
 \includegraphics[width=\textwidth]{img/style/block5_conv1.png}
 \end{figure}
 \end{frame}
@@ -480,14 +481,55 @@ $L_{style}$:
 
 where $\alpha$ and $\beta$ are the arbitrary weighting factors of the content
 and style loss respectively. Gatys et al. find the best results using a ratio
-of $\alpha / \beta \in [5*10^{-4}, 5*10^{-3}]$.
+of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
 \end{frame}
 
+\begin{frame}[allowframebreaks]{Note on Optimization methods}
+
+    \begin{center} 
+        $\mathbf{g}_k = \nabla f_{\theta}(\theta_k) $ \hspace{10mm}
+        $\mathbf{H}_k = \nabla^{2} f_{\theta}(\theta_k)$
+    \end{center}
+
+    \textbf{Methods}:
+    \begin{enumerate}
+        \item \textbf{Gradient}: $\boldsymbol{\theta}_{k+1} = 
+            \boldsymbol{\theta}_k - \eta_k \mathbf{g}_k$
+        \item \textbf{Hessian}: $\boldsymbol{\theta}_{k+1} = \boldsymbol{\theta}_k - d_k$
+            where $\mathbf{d}_k = \mathbf{H}_k^{-1} \mathbf{g}_k$ \\
+            Rather than computing $\mathbf{d}_k = \mathbf{H}_k^{-1} \mathbf{g}_k$ directly,
+            we can solve the linear systems of equations 
+            $\mathbf{H}_k \mathbf{d}_k = -\mathbf{g}_k$ for $\mathbf{d}_k$.
+    \end{enumerate}
+    \newpage
+    \begin{center}
+        $\mathbf{s}_k = \mathbf {x} _{k+1}-\mathbf {x} _{k}$ and 
+    \end{center}
+    However calculating $H^{-1}_k$ is extensive both in terms of computation and
+    memory. Approximation methods have been proposed:
+    \begin{enumerate}
+        \item Imposing quasi-newtonian condition: \\
+            $H_{k+1}(\mathbf{s}_k)=y_k$\\
+            and $\mathbf{y}_k = \nabla f(\mathbf {x} _{k+1})-
+            \nabla f(\mathbf {x} _{k})
+            = \mathbf{g}_{k+1} - \mathbf{g}_{k}$. \\
+        \item \textbf{BFGS}: After some math magic we have:
+            $H_{k+1}=H_{k}+{\frac {\mathbf {y} _{k}\mathbf {y} _{k}
+            ^{\mathrm {T} }}{\mathbf {y} _{k}^{\mathrm {T} }
+            \mathbf {s} _{k}}}-{\frac {H_{k}\mathbf {s} _{k}\mathbf {s} _{k}^
+            {\mathrm {T} }H_{k}^{\mathrm {T} }}{\mathbf {s} _{k}^
+            {\mathrm {T} }H_{k}\mathbf {s} _{k}}}$\\
+            $H^{-1}_{k+1}=(I-\rho _{k}s_{k}y_{k}^{\top })
+            H^{-1}_{k}(I-\rho _{k}y_{k}s_{k}^{\top })+\rho _{k}s_{k}s_{k}^{\top }$\\
+            where $\rho_k = \rho_k = \frac{1}{y^{\rm T}_k s_k} $.
+    \end{enumerate}
+
+\end{frame}
 % VGG19 for style transfer
 \begin{frame}{Style Transfer}
 \begin{figure}[ht]
 \centering
-\caption{Content and Style Loss Layers for Style Transfer}
+\caption*{Content and Style Loss Layers for Style Transfer}
 \includegraphics[width=0.9\textwidth]{img/vgg19/transfer/layers}
 \end{figure}
 \end{frame}
@@ -495,7 +537,7 @@ of $\alpha / \beta \in [5*10^{-4}, 5*10^{-3}]$.
 \begin{frame}{Style Transfer}
 \begin{figure}[ht]
 \centering
-\caption{Style Transfer Architecture}
+\caption*{Style Transfer Architecture}
 \includegraphics[width=\textwidth]{img/style-transfer}
 \end{figure}
 \end{frame}
@@ -504,7 +546,7 @@ of $\alpha / \beta \in [5*10^{-4}, 5*10^{-3}]$.
 \begin{frame}{Style Transfer}
 \begin{figure}[H]
 \centering
-\caption{Content Image \textbf{p}, Tubingen Germany}
+\caption*{Content Image \textbf{p}, Tubingen Germany}
 \includegraphics[width=\textwidth]{img/content/tubingen}
 \end{figure}
 \end{frame}
@@ -513,7 +555,7 @@ of $\alpha / \beta \in [5*10^{-4}, 5*10^{-3}]$.
 \begin{frame}{Style Transfer}
 \begin{figure}
 \centering
-\caption{Artwork Image \textbf{a}}
+\caption*{Artwork Image \textbf{a}}
 \FourQuad{
     \begin{figure}[ht]
     \centering
@@ -547,7 +589,7 @@ of $\alpha / \beta \in [5*10^{-4}, 5*10^{-3}]$.
 \begin{frame}{Style Transfer}
 \begin{figure}
 \centering
-\caption{Stylized Image \textbf{x}}
+\caption*{Stylized Image \textbf{x}}
 \FourQuad{
     \begin{figure}[ht]
     \centering
