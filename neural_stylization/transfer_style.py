@@ -41,11 +41,11 @@ class Stylizer(object):
 
         Args:
             content_layer_name: the name of the layer to extract content from
-            content_weight: the weight to attribute to content loss
+            content_weight: the weight, alpha, to attribute to content loss
             style_layer_names: the names of the layers to extract style from
-            style_weight: the weight to attribute to style loss
-            total_variation_weight: the amount of total variation denoising to
-                apply to the synthetic images
+            style_weight: the weight, beta, to attribute to style loss
+            total_variation_weight: the amount of total variation de-noising
+                to apply to the synthetic images
 
         Returns:
             None
@@ -202,6 +202,7 @@ class Stylizer(object):
                  optimize: Callable,
                  iterations: int=10,
                  image_size: tuple=None,
+                 initialization_strat: str='noise',
                  noise_range: tuple=(0, 1),
                  callback: Callable=None) -> Image:
         """
@@ -210,10 +211,19 @@ class Stylizer(object):
         Args:
             content_path: the path to the content image to load
             style_path: the path to the style image to load
-            optimize: the black-box optimizer to use
-            iterations: the number of iterations to perform (optimization)
-            image_size: the custom size to load images if any
-            noise_range: the custom range for initializing random noise
+            optimize: the black-box optimizer to use. This is a callable
+                method conforming to the API for optimizers
+            iterations: the number of optimization iterations to perform
+            image_size: the custom size to load images with, if any. When
+                set to None, the size of the content image will be used
+            initialization_strat: the way to initialize the canvas for the
+                style transfer. Can be one of:
+                -   'noise': initialize the canvas as random noise with the
+                    given noise range for sampling pixels
+                -   'content': initialize the canvas as the content image
+                -   'style': initialize the canvas as the style image
+            noise_range: the custom range for initializing random noise. This
+                option is only used when `initialization_strat` is 'noise'.
             callback: the optional callback method for optimizer iterations
 
         Returns:
@@ -226,15 +236,48 @@ class Stylizer(object):
         model, canvas = self._build_model(content, style)
         # build the iteration function
         loss_grads = self._build_loss_grads(model, canvas)
-        # generate some white noise with the canvas shape and given noise range
-        noise = np.random.uniform(*noise_range, size=canvas.shape)
-        # optimize the white noise
-        image = optimize(noise, canvas.shape, loss_grads, iterations, callback)
-        # clear the Keras session
+
+        # setup the initial image for the optimizer
+        if initialization_strat == 'noise':
+            # generate white noise in the shape of the canvas
+            initial = np.random.uniform(*noise_range, size=canvas.shape)
+        elif initialization_strat == 'content':
+            # copy the content as the initial image
+            initial = content.copy()
+        elif initialization_strat == 'style':
+            # copy the style as the initial image
+            initial = style.copy()
+        else:
+            raise ValueError(
+                "`initialization_strat` must be one of: ",
+                " 'noise', 'content', 'style' "
+            )
+
+        # optimize the initial image into a synthetic painting. Name all args
+        # by keyword to help catch erroneous optimize callables.
+        image = optimize(
+            X=initial,
+            shape=canvas.shape,
+            loss_grads=loss_grads,
+            iterations=iterations,
+            callback=callback
+        )
+
+        # clear the Keras session (this removes the variables from memory).
         K.clear_session()
 
-        # return the optimized image
-        return matrix_to_image(denormalize(image.reshape(canvas.shape)[0]))
+        # reshape the image in case the optimizer did something funky with the
+        # shape. `denormalize` expects a vector of shape [h, w, c], but
+        # canvas has an additional dimension for frame, [frame, h, w, c]. Ss
+        # such, take the first item along the frame axis
+        image = image.reshape(canvas.shape)[0]
+        # denormalize the image about the ImageNet means. this will invert the
+        # channel dimension turning image from BGR to RGB
+        image = denormalize(image)
+        # convert the image to a binary image object to view, save, etc.
+        image = matrix_to_image(image)
+
+        return image
 
 
 __all__ = ['Stylizer']
