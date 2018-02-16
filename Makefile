@@ -33,19 +33,19 @@ presentation_w_ref: build
 		${PDFLATEX} presentation
 	cp tex/presentation.pdf ${BUILD}
 
-# make the report without references
-report: build
-	cd tex && ${PDFLATEX} report
-	cp tex/report.pdf ${BUILD}
+# make the review without references
+review: build
+	cd tex && ${PDFLATEX} review
+	cp tex/review.pdf ${BUILD}
 
-# make the report using bibtex to compile references
-report_w_ref: build
+# make the review using bibtex to compile references
+review_w_ref: build
 	cd tex && \
-		${PDFLATEX} report && \
-		${BIBTEX} report && \
-		${PDFLATEX} report && \
-		${PDFLATEX} report
-	cp tex/report.pdf ${BUILD}
+		${PDFLATEX} review && \
+		${BIBTEX} review && \
+		${PDFLATEX} review && \
+		${PDFLATEX} review
+	cp tex/review.pdf ${BUILD}
 
 # Convert the frames in a given directory to a video of the directories name
 # in its parent directory.
