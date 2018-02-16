@@ -1,7 +1,7 @@
 """A mechanism for transferring style of art to content."""
 import numpy as np
 from PIL import Image
-from typing import Callable
+from typing import Callable, List
 from keras import backend as K
 from .vgg19 import VGG_19
 from .util.img_util import normalize
@@ -17,7 +17,8 @@ TEMPLATE = """{}(
     content_layer_name={},
     content_weight={},
     style_layer_names={},
-    style_weight={}
+    style_weight={},
+    total_variation_weight={}
 )""".lstrip()
 
 
@@ -27,7 +28,7 @@ class Stylizer(object):
     def __init__(self,
                  content_layer_name: str='block4_conv2',
                  content_weight: float=1.0,
-                 style_layer_names: list=[
+                 style_layer_names: List[str]=[
                     'block1_conv1',
                     'block2_conv1',
                     'block3_conv1',
@@ -51,7 +52,46 @@ class Stylizer(object):
             None
 
         """
-        # TODO: type and value check parameters for errors
+        # get the names of the layers from the model to error check
+        layer_names = VGG_19(include_top=False).output_tensors.keys()
+
+        # type and value check: content_layer_name
+        if not isinstance(content_layer_name, str):
+            raise TypeError('`content_layer_name` must be of type: str')
+        if content_layer_name not in layer_names:
+            raise ValueError(
+                '`content_layer_name` must be a layer name in VGG_19'
+            )
+
+        # type and value check: content_weight
+        if not isinstance(content_weight, (int, float)):
+            raise TypeError('`content_weight` must be of type: int or float')
+        if content_weight < 0:
+            raise ValueError('`content_weight` must be >= 0')
+
+        # type and value check: content_layer_name
+        if not isinstance(style_layer_names, list):
+            raise TypeError('`style_layer_names` must be of type: list')
+        if any([layer not in layer_names for layer in style_layer_names]):
+            raise ValueError(
+                '`style_layer_names` must be a list of layer names in VGG_19'
+            )
+
+        # type and value check: style_weight
+        if not isinstance(style_weight, (int, float)):
+            raise TypeError('`style_weight` must be of type: int or float')
+        if style_weight < 0:
+            raise ValueError('`style_weight` must be >= 0')
+
+        # type and value check: total_variation_weight
+        if not isinstance(total_variation_weight, (int, float)):
+            raise TypeError(
+                '`total_variation_weight` must be of type: int or float'
+            )
+        if total_variation_weight < 0:
+            raise ValueError('`total_variation_weight` must be >= 0')
+
+        # assign the validated arguments to self
         self.content_layer_name = content_layer_name
         self.content_weight = content_weight
         self.style_layer_names = style_layer_names
@@ -65,7 +105,8 @@ class Stylizer(object):
             repr(self.content_layer_name),
             self.content_weight,
             self.style_layer_names,
-            self.style_weight
+            self.style_weight,
+            self.total_variation_weight
         ])
 
     @property
@@ -132,7 +173,7 @@ class Stylizer(object):
 
         return model, canvas
 
-    def _build_loss_grads(self, model, canvas) -> Callable:
+    def _build_loss_grads(self, model: VGG_19, canvas: 'Tensor') -> Callable:
         """
         Build the optimization methods for stylizing the image from a model.
 
