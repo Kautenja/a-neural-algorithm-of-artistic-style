@@ -17,6 +17,7 @@ TEMPLATE = """{}(
     content_layer_name={},
     content_weight={},
     style_layer_names={},
+    style_layer_weights={},
     style_weight={},
     total_variation_weight={}
 )""".lstrip()
@@ -35,6 +36,7 @@ class Stylizer(object):
                     'block4_conv1',
                     'block5_conv1'
                  ],
+                 style_layer_weights: List[float]=None,
                  style_weight: float=10000.0,
                  total_variation_weight: float=0.0) -> None:
         """
@@ -45,6 +47,9 @@ class Stylizer(object):
             content_weight: the weight, alpha, to attribute to content loss
             style_layer_names: the names of the layers to extract style from
             style_weight: the weight, beta, to attribute to style loss
+            style_layer_weights: the set of weights to apply to the individual
+                losses from each style layer. If None, the default is to take
+                the average, i.e. divide each by len(style_layer_names).
             total_variation_weight: the amount of total variation de-noising
                 to apply to the synthetic images
 
@@ -62,26 +67,42 @@ class Stylizer(object):
             raise ValueError(
                 '`content_layer_name` must be a layer name in VGG_19'
             )
+        self.content_layer_name = content_layer_name
 
         # type and value check: content_weight
         if not isinstance(content_weight, (int, float)):
             raise TypeError('`content_weight` must be of type: int or float')
         if content_weight < 0:
             raise ValueError('`content_weight` must be >= 0')
+        self.content_weight = content_weight
 
         # type and value check: content_layer_name
         if not isinstance(style_layer_names, list):
             raise TypeError('`style_layer_names` must be of type: list')
-        if any([layer not in layer_names for layer in style_layer_names]):
+        if not all(layer in layer_names for layer in style_layer_names):
             raise ValueError(
                 '`style_layer_names` must be a list of layer names in VGG_19'
             )
+        self.style_layer_names = style_layer_names
+
+        # type and value check: style_layer_weights
+        if style_layer_weights is not None:
+            if not isinstance(style_layer_weights, list):
+                raise TypeError(
+                    '`style_layer_weights` must be of type: None or list'
+                )
+            if not all(isinstance(w, (float, int)) for w in style_layer_weights):
+                raise ValueError(
+                    '`style_layer_weights` must be a list of numbers or None'
+                )
+        self.style_layer_weights = style_layer_weights
 
         # type and value check: style_weight
         if not isinstance(style_weight, (int, float)):
             raise TypeError('`style_weight` must be of type: int or float')
         if style_weight < 0:
             raise ValueError('`style_weight` must be >= 0')
+        self.style_weight = style_weight
 
         # type and value check: total_variation_weight
         if not isinstance(total_variation_weight, (int, float)):
@@ -90,12 +111,6 @@ class Stylizer(object):
             )
         if total_variation_weight < 0:
             raise ValueError('`total_variation_weight` must be >= 0')
-
-        # assign the validated arguments to self
-        self.content_layer_name = content_layer_name
-        self.content_weight = content_weight
-        self.style_layer_names = style_layer_names
-        self.style_weight = style_weight
         self.total_variation_weight = total_variation_weight
 
     def __repr__(self) -> str:
@@ -105,6 +120,7 @@ class Stylizer(object):
             repr(self.content_layer_name),
             self.content_weight,
             self.style_layer_names,
+            self.style_layer_weights,
             self.style_weight,
             self.total_variation_weight
         ])
