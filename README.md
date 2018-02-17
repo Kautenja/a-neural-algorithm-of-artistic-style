@@ -8,28 +8,28 @@ An **implementation** of the paper
 ## Claude Monet's _Houses of Parliament_
 
 <p float="left">
-<img src="img/styles/houses-of-parliament.jpg" width="425"/>  
+<img src="img/styles/houses-of-parliament.jpg" width="375"/>  
 <img src="tex/img/transfer/houses-of-parliament-tv-1e0.png" width="425"/> 
-</p>
-
-## Edvard Munch's _The Scream_
-
-<p float="left">
-<img src="img/styles/the-scream.jpg" width="425"/>  
-<img src="tex/img/transfer/the-scream.png" width="425"/> 
 </p>
 
 ## Pablo Picasso's _Seated Nude_
 
 <p float="left">
-<img src="img/styles/seated-nude.jpg" width="425"/>  
+<img src="img/styles/seated-nude.jpg" width="245"/>  
 <img src="tex/img/transfer/seated-nude.png" width="425"/> 
+</p>
+
+## Edvard Munch's _The Scream_
+
+<p float="left">
+<img src="img/styles/the-scream.jpg" width="250"/>  
+<img src="tex/img/transfer/the-scream.png" width="425"/> 
 </p>
 
 ## Vincent van Gogh's _The Starry Night_
 
 <p float="left">
-<img src="img/styles/the-starry-night.jpg" width="425"/>  
+<img src="img/styles/the-starry-night.jpg" width="400"/>  
 <img src="tex/img/transfer/the-starry-night.png" width="425"/> 
 </p>
 
@@ -37,7 +37,7 @@ An **implementation** of the paper
 
 <p float="left">
 <img src="img/styles/the-shipwreck-of-the-minotaur.jpg" width="425"/>  
-<img src="tex/img/transfer/the-shipwreck-of-the-minotaur.png" width="425"/> 
+<img src="tex/img/transfer/the-shipwreck-of-the-minotaur.png" width="400"/> 
 </p>
 
 ## Wassily Kandinsky's _Composition VII_
