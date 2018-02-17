@@ -1,9 +1,9 @@
 # neural stylization
 
 An **implementation** of the arXiv preprint
-[_A Neural Algorithm of Artistic Style [1]_][ref1] 
+[_A Neural Algorithm of Artistic Style [1]_](#references)
 & paper 
-[_Image Style Transfer Using Convolutional Neural Networks [2]_][ref2].
+[_Image Style Transfer Using Convolutional Neural Networks [2]_](#references).
 
 ## Original Photograph: _Tubingen, Germany_
 
