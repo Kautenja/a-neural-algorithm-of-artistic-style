@@ -1,7 +1,7 @@
 # neural stylization
 
 An **implementation** of the paper
-[_A Neural Algorithm of Artistic Style_](https://arxiv.org/abs/1508.06576).
+[_A Neural Algorithm of Artistic Style [1]_](https://arxiv.org/abs/1508.06576).
 
 ## Original Photograph: _Tubingen, Germany_
 
