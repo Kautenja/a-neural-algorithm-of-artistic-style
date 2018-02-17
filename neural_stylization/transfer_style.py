@@ -86,7 +86,11 @@ class Stylizer(object):
         self.style_layer_names = style_layer_names
 
         # type and value check: style_layer_weights
-        if style_layer_weights is not None:
+        if style_layer_weights is None:
+            # initialize style layer weights as an average between them.
+            total = len(style_layer_names)
+            style_layer_weights = total * [1.0 / total]
+        else:
             if not isinstance(style_layer_weights, list):
                 raise TypeError(
                     '`style_layer_weights` must be of type: None or list'
@@ -209,21 +213,23 @@ class Stylizer(object):
         content_layer_output = model[self.content_layer_name]
         # calculate the loss between the output of the layer on the
         # content (0) and the canvas (2)
-        cl = content_loss(content_layer_output[0], content_layer_output[2])
+        cl = content_loss(content_layer_output[0],
+                          content_layer_output[2])
         loss = loss + self.content_weight * cl
 
         # STYLE LOSS
+        sl = K.variable(0.0)
         # iterate over the list of all the layers that we want to include
-        for style_layer_name in self.style_layer_names:
-            # extract the layer's out that we have interest in for
-            # reconstruction
+        for style_layer_name, layer_weight in zip(self.style_layer_names,
+                                                  self.style_layer_weights):
+            # extract the layer out that we have interest in
             style_layer_output = model[style_layer_name]
             # calculate the loss between the output of the layer on the
             # style (1) and the canvas (2).
-            sl = style_loss(style_layer_output[1], style_layer_output[2])
-            # Apply the weighting for the layer by averaging against the total
-            # layers and applying the style weight (beta)
-            loss = loss + sl * self.style_weight / len(self.style_layer_names)
+            sl = sl + layer_weight * style_loss(style_layer_output[1],
+                                                style_layer_output[2])
+        # apply the style weight to style loss and add it to the total loss
+        loss = loss + self.style_weight * sl
 
         # TOTAL VARIATION LOSS
         # Gatys et al. don't use the total variation de-noising in their paper
