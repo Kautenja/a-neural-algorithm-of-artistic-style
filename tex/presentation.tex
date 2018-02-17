@@ -97,8 +97,8 @@
 \end{frame}
 
 \begin{frame}{Literature Review}
-    Comparable to generative Adversarial 
-    Networks \cite{dosovitskiy2016generating}. 
+    Comparable to generative Adversarial
+    Networks \cite{dosovitskiy2016generating}.
     \begin{itemize}
         \item Trains a generative network
             that does image generation.
@@ -115,7 +115,7 @@
         \item Pick an already trained CNN, in this
             case, VGG19.
         \item Train a white noise image based on a
-            loss function that captures the content of 
+            loss function that captures the content of
             them image.
         \item Train a second white noise image
             based on another loss function that
@@ -148,7 +148,7 @@
 \begin{frame}{Notations}
     \begin{figure}[H]
         \centering
-        \includegraphics[width=.8\textwidth]{img/levels.jpg}
+        \includegraphics[width=.8\textwidth]{img/levels}
     \end{figure}
 \end{frame}
 
@@ -233,7 +233,7 @@
 \begin{frame}{Content Reconstruction}
 \begin{figure}[ht]
 \centering
-\includegraphics[width=.9\textwidth]{img/content/block1_conv1.png}
+\includegraphics[width=.9\textwidth]{img/content/block1_conv1}
 \caption*{Block 1 Conv 1}
 \end{figure}
 \end{frame}
@@ -249,7 +249,7 @@
 \begin{frame}{Content Reconstruction}
 \begin{figure}[ht]
 \centering
-\includegraphics[width=.9\textwidth]{img/content/block2_conv1.png}
+\includegraphics[width=.9\textwidth]{img/content/block2_conv1}
 \caption*{Block 2 Conv 1}
 \end{figure}
 \end{frame}
@@ -265,7 +265,7 @@
 \begin{frame}{Content Reconstruction}
 \begin{figure}[ht]
 \centering
-\includegraphics[width=\textwidth]{img/content/block3_conv1.png}
+\includegraphics[width=\textwidth]{img/content/block3_conv1}
 \caption*{Block 3 Conv 1}
 \end{figure}
 \end{frame}
@@ -281,7 +281,7 @@
 \begin{frame}{Content Reconstruction}
 \begin{figure}[ht]
 \centering
-\includegraphics[width=\textwidth]{img/content/block4_conv1.png}
+\includegraphics[width=\textwidth]{img/content/block4_conv1}
 \caption*{Block 4 Conv 1}
 \end{figure}
 \end{frame}
@@ -298,14 +298,14 @@
 \begin{figure}[ht]
 \centering
 \caption*{Block 5 Conv 1}
-\includegraphics[width=\textwidth]{img/content/block5_conv1.png}
+\includegraphics[width=\textwidth]{img/content/block5_conv1}
 \end{figure}
 \end{frame}
 
 
 
 \begin{frame}{Style Representation}
-Style representation is achived via the ``Gram Matrix'' $G$. Gram matrix is
+Style representation is achieved via the ``Gram Matrix'' $G$. Gram matrix is
 an $N_l \times N_l$ matrix which calculates the correlations between
 different filter responses.
 
@@ -317,8 +317,8 @@ different filter responses.
 
 \begin{frame}{Style Representation}
 Given $G^l$ and $A^l$ as respective Gram matrices of the
-noise image and the original image, our goal is to reduce the overal difference
-between $G^l$ and $A^l$. In ths sense,
+noise image and the original image, our goal is to reduce the overall
+difference between $G^l$ and $A^l$. In this sense,
 Contribution of layer $l$ to the total loss is
 \begin{equation}
     E_l = \frac{1}{4N_l^2M_l^2} \sum_{i}^{N_l}\sum_{j}^{N_l}{(G^l_{ij} - A^l_{ij})^2}
@@ -374,13 +374,13 @@ The total style loss is:
     \begin{minipage}[b]{0.45\linewidth}
         \centering
         \caption*{white noise image $\mathbf{x}$}
-        \includegraphics[width=\textwidth]{img/style/noise.png}
+        \includegraphics[width=\textwidth]{img/style/noise}
     \end{minipage}
     \hspace{0.5cm}
     \begin{minipage}[b]{0.45\linewidth}
         \centering
         \caption*{artwork image $\mathbf{a}$}
-        \includegraphics[width=\textwidth]{img/style/starry_night.png}
+        \includegraphics[width=\textwidth]{img/style/the-starry-night}
     \end{minipage}
 \end{figure}
 \end{frame}
@@ -397,7 +397,7 @@ The total style loss is:
 \begin{figure}[ht]
 \centering
 \caption*{Conv 1 of Block 1}
-\includegraphics[width=\textwidth]{img/style/block1_conv1.png}
+\includegraphics[width=\textwidth]{img/style/block1_conv1}
 \end{figure}
 \end{frame}
 
@@ -413,7 +413,7 @@ The total style loss is:
 \begin{figure}[ht]
 \centering
 \caption*{Conv 1 of Block 1, 2}
-\includegraphics[width=\textwidth]{img/style/block2_conv1.png}
+\includegraphics[width=\textwidth]{img/style/block2_conv1}
 \end{figure}
 \end{frame}
 
@@ -429,7 +429,7 @@ The total style loss is:
 \begin{figure}[ht]
 \centering
 \caption*{Conv 1 of Block 1, 2, 3}
-\includegraphics[width=\textwidth]{img/style/block3_conv1.png}
+\includegraphics[width=\textwidth]{img/style/block3_conv1}
 \end{figure}
 \end{frame}
 
@@ -445,7 +445,7 @@ The total style loss is:
 \begin{figure}[ht]
 \centering
 \caption*{Conv 1 of Block 1, 2, 3, 4}
-\includegraphics[width=\textwidth]{img/style/block4_conv1.png}
+\includegraphics[width=\textwidth]{img/style/block4_conv1}
 \end{figure}
 \end{frame}
 
@@ -461,7 +461,7 @@ The total style loss is:
 \begin{figure}[ht]
 \centering
 \caption*{Conv 1 of Block 1, 2, 3, 4, 5}
-\includegraphics[width=\textwidth]{img/style/block5_conv1.png}
+\includegraphics[width=\textwidth]{img/style/block5_conv1}
 \end{figure}
 \end{frame}
 
@@ -486,24 +486,24 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
 
 \begin{frame}[allowframebreaks]{Note on Optimization methods}
 
-    \begin{center} 
+    \begin{center}
         $\mathbf{g}_k = \nabla f_{\theta}(\theta_k) $ \hspace{10mm}
         $\mathbf{H}_k = \nabla^{2} f_{\theta}(\theta_k)$
     \end{center}
 
     \textbf{Methods}:
     \begin{enumerate}
-        \item \textbf{Gradient}: $\boldsymbol{\theta}_{k+1} = 
+        \item \textbf{Gradient}: $\boldsymbol{\theta}_{k+1} =
             \boldsymbol{\theta}_k - \eta_k \mathbf{g}_k$
         \item \textbf{Hessian}: $\boldsymbol{\theta}_{k+1} = \boldsymbol{\theta}_k - d_k$
             where $\mathbf{d}_k = \mathbf{H}_k^{-1} \mathbf{g}_k$ \\
             Rather than computing $\mathbf{d}_k = \mathbf{H}_k^{-1} \mathbf{g}_k$ directly,
-            we can solve the linear systems of equations 
+            we can solve the linear systems of equations
             $\mathbf{H}_k \mathbf{d}_k = -\mathbf{g}_k$ for $\mathbf{d}_k$.
     \end{enumerate}
     \newpage
     \begin{center}
-        $\mathbf{s}_k = \mathbf {x} _{k+1}-\mathbf {x} _{k}$ and 
+        $\mathbf{s}_k = \mathbf {x} _{k+1}-\mathbf {x} _{k}$ and
     \end{center}
     However calculating $H^{-1}_k$ is extensive both in terms of computation and
     memory. Approximation methods have been proposed:
@@ -560,14 +560,14 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
     \begin{figure}[ht]
     \centering
     \caption*{The Shipwreck of the Minotaur}
-    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/artworks/shipwreck}
+    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/artworks/the-shipwreck-of-the-minotaur}
     \end{figure}
 }{
 \vfill
     \begin{figure}[ht]
     \centering
     \caption*{The Starry Night}
-    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/artworks/starry-starry-night}
+    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/artworks/the-starry-night}
     \end{figure}
 }{
     \begin{figure}[ht]
@@ -579,7 +579,7 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
     \begin{figure}[ht]
     \centering
     \caption*{The Scream}
-    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/artworks/scream}
+    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/artworks/the-scream}
     \end{figure}
 }
 \end{figure}
@@ -594,26 +594,26 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
     \begin{figure}[ht]
     \centering
     \caption*{The Shipwreck of the Minotaur}
-    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/transfer/shipwreck}
+    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/transfer/the-shipwreck-of-the-minotaur}
     \end{figure}
 }{
 \vfill
     \begin{figure}[ht]
     \centering
     \caption*{The Starry Night}
-    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/transfer/starry-starry-night}
+    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/transfer/the-starry-night}
     \end{figure}
 }{
     \begin{figure}[ht]
     \centering
     \caption*{Seated Nude}
-    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/transfer/seated-nudes}
+    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/transfer/seated-nude}
     \end{figure}
 }{
     \begin{figure}[ht]
     \centering
     \caption*{The Scream}
-    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/transfer/scream}
+    \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/transfer/the-scream}
     \end{figure}
 }
 \end{figure}
