@@ -131,12 +131,12 @@ and colors from **a**.
 
 # References
 
-_[1] L. A. Gatys, A. S. Ecker, and M. Bethge. A neural algorithm of artistic style. arXiv preprint
-arXiv:1508.06576, 2015._
+[_[1] L. A. Gatys, A. S. Ecker, and M. Bethge. A neural algorithm of artistic style. arXiv preprint
+arXiv:1508.06576, 2015._](https://arxiv.org/abs/1508.06576)
 
-_[2] L. A. Gatys, A. S. Ecker, and M. Bethge. Image style transfer using convolutional neural networks. In
+[_[2] L. A. Gatys, A. S. Ecker, and M. Bethge. Image style transfer using convolutional neural networks. In
 Computer Vision and Pattern Recognition (CVPR), 2016 IEEE Conference on, pages 2414–2423.
-IEEE, 2016._
+IEEE, 2016._](https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Gatys_Image_Style_Transfer_CVPR_2016_paper.pdf)
 
 # How Should I Cite `neural-stylization`?
 
