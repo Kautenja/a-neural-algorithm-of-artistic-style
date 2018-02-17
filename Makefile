@@ -10,6 +10,8 @@ BUILD=build
 PDFLATEX=pdflatex
 # the pointer to the bibilography engine (bibtex)
 BIBTEX=bibtex
+# the number of frames of interpolation to use in videos
+INTER_FRAMES=3
 
 # install Python dependencies in the requirements.txt
 install:
@@ -52,7 +54,7 @@ review_w_ref: build
 # Args:
 #   1: the name of the directory in the build directory to find frames in
 define frames_to_video
-	${PYTHON} frames_to_video.py build/$(1) build/$(1).mp4
+	${PYTHON} frames_to_video.py build/$(1) build/$(1).mp4 ${INTER_FRAMES}
 endef
 
 # make all the content reconstruction videos
