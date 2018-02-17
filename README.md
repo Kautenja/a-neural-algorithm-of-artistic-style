@@ -53,13 +53,13 @@ An **implementation** of the paper
 <img src="tex/img/transfer/composition-vii.png" width="425"/> 
 </p>
 
-## Getting Started
+# Getting Started
 
 These instructions will get you a copy of the project up and running on your
 local machine for development and testing purposes. See deployment for notes
 on how to deploy the project on a live system.
 
-### Prerequisites
+## Prerequisites
 
 1.  [python3][] - Programming Environment
 1.  [pip3][] - Python Dependency Management
@@ -67,7 +67,7 @@ on how to deploy the project on a live system.
 [python3]: https://python.org
 [pip3]: https://packaging.python.org/tutorials/installing-packages/
 
-### Installing
+## Installing
 
 To install dependent modules:
 
@@ -75,14 +75,14 @@ To install dependent modules:
 pip3 install -r requirements.txt
 ```
 
-## Project Components
+# Project Components
 
 [neural_stylization][] contains Python modules with utility methods and
 classes for the project.
 
 [neural_stylization]: neural_stylization
 
-### VGG19
+## VGG19
 
 This project relies on the VGG19 architecture.
 [VGG19-classification.ipynb][] outlines some basic image classification
@@ -95,7 +95,7 @@ and normalizing image can be found in [neural_stylization/img_util.py][].
 [neural_stylization/vgg19.py]: neural_stylization/vgg19.py
 [neural_stylization/img_util.py]: neural_stylization/img_util.py
 
-### Content Reconstruction
+## Content Reconstruction
 
 [content-reconstruction.ipynb][] describes the content reconstruction
 process from white noise. Performing gradient descent of the content loss
@@ -104,7 +104,7 @@ representation of the networks activation for a given layer _l_.
 
 [content-reconstruction.ipynb]: content-reconstruction.ipynb
 
-### Style Reconstruction
+## Style Reconstruction
 
 [style-reconstruction.ipynb][] describes the style reconstruction
 process from white noise. Performing gradient descent of the style loss
@@ -113,7 +113,7 @@ representation of the networks activation for a given set of layers _L_.
 
 [style-reconstruction.ipynb]: style-reconstruction.ipynb
 
-### Style Transfer
+## Style Transfer
 
 [style-transfer.ipynb][] describes the style transfer process between a white
 noise image **x**, a content image **p**, and a style representation **a**.
@@ -126,8 +126,17 @@ and colors from **a**.
 # Acknowledgments
 
 -   [keras-team](https://github.com/keras-team) provides `Keras`, a high
-	level neural network framework. They also provide the pre-trained
-	ImageNet weights and some tutorials that help build this project.
+    level neural network framework. They also provide the pre-trained
+    ImageNet weights and some tutorials that help build this project.
+
+# References
+
+_[1] L. A. Gatys, A. S. Ecker, and M. Bethge. A neural algorithm of artistic style. arXiv preprint
+arXiv:1508.06576, 2015._
+
+_[2] L. A. Gatys, A. S. Ecker, and M. Bethge. Image style transfer using convolutional neural networks. In
+Computer Vision and Pattern Recognition (CVPR), 2016 IEEE Conference on, pages 2414–2423.
+IEEE, 2016._
 
 # How Should I Cite `neural-stylization`?
 
