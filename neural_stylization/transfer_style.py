@@ -1,7 +1,7 @@
 """A mechanism for transferring style of art to content."""
 import numpy as np
 from PIL import Image
-from typing import Callable
+from typing import Callable, List
 from keras import backend as K
 from .vgg19 import VGG_19
 from .util.img_util import normalize
@@ -17,7 +17,9 @@ TEMPLATE = """{}(
     content_layer_name={},
     content_weight={},
     style_layer_names={},
-    style_weight={}
+    style_layer_weights={},
+    style_weight={},
+    total_variation_weight={}
 )""".lstrip()
 
 
@@ -27,13 +29,14 @@ class Stylizer(object):
     def __init__(self,
                  content_layer_name: str='block4_conv2',
                  content_weight: float=1.0,
-                 style_layer_names: list=[
+                 style_layer_names: List[str]=[
                     'block1_conv1',
                     'block2_conv1',
                     'block3_conv1',
                     'block4_conv1',
                     'block5_conv1'
                  ],
+                 style_layer_weights: List[float]=None,
                  style_weight: float=10000.0,
                  total_variation_weight: float=0.0) -> None:
         """
@@ -41,21 +44,77 @@ class Stylizer(object):
 
         Args:
             content_layer_name: the name of the layer to extract content from
-            content_weight: the weight to attribute to content loss
+            content_weight: the weight, alpha, to attribute to content loss
             style_layer_names: the names of the layers to extract style from
-            style_weight: the weight to attribute to style loss
-            total_variation_weight: the amount of total variation denoising to
-                apply to the synthetic images
+            style_weight: the weight, beta, to attribute to style loss
+            style_layer_weights: the set of weights to apply to the individual
+                losses from each style layer. If None, the default is to take
+                the average, i.e. divide each by len(style_layer_names).
+            total_variation_weight: the amount of total variation de-noising
+                to apply to the synthetic images
 
         Returns:
             None
 
         """
-        # TODO: type and value check parameters for errors
+        # get the names of the layers from the model to error check
+        layer_names = VGG_19(include_top=False).output_tensors.keys()
+
+        # type and value check: content_layer_name
+        if not isinstance(content_layer_name, str):
+            raise TypeError('`content_layer_name` must be of type: str')
+        if content_layer_name not in layer_names:
+            raise ValueError(
+                '`content_layer_name` must be a layer name in VGG_19'
+            )
         self.content_layer_name = content_layer_name
+
+        # type and value check: content_weight
+        if not isinstance(content_weight, (int, float)):
+            raise TypeError('`content_weight` must be of type: int or float')
+        if content_weight < 0:
+            raise ValueError('`content_weight` must be >= 0')
         self.content_weight = content_weight
+
+        # type and value check: content_layer_name
+        if not isinstance(style_layer_names, list):
+            raise TypeError('`style_layer_names` must be of type: list')
+        if not all(layer in layer_names for layer in style_layer_names):
+            raise ValueError(
+                '`style_layer_names` must be a list of layer names in VGG_19'
+            )
         self.style_layer_names = style_layer_names
+
+        # type and value check: style_layer_weights
+        if style_layer_weights is None:
+            # initialize style layer weights as an average between them.
+            total = len(style_layer_names)
+            style_layer_weights = total * [1.0 / total]
+        else:
+            if not isinstance(style_layer_weights, list):
+                raise TypeError(
+                    '`style_layer_weights` must be of type: None or list'
+                )
+            if not all(isinstance(w, (float, int)) for w in style_layer_weights):
+                raise ValueError(
+                    '`style_layer_weights` must be a list of numbers or None'
+                )
+        self.style_layer_weights = style_layer_weights
+
+        # type and value check: style_weight
+        if not isinstance(style_weight, (int, float)):
+            raise TypeError('`style_weight` must be of type: int or float')
+        if style_weight < 0:
+            raise ValueError('`style_weight` must be >= 0')
         self.style_weight = style_weight
+
+        # type and value check: total_variation_weight
+        if not isinstance(total_variation_weight, (int, float)):
+            raise TypeError(
+                '`total_variation_weight` must be of type: int or float'
+            )
+        if total_variation_weight < 0:
+            raise ValueError('`total_variation_weight` must be >= 0')
         self.total_variation_weight = total_variation_weight
 
     def __repr__(self) -> str:
@@ -65,7 +124,9 @@ class Stylizer(object):
             repr(self.content_layer_name),
             self.content_weight,
             self.style_layer_names,
-            self.style_weight
+            self.style_layer_weights,
+            self.style_weight,
+            self.total_variation_weight
         ])
 
     @property
@@ -132,7 +193,7 @@ class Stylizer(object):
 
         return model, canvas
 
-    def _build_loss_grads(self, model, canvas) -> Callable:
+    def _build_loss_grads(self, model: VGG_19, canvas: 'Tensor') -> Callable:
         """
         Build the optimization methods for stylizing the image from a model.
 
@@ -152,21 +213,23 @@ class Stylizer(object):
         content_layer_output = model[self.content_layer_name]
         # calculate the loss between the output of the layer on the
         # content (0) and the canvas (2)
-        cl = content_loss(content_layer_output[0], content_layer_output[2])
+        cl = content_loss(content_layer_output[0],
+                          content_layer_output[2])
         loss = loss + self.content_weight * cl
 
         # STYLE LOSS
+        sl = K.variable(0.0)
         # iterate over the list of all the layers that we want to include
-        for style_layer_name in self.style_layer_names:
-            # extract the layer's out that we have interest in for
-            # reconstruction
+        for style_layer_name, layer_weight in zip(self.style_layer_names,
+                                                  self.style_layer_weights):
+            # extract the layer out that we have interest in
             style_layer_output = model[style_layer_name]
             # calculate the loss between the output of the layer on the
             # style (1) and the canvas (2).
-            sl = style_loss(style_layer_output[1], style_layer_output[2])
-            # Apply the weighting for the layer by averaging against the total
-            # layers and applying the style weight (beta)
-            loss = loss + sl * self.style_weight / len(self.style_layer_names)
+            sl = sl + layer_weight * style_loss(style_layer_output[1],
+                                                style_layer_output[2])
+        # apply the style weight to style loss and add it to the total loss
+        loss = loss + self.style_weight * sl
 
         # TOTAL VARIATION LOSS
         # Gatys et al. don't use the total variation de-noising in their paper
@@ -202,6 +265,7 @@ class Stylizer(object):
                  optimize: Callable,
                  iterations: int=10,
                  image_size: tuple=None,
+                 initialization_strat: str='noise',
                  noise_range: tuple=(0, 1),
                  callback: Callable=None) -> Image:
         """
@@ -210,10 +274,19 @@ class Stylizer(object):
         Args:
             content_path: the path to the content image to load
             style_path: the path to the style image to load
-            optimize: the black-box optimizer to use
-            iterations: the number of iterations to perform (optimization)
-            image_size: the custom size to load images if any
-            noise_range: the custom range for initializing random noise
+            optimize: the black-box optimizer to use. This is a callable
+                method conforming to the API for optimizers
+            iterations: the number of optimization iterations to perform
+            image_size: the custom size to load images with, if any. When
+                set to None, the size of the content image will be used
+            initialization_strat: the way to initialize the canvas for the
+                style transfer. Can be one of:
+                -   'noise': initialize the canvas as random noise with the
+                    given noise range for sampling pixels
+                -   'content': initialize the canvas as the content image
+                -   'style': initialize the canvas as the style image
+            noise_range: the custom range for initializing random noise. This
+                option is only used when `initialization_strat` is 'noise'.
             callback: the optional callback method for optimizer iterations
 
         Returns:
@@ -226,15 +299,48 @@ class Stylizer(object):
         model, canvas = self._build_model(content, style)
         # build the iteration function
         loss_grads = self._build_loss_grads(model, canvas)
-        # generate some white noise with the canvas shape and given noise range
-        noise = np.random.uniform(*noise_range, size=canvas.shape)
-        # optimize the white noise
-        image = optimize(noise, canvas.shape, loss_grads, iterations, callback)
-        # clear the Keras session
+
+        # setup the initial image for the optimizer
+        if initialization_strat == 'noise':
+            # generate white noise in the shape of the canvas
+            initial = np.random.uniform(*noise_range, size=canvas.shape)
+        elif initialization_strat == 'content':
+            # copy the content as the initial image
+            initial = content.copy()
+        elif initialization_strat == 'style':
+            # copy the style as the initial image
+            initial = style.copy()
+        else:
+            raise ValueError(
+                "`initialization_strat` must be one of: ",
+                " 'noise', 'content', 'style' "
+            )
+
+        # optimize the initial image into a synthetic painting. Name all args
+        # by keyword to help catch erroneous optimize callables.
+        image = optimize(
+            X=initial,
+            shape=canvas.shape,
+            loss_grads=loss_grads,
+            iterations=iterations,
+            callback=callback
+        )
+
+        # clear the Keras session (this removes the variables from memory).
         K.clear_session()
 
-        # return the optimized image
-        return matrix_to_image(denormalize(image.reshape(canvas.shape)[0]))
+        # reshape the image in case the optimizer did something funky with the
+        # shape. `denormalize` expects a vector of shape [h, w, c], but
+        # canvas has an additional dimension for frame, [frame, h, w, c]. Ss
+        # such, take the first item along the frame axis
+        image = image.reshape(canvas.shape)[0]
+        # denormalize the image about the ImageNet means. this will invert the
+        # channel dimension turning image from BGR to RGB
+        image = denormalize(image)
+        # convert the image to a binary image object to view, save, etc.
+        image = matrix_to_image(image)
+
+        return image
 
 
 __all__ = ['Stylizer']

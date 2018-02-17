@@ -45,7 +45,7 @@
 \section{Paper Summary}\label{paper-summary}}
 
 In their arXiv preprint, \textit{A Neural Algorithm of Artistic Style},
-\cite{gatys2016image} prove a level of separability between the
+\cite{2015arXiv150806576G} prove a level of separability between the
 \textit{content} of an image, and the \textit{style} that characterizes it.
 Using a \ac{CNN} trained to classify images on the ImageNet benchmark, they
 transfer the style of famous works of art, onto the content of arbitrary
@@ -63,20 +63,20 @@ arbitrary works of art as a palette.
 
 This work relies heavily on the understanding of convolutional layers. As a
 collection of image filters, each layer extracts unique features from its
-input image. As such, \cite{gatys2016image} postulate that as the layer depth
-increases, the network cares more about the \textit{content} of the image.
-That is to say, deeper layers have a more specific understanding of what
-composes an image, whereas the shallower layers primarily understand the image
-as raw pixels. This leads to their definition of
+input image. As such, \cite{2015arXiv150806576G} postulate that as the layer
+depth increases, the network cares more about the \textit{content} of the
+image. That is to say, deeper layers have a more specific understanding of
+what composes an image, whereas the shallower layers primarily understand the
+image as raw pixels. This leads to their definition of
 \textit{content representation} as the activations from deep layers in the
 network.
 
 To objectively measure the difference of content between two images,
-\cite{gatys2016image} define a loss function $\mathcal{L}_{content}$. Given a
-content image $\textbf{p}$, a white noise image $\textbf{x}$, and an arbitrary
-layer $l$, the activations at $l$ for $\textbf{p}$ and $\textbf{x}$ are
-defined as $P^l$ and $F^l$ respectively. The $\mathcal{L}_{content}$ loss then
-is the squared euclidean distance between $P^l$ and $F^l$:
+\cite{2015arXiv150806576G} define a loss function $\mathcal{L}_{content}$.
+Given a content image $\textbf{p}$, a white noise image $\textbf{x}$, and an
+arbitrary layer $l$, the activations at $l$ for $\textbf{p}$ and $\textbf{x}$
+are defined as $P^l$ and $F^l$ respectively. The $\mathcal{L}_{content}$ loss
+then is the squared euclidean distance between $P^l$ and $F^l$:
 
 % TODO: note the M_l and N_l variables in the above paragraph
 \begin{equation}
@@ -99,13 +99,14 @@ of feature maps:
 G_{i j}^l = \sum_{k}^{M_l} F_{i k}^l F_{j k}^l
 \end{equation}
 
-With a new feature space representation of raw texture, \cite{gatys2016image}
-define an additional loss function $\mathcal{L}_{style}$ between an artwork
-image $\textbf{a}$, and a white noise image $\textbf{x}$ for some
-convolutional layer $l$. First, the activations at $l$ for $\textbf{a}$ and
-$\textbf{x}$ are transformed to their respective gram matrices $A^l$, and
-$G^l$. Then, much like the content loss, we define $\mathcal{L}_{style}$ as
-the squared euclidean distance between the gram matrices $A^l$, and $G^l$:
+With a new feature space representation of raw texture,
+\cite{2015arXiv150806576G} define an additional loss function
+$\mathcal{L}_{style}$ between an artwork image $\textbf{a}$, and a white noise
+image $\textbf{x}$ for some convolutional layer $l$. First, the activations at
+$l$ for $\textbf{a}$ and $\textbf{x}$ are transformed to their respective gram
+matrices $A^l$, and $G^l$. Then, much like the content loss, we define
+$\mathcal{L}_{style}$ as the squared euclidean distance between the gram
+matrices $A^l$, and $G^l$:
 
 \begin{equation}
 E_l =
