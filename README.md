@@ -3,7 +3,13 @@
 An **implementation** of the paper
 [_A Neural Algorithm of Artistic Style_](https://arxiv.org/abs/1508.06576).
 
+## Original Photograph: _Tubingen, Germany_
 
+<p float="left" align="center">
+<img src="img/content/tubingen.jpg" width="375"/> 
+</p>
+
+-----
 
 ## Claude Monet's _Houses of Parliament_
 
