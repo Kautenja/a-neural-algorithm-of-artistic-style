@@ -3,29 +3,49 @@
 An **implementation** of the paper
 [_A Neural Algorithm of Artistic Style_](https://arxiv.org/abs/1508.06576).
 
+
+
 ## Claude Monet's _Houses of Parliament_
 
-![](tex/img/transfer/houses-of-parliament-tv-1e0.png)
+<p float="left">
+<img src="img/styles/houses-of-parliament.jpg" width="425"/>  
+<img src="tex/img/transfer/houses-of-parliament-tv-1e0.png" width="425"/> 
+</p>
 
 ## Edvard Munch's _The Scream_
 
-![](tex/img/transfer/the-scream.png)
+<p float="left">
+<img src="img/styles/the-scream.jpg" width="425"/>  
+<img src="tex/img/transfer/the-scream.png" width="425"/> 
+</p>
 
 ## Pablo Picasso's _Seated Nude_
 
-![](tex/img/transfer/seated-nude.png)
+<p float="left">
+<img src="img/styles/seated-nude.jpg" width="425"/>  
+<img src="tex/img/transfer/seated-nude.png" width="425"/> 
+</p>
 
 ## Vincent van Gogh's _The Starry Night_
 
-![](tex/img/transfer/the-starry-night.png)
+<p float="left">
+<img src="img/styles/the-starry-night.jpg" width="425"/>  
+<img src="tex/img/transfer/the-starry-night.png" width="425"/> 
+</p>
 
 ## William Turner's _The Shipwreck of The Minotaur_
 
-![](tex/img/transfer/the-shipwreck-of-the-minotaur.png)
+<p float="left">
+<img src="img/styles/the-shipwreck-of-the-minotaur.jpg" width="425"/>  
+<img src="tex/img/transfer/the-shipwreck-of-the-minotaur.png" width="425"/> 
+</p>
 
 ## Wassily Kandinsky's _Composition VII_
 
-![](tex/img/transfer/composition-vii.png)
+<p float="left">
+<img src="img/styles/composition-vii.jpg" width="425"/>  
+<img src="tex/img/transfer/composition-vii.png" width="425"/> 
+</p>
 
 ## Getting Started
 
