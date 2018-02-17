@@ -3,7 +3,7 @@
 An **implementation** of the arXiv preprint
 [_A Neural Algorithm of Artistic Style [1]_][ref1] 
 & paper 
-[_Image Style Transfer Using Convolutional Neural Networks_][ref2].
+[_Image Style Transfer Using Convolutional Neural Networks [2]_][ref2].
 
 ## Original Photograph: _Tubingen, Germany_
 
