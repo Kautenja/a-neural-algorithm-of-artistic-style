@@ -3,17 +3,29 @@
 An **implementation** of the paper
 [_A Neural Algorithm of Artistic Style_](https://arxiv.org/abs/1508.06576).
 
-![Monet](tex/img/transfer/monet.png)
+## Claude Monet's _Houses of Parliament_
 
-![Scream](tex/img/transfer/scream.png)
+![](tex/img/transfer/houses-of-parliament-tv-1e0.png)
 
-![Seated Nudes](tex/img/transfer/seated-nudes.png)
+## Edvard Munch's _The Scream_
 
-![Starry Starry Night](tex/img/transfer/starry-starry-night.png)
+![](tex/img/transfer/the-scream.png)
 
-![Shipwreck](tex/img/transfer/shipwreck.png)
+## Pablo Picasso's _Seated Nude_
 
-![Kandinsky](tex/img/transfer/kandinsky.png)
+![](tex/img/transfer/seated-nude.png)
+
+## Vincent van Gogh's _The Starry Night_
+
+![](tex/img/transfer/the-starry-night.png)
+
+## William Turner's _The Shipwreck of The Minotaur_
+
+![](tex/img/transfer/the-shipwreck-of-the-minotaur.png)
+
+## Wassily Kandinsky's _Composition VII_
+
+![](tex/img/transfer/composition-vii.png)
 
 ## Getting Started
 
