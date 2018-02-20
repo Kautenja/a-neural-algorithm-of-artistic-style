@@ -115,22 +115,38 @@
         \item Pick an already trained CNN, in this
             case, VGG19.
         \item Train a white noise image based on a
-            loss function that captures the content of
-            them image.
-        \item Train a second white noise image
-            based on another loss function that
-            aims at capturing the style of the
-            image
-        \item Linearly combine the two images to
-            generate the output.
+            loss function that captures both
+            content of the image and style of
+            the work of art.
     \end{enumerate}
+\end{frame}
+\begin{frame}{Approach in this paper}
+    \framesubtitle{Loss function}
+    Two types of loss functions are taken into account:
+    \begin{enumerate}
+        \item A loss function that aims at capturing
+            the content of the image by reducing the
+            distance between features, at each level.
+            ($\mathcal{L}_{content}$)
+        \item A loss fuction that aims at capturing
+            the style of the work of art by reducing
+            the distance between the two
+            \textbf{Gram Matrices"} at each level.
+            ($\mathcal{L}_{style}$)
+    \end{enumerate}
+    The total loss function is a
+    \textbf{\color{red} linear combination}
+    of the follwoing two loss functions:
+    $ \mathcal{L} =
+    \alpha \mathcal{L}_{content} \times
+    \beta \mathcal{L}_{style}$
 \end{frame}
 
 \begin{frame}{Notations}
     \begin{itemize}
-        \item $\mathbf{p}$: The original, content image
-        \item $\mathbf{a}$: The original, artwork image
-        \item $\mathbf{x}$: The image to be generated. It is initiated as a
+        \item $\mathbf{P}$: The original, content image
+        \item $\mathbf{A}$: The original, artwork image
+        \item $\mathbf{X}$: The image to be generated. It is initiated as a
             random noise image.
         \item $F^l$: \textbf{Feature Map} at level l, is the result of appling
             filters at level $l$. If $N_l$ filters are applier at level $l$,
@@ -178,10 +194,10 @@
 
 \begin{frame}{Content Representation}
     \begin{itemize}
-        \item Gradient descent is performed on a white noise image
-            ($\mathbf{x}$) and a content image
-            ($\mathbf{p}$)
-        \item $F^l$ and $P^l$: Respective feature maps of the
+        \item Optimization is performed on a white noise image
+            ($\mathbf{X}$) and a content image
+            ($\mathbf{P}$)
+        \item $F_X^l$ and $F_P^l$: Respective feature maps of the
             noise image and the original image
         \item Goal: Reduce the squared-error loss between $F^l$ and $P^l$.
     \begin{equation}
@@ -198,111 +214,11 @@
         \frac{\partial \mathcal{L}_{content}}{\partial F^l_{ij}}
         =
         \begin{cases}
-            (F^l - P^l)_{ij} & \iff F^l_{ij} > 0 \\
-            0 & \iff F^l_{ij} < 0 \\
+            (F^l_X - F^l_P)_{ij} & \iff (F^l_{X})_{ij} > 0 \\
+            0 & \iff (F^l_{X})_{ij} < 0 \\
         \end{cases}
     \end{equation}
 \end{frame}
-
-% white noise and content image
-\begin{frame}{Content Reconstruction}
-\begin{figure}[ht]
-    \begin{minipage}[b]{0.45\linewidth}
-        \centering
-        \caption*{white noise image $\mathbf{x}$}
-        \includegraphics[width=\textwidth]{img/content/noise}
-    \end{minipage}
-    \hspace{0.5cm}
-    \begin{minipage}[b]{0.45\linewidth}
-        \centering
-        \caption*{content image $\mathbf{p}$}
-        \includegraphics[width=\textwidth]{img/content/tubingen}
-    \end{minipage}
-\end{figure}
-\end{frame}
-
-% 1:1
-\begin{frame}{Content Reconstruction}
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.8\textwidth]{img/vgg19/content/block1_conv1}
-\caption*{Block 1 Conv 1}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Content Reconstruction}
-\begin{figure}[ht]
-\centering
-\includegraphics[width=.9\textwidth]{img/content/block1_conv1}
-\caption*{Block 1 Conv 1}
-\end{figure}
-\end{frame}
-
-% 2:1
-\begin{frame}{Content Reconstruction}
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.9\textwidth]{img/vgg19/content/block2_conv1}
-\caption*{Block 2 Conv 1}
-\end{figure}
-\end{frame}
-\begin{frame}{Content Reconstruction}
-\begin{figure}[ht]
-\centering
-\includegraphics[width=.9\textwidth]{img/content/block2_conv1}
-\caption*{Block 2 Conv 1}
-\end{figure}
-\end{frame}
-
-% 3:1
-\begin{frame}{Content Reconstruction}
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.9\textwidth]{img/vgg19/content/block3_conv1}
-\caption*{Block 3 Conv 1}
-\end{figure}
-\end{frame}
-\begin{frame}{Content Reconstruction}
-\begin{figure}[ht]
-\centering
-\includegraphics[width=\textwidth]{img/content/block3_conv1}
-\caption*{Block 3 Conv 1}
-\end{figure}
-\end{frame}
-
-% 4:1
-\begin{frame}{Content Reconstruction}
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.9\textwidth]{img/vgg19/content/block4_conv1}
-\caption*{Block 4 Conv 1}
-\end{figure}
-\end{frame}
-\begin{frame}{Content Reconstruction}
-\begin{figure}[ht]
-\centering
-\includegraphics[width=\textwidth]{img/content/block4_conv1}
-\caption*{Block 4 Conv 1}
-\end{figure}
-\end{frame}
-
-% 5:1
-\begin{frame}{Content Reconstruction}
-\begin{figure}[ht]
-\centering
-\caption*{Block 5 Conv 1}
-\includegraphics[width=0.9\textwidth]{img/vgg19/content/block5_conv1}
-\end{figure}
-\end{frame}
-\begin{frame}{Content Reconstruction}
-\begin{figure}[ht]
-\centering
-\caption*{Block 5 Conv 1}
-\includegraphics[width=\textwidth]{img/content/block5_conv1}
-\end{figure}
-\end{frame}
-
-
 
 \begin{frame}{Style Representation}
 Style representation is achieved via the ``Gram Matrix'' $G$. Gram matrix is
@@ -316,13 +232,13 @@ different filter responses.
 \end{frame}
 
 \begin{frame}{Style Representation}
-Given $G^l$ and $A^l$ as respective Gram matrices of the
+Given $G_X^l$ and $G_A^l$ as respective Gram matrices of the
 noise image and the original image, our goal is to reduce the overall
-difference between $G^l$ and $A^l$. In this sense,
+difference between $G_X^l$ and $G_A^l$. In this sense,
 Contribution of layer $l$ to the total loss is
 \begin{equation}
-    E_l = \frac{1}{4N_l^2M_l^2} \sum_{i}^{N_l}\sum_{j}^{N_l}{(G^l_{ij} - A^l_{ij})^2}
-    = \mathbf{1}^T(\mathbf{G} - \mathbf{A})(\mathbf{G} - \mathbf{A})^T
+    E_l = \frac{1}{4N_l^2M_l^2} \sum_{i}^{N_l}\sum_{j}^{N_l}{((G^l_X)_{ij} - (G_A^l)_{ij})^2}
+    = \mathbf{1}^T(\mathbf{G^l_X} - \mathbf{G^l_A})(\mathbf{G^l_X} - \mathbf{G^l_A})^T
 \end{equation}
 \end{frame}
 
@@ -332,15 +248,15 @@ The total style loss is:
     \mathcal{L}_{style}(\mathbf{a}, \mathbf{x}) = \sum_{l=0}^L {w_l E_l }
 \end{equation}
 \begin{equation}
-    \frac{\partial \mathcal{L}_{style}}{\partial F^l_{ij}} = \frac{\partial E_l}{\partial F^l_{ij}} =
-    (4(\mathbf{G}^l - \mathbf{A}^l) \times \mathbf{F}^l)_{ij}
+    \frac{\partial \mathcal{L}_{style}}{\partial (F_X^l)_{ij}} = \frac{\partial E_l}{\partial (F^l_X)_{ij}} =
+    (4(\mathbf{G_X}^l - \mathbf{G_A}^l) \times \mathbf{F_X}^l)_{ij}
 \end{equation}
 \end{frame}
 
 \begin{frame}{Style Representation}
 \begin{equation}
-    \frac{\partial \mathcal{L}_{style}}{\partial F^l_{ij}} = \frac{\partial E_l}{\partial F^l_{ij}} =
-    (4(\mathbf{G}^l - \mathbf{A}^l) \times \mathbf{F}^l)_{ij}
+    \frac{\partial \mathcal{L}_{style}}{\partial (F^l_X)_{ij}} = \frac{\partial E_l}{\partial (F^l_X)_{ij}} =
+    (4(\mathbf{G_X}^l - \mathbf{G_A}^l) \times \mathbf{F}_X^l)_{ij}
 \end{equation}
     \begin{figure}
     \begin{tikzpicture}[scale=.84, every node/.style={scale=.7}, transform shape]
@@ -368,36 +284,143 @@ The total style loss is:
     \end{figure}
 \end{frame}
 
+% VGG19 for style transfer
+\begin{frame}{Style Transfer}
+\begin{figure}[ht]
+\centering
+\caption*{Content and Style Loss Layers for Style Transfer}
+\includegraphics[width=0.9\textwidth]{img/vgg19/transfer/layers}
+\end{figure}
+\end{frame}
+% Gatys et al. visualize of network passes
+\begin{frame}{Style Transfer}
+\begin{figure}[ht]
+\centering
+\caption*{Style Transfer Architecture}
+\includegraphics[width=\textwidth]{img/style-transfer}
+\end{figure}
+\end{frame}
+
+
 % white noise and style representation
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
-    \begin{minipage}[b]{0.45\linewidth}
+    \begin{minipage}[b]{0.34\linewidth}
         \centering
-        \caption*{white noise image $\mathbf{x}$}
-        \includegraphics[width=\textwidth]{img/style/noise}
+        \includegraphics[width=\textwidth]{img/content/tubingen}
+        \caption*{artwork image $\mathbf{A}$}
     \end{minipage}
     \hspace{0.5cm}
-    \begin{minipage}[b]{0.45\linewidth}
+    \begin{minipage}[b]{0.34\linewidth}
         \centering
-        \caption*{artwork image $\mathbf{a}$}
         \includegraphics[width=\textwidth]{img/style/the-starry-night}
+        \caption*{artwork image $\mathbf{A}$}
+    \end{minipage}
+    \hspace{0.5cm}
+    \begin{minipage}[b]{0.34\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/style/noise}
+        \caption*{white noise image $\mathbf{X}$}
     \end{minipage}
 \end{figure}
 \end{frame}
 
 % 1:1
+\begin{frame}{Content Reconstruction}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{img/vgg19/content/block1_conv1}
+\caption*{Block 1 Conv 1}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Content Reconstruction}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.8\textwidth]{img/content/block1_conv1}
+\caption*{Block 1 Conv 1}
+\end{figure}
+\end{frame}
+
+% 2:1
+\begin{frame}{Content Reconstruction}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{img/vgg19/content/block2_conv1}
+\caption*{Block 2 Conv 1}
+\end{figure}
+\end{frame}
+\begin{frame}{Content Reconstruction}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.8\textwidth]{img/content/block2_conv1}
+\caption*{Block 2 Conv 1}
+\end{figure}
+\end{frame}
+
+% 3:1
+\begin{frame}{Content Reconstruction}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{img/vgg19/content/block3_conv1}
+\caption*{Block 3 Conv 1}
+\end{figure}
+\end{frame}
+\begin{frame}{Content Reconstruction}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.8\textwidth]{img/content/block3_conv1}
+\caption*{Block 3 Conv 1}
+\end{figure}
+\end{frame}
+
+% 4:1
+\begin{frame}{Content Reconstruction}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{img/vgg19/content/block4_conv1}
+\caption*{Block 4 Conv 1}
+\end{figure}
+\end{frame}
+\begin{frame}{Content Reconstruction}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.8\textwidth]{img/content/block4_conv1}
+\caption*{Block 4 Conv 1}
+\end{figure}
+\end{frame}
+
+% 5:1
+\begin{frame}{Content Reconstruction}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{img/vgg19/content/block5_conv1}
+\caption*{Block 5 Conv 1}
+\end{figure}
+\end{frame}
+\begin{frame}{Content Reconstruction}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.8\textwidth]{img/content/block5_conv1}
+\caption*{Block 5 Conv 1}
+\end{figure}
+\end{frame}
+
+
+
+% 1:1
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
 \centering
-\caption*{Conv 1 of Block 1}
 \includegraphics[width=0.9\textwidth]{img/vgg19/style/block1_conv1}
+\caption*{Conv 1 of Block 1}
 \end{figure}
 \end{frame}
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
 \centering
+\includegraphics[width=.8\textwidth]{img/style/block1_conv1}
 \caption*{Conv 1 of Block 1}
-\includegraphics[width=\textwidth]{img/style/block1_conv1}
 \end{figure}
 \end{frame}
 
@@ -405,15 +428,15 @@ The total style loss is:
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
 \centering
+\includegraphics[width=0.8\textwidth]{img/vgg19/style/block2_conv1}
 \caption*{Conv 1 of Block 1, 2}
-\includegraphics[width=0.9\textwidth]{img/vgg19/style/block2_conv1}
 \end{figure}
 \end{frame}
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
 \centering
+\includegraphics[width=.8\textwidth]{img/style/block2_conv1}
 \caption*{Conv 1 of Block 1, 2}
-\includegraphics[width=\textwidth]{img/style/block2_conv1}
 \end{figure}
 \end{frame}
 
@@ -421,15 +444,15 @@ The total style loss is:
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
 \centering
-\caption*{Conv 1 of Block 1, 2, 3}
 \includegraphics[width=0.9\textwidth]{img/vgg19/style/block3_conv1}
+\caption*{Conv 1 of Block 1, 2, 3}
 \end{figure}
 \end{frame}
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
 \centering
+\includegraphics[width=.8\textwidth]{img/style/block3_conv1}
 \caption*{Conv 1 of Block 1, 2, 3}
-\includegraphics[width=\textwidth]{img/style/block3_conv1}
 \end{figure}
 \end{frame}
 
@@ -437,15 +460,15 @@ The total style loss is:
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
 \centering
+\includegraphics[width=0.8\textwidth]{img/vgg19/style/block4_conv1}
 \caption*{Conv 1 of Block 1, 2, 3, 4}
-\includegraphics[width=0.9\textwidth]{img/vgg19/style/block4_conv1}
 \end{figure}
 \end{frame}
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
 \centering
+\includegraphics[width=.8\textwidth]{img/style/block4_conv1}
 \caption*{Conv 1 of Block 1, 2, 3, 4}
-\includegraphics[width=\textwidth]{img/style/block4_conv1}
 \end{figure}
 \end{frame}
 
@@ -453,15 +476,15 @@ The total style loss is:
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
 \centering
+\includegraphics[width=0.8\textwidth]{img/vgg19/style/block5_conv1}
 \caption*{Conv 1 of Block 1, 2, 3, 4, 5}
-\includegraphics[width=0.9\textwidth]{img/vgg19/style/block5_conv1}
 \end{figure}
 \end{frame}
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
 \centering
+\includegraphics[width=.8\textwidth]{img/style/block5_conv1}
 \caption*{Conv 1 of Block 1, 2, 3, 4, 5}
-\includegraphics[width=\textwidth]{img/style/block5_conv1}
 \end{figure}
 \end{frame}
 
@@ -470,12 +493,12 @@ The total style loss is:
 % Style transfer loss (total loss)
 \begin{frame}{Style Transfer}
 To transfer the style of an artwork $\textbf{a}$, onto some content image
-$\textbf{p}$, we form the joint loss function of $L_{content}$ and
+$\textbf{P}$, we form the joint loss function of $L_{content}$ and
 $L_{style}$:
 
 \begin{equation}
-    \mathcal{L}_{total}(\mathbf{p}, \mathbf{a}, \mathbf{x}) =
-    \alpha \mathcal{L}_{content}(\mathbf{p}, \mathbf{x}) +
+    \mathcal{L}_{total}(\mathbf{P}, \mathbf{a}, \mathbf{x}) =
+    \alpha \mathcal{L}_{content}(\mathbf{P}, \mathbf{x}) +
     \beta \mathcal{L}_{style}(\mathbf{a}, \mathbf{x})
 \end{equation}
 
@@ -503,16 +526,17 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
     \end{enumerate}
     \newpage
     \begin{center}
-        $\mathbf{s}_k = \mathbf {x} _{k+1}-\mathbf {x} _{k}$ and
+        $\mathbf{s}_k = \mathbf {x} _{k+1}-\mathbf {x} _{k}$\\
+        $\mathbf{y}_k = \nabla f(\mathbf {x} _{k+1})-
+                    \nabla f(\mathbf {x} _{k})
+                                = \mathbf{g}_{k+1} - \mathbf{g}_{k}$. \\
     \end{center}
     However calculating $H^{-1}_k$ is extensive both in terms of computation and
     memory. Approximation methods have been proposed:
     \begin{enumerate}
         \item Imposing quasi-newtonian condition: \\
             $H_{k+1}(\mathbf{s}_k)=y_k$\\
-            and $\mathbf{y}_k = \nabla f(\mathbf {x} _{k+1})-
-            \nabla f(\mathbf {x} _{k})
-            = \mathbf{g}_{k+1} - \mathbf{g}_{k}$. \\
+
         \item \textbf{BFGS}: After some math magic we have:
             $H_{k+1}=H_{k}+{\frac {\mathbf {y} _{k}\mathbf {y} _{k}
             ^{\mathrm {T} }}{\mathbf {y} _{k}^{\mathrm {T} }
@@ -522,32 +546,27 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
             $H^{-1}_{k+1}=(I-\rho _{k}s_{k}y_{k}^{\top })
             H^{-1}_{k}(I-\rho _{k}y_{k}s_{k}^{\top })+\rho _{k}s_{k}s_{k}^{\top }$\\
             where $\rho_k = \rho_k = \frac{1}{y^{\rm T}_k s_k} $.
+        \item \textbf{L-BFGS}: Instead of estimating the hessian at each iteration
+            the value of $\mathbf{d}_k$ is calculated directly from a history
+            the past m steps $\mathbf{s}_k$s.
     \end{enumerate}
-
+    \begin{table}[]
+        \centering
+        \caption{My caption}
+        \label{my-label}
+        \begin{tabular}{l|l|l}
+            Gradient Descent              & BFGS        & L-BFGS      \\ \hline
+            $\theta(N^)$ & $\theta(N)$ & $\theta(m)$ \\
+            $\theta(N^)$ & $\theta(N)$ & $\theta(m)$
+        \end{tabular}
+    \end{table}
 \end{frame}
-% VGG19 for style transfer
-\begin{frame}{Style Transfer}
-\begin{figure}[ht]
-\centering
-\caption*{Content and Style Loss Layers for Style Transfer}
-\includegraphics[width=0.9\textwidth]{img/vgg19/transfer/layers}
-\end{figure}
-\end{frame}
-% Gatys et al. visualize of network passes
-\begin{frame}{Style Transfer}
-\begin{figure}[ht]
-\centering
-\caption*{Style Transfer Architecture}
-\includegraphics[width=\textwidth]{img/style-transfer}
-\end{figure}
-\end{frame}
-
 % picture of Tubingen, the content image p
 \begin{frame}{Style Transfer}
 \begin{figure}[H]
 \centering
-\caption*{Content Image \textbf{p}, Tubingen Germany}
-\includegraphics[width=\textwidth]{img/content/tubingen}
+\includegraphics[width=.8\textwidth]{img/content/tubingen}
+\caption*{Content Image \textbf{P}, Tubingen Germany}
 \end{figure}
 \end{frame}
 
@@ -555,7 +574,6 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
 \begin{frame}{Style Transfer}
 \begin{figure}
 \centering
-\caption*{Artwork Image \textbf{a}}
 \FourQuad{
     \begin{figure}[ht]
     \centering
@@ -582,6 +600,7 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
     \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/artworks/the-scream}
     \end{figure}
 }
+\caption*{Artwork Image \textbf{A}}
 \end{figure}
 \end{frame}
 
@@ -589,7 +608,6 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
 \begin{frame}{Style Transfer}
 \begin{figure}
 \centering
-\caption*{Stylized Image \textbf{x}}
 \FourQuad{
     \begin{figure}[ht]
     \centering
@@ -616,6 +634,7 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
     \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/transfer/the-scream}
     \end{figure}
 }
+\caption*{Stylized Image \textbf{X}}
 \end{figure}
 \end{frame}
 
