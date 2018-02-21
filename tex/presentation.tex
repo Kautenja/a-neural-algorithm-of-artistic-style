@@ -21,6 +21,18 @@
     \usetikzlibrary{shadows.blur}
     \usetikzlibrary{shapes.symbols}
 
+% Remove the useless and unsightly black bar at the top of the slides
+\setbeamertemplate{headline}{}
+% Remove the navigation thing at the bottom of the slides.
+\setbeamertemplate{navigation symbols}{}
+
+% Colors for Auburn University from their marketing materials
+% http://www.ocm.auburn.edu/graphicservices/colors.html
+\definecolor{auburn_orange}{RGB}{232, 119, 34}
+\definecolor{auburn_blue}{RGB}{12, 35, 64}
+% Set the color of the slide headers to auburn blue
+\setbeamercolor{structure}{fg=auburn_blue}
+
 % a new command for a four quadrant slide mardas
 \newcommand\FourQuad[4]{%
     \begin{minipage}[b][.35\textheight][t]{.47\textwidth}#1\end{minipage}\hfill%
@@ -40,12 +52,12 @@
     \vfill
     \end{frame}
 }
+
 \title{A Neural Algorithm of Artistic Style \\ { \tiny \citeA{gatys2016image}}}
 \author{Behnam Rasoolian, Christian Kauten}
 \institute{Auburn University}
-\definecolor{auburn_orange}{RGB}{221, 85, 12}
-\definecolor{auburn_blue}{RGB}{3, 36, 77}
 \date{}
+
 \begin{document}
 \tikzset{
     mystyle/.style={
