@@ -77,24 +77,61 @@
 }
 }
 
+
+
 \frame{\titlepage}
+
+
+
 \begin{frame}{Introduction}
     \begin{itemize}
     \item[] It is a variation of texture transfer problem:\\
     Given a source image, synthesize a new texture which preserves the
     semantic content of the original image.
-    \item[] Inputs:
+    \item[] \textbf{Input:}
         \begin{itemize}
             \item An input image that represents the content
             \item A work of art that represents the style
         \end{itemize}
-    \item[] Output:
+    \item[] \textbf{Output:}
         \begin{itemize}
             \item A new image that is perceptually similar in style to
             the work of art and in content to the original image.
         \end{itemize}
     \end{itemize}
 \end{frame}
+
+
+
+\begin{frame}{Introduction}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{img/content/samford-sign}
+\caption*{\textbf{Content Image:} Samford Hall, Auburn, AL}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}{Introduction}
+\begin{figure}[ht]
+\centering
+\includegraphics[height=0.7\textheight]{img/artworks/seated-nude}
+\caption*{\textbf{Artwork Image:} Pablo Picasso's \textit{Seated Nude}}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}{Introduction}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{img/loss/Adam.png}
+\caption*{\textbf{Output Image:} Samford Hall Styled like \textit{Seated Nude}}
+\end{figure}
+\end{frame}
+
+
 
 \begin{frame}{Approach in this paper}
     \begin{enumerate}
@@ -109,6 +146,8 @@
             capture both content of the image and style of the work of art.
     \end{enumerate}
 \end{frame}
+
+
 
 \begin{frame}{Approach in this paper}
     \framesubtitle{Loss function}
@@ -129,6 +168,8 @@
     \beta \mathcal{L}_{style}$
 \end{frame}
 
+
+
 \begin{frame}{Notations}
     \begin{itemize}
         \item $\mathbf{P}$: The original, content image
@@ -148,12 +189,16 @@
     \end{itemize}
 \end{frame}
 
+
+
 \begin{frame}{Notations}
     \begin{figure}[H]
         \centering
         \includegraphics[width=.8\textwidth]{img/levels}
     \end{figure}
 \end{frame}
+
+
 
 \begin{frame}{VGG19}
 \begin{figure}[H]
@@ -163,6 +208,8 @@
 \end{figure}
 \end{frame}
 
+
+
 \begin{frame}{VGG19}
 \begin{figure}[H]
 \centering
@@ -170,6 +217,8 @@
 \caption*{VGG19 Image Feature Extraction Architecture}
 \end{figure}
 \end{frame}
+
+
 
 \begin{frame}{VGG19}
 \begin{figure}[H]
@@ -179,20 +228,23 @@
 \end{figure}
 \end{frame}
 
+
+
 \begin{frame}{Content Representation}
     \begin{itemize}
-        \item Optimization is performed on a white noise image
-            ($\mathbf{X}$) and a content image
-            ($\mathbf{P}$)
-        \item $F_X^l$ and $F_P^l$: Respective feature maps of the
-            noise image and the original image
+        \item Perform gradient descent optimization on a white noise image
+            ($\mathbf{x}$) and a content image ($\mathbf{p}$)
+        \item $F_x^l$ and $F_p^l$: Respective feature maps of the noise image
+            and the original image
         \item Goal: Reduce the squared-error loss between $F^l$ and $P^l$.
     \begin{equation}
-        \mathcal{L}(\mathbf{p}, \mathbf{x}, l) =
+        \mathcal{L}_{content}(\mathbf{p}, \mathbf{x}, l) =
         \frac{1}{2} \sum_{i=1}^{N_l}\sum_{j=1}^{M_l}{(F^l_{ij} - P^l_{ij})^2}
     \end{equation}
     \end{itemize}
 \end{frame}
+
+
 
 \begin{frame}{Content Representation}
     The gradient of this loss with respect to activations in $l$ can be easily
@@ -201,11 +253,13 @@
         \frac{\partial \mathcal{L}_{content}}{\partial F^l_{ij}}
         =
         \begin{cases}
-            (F^l_X - F^l_P)_{ij} & \iff (F^l_{X})_{ij} > 0 \\
-            0 & \iff (F^l_{X})_{ij} < 0 \\
+            (F^l_x - F^l_p)_{ij} & \iff (F^l_x)_{ij} > 0 \\
+            0 & \iff (F^l_x)_{ij} < 0 \\
         \end{cases}
     \end{equation}
 \end{frame}
+
+
 
 \begin{frame}{Style Representation}
 Style representation is achieved via the ``Gram Matrix'' $G$. Gram matrix is
@@ -218,16 +272,22 @@ different filter responses.
 \end{equation}
 \end{frame}
 
+
+
 \begin{frame}{Style Representation}
-Given $G_X^l$ and $G_A^l$ as respective Gram matrices of the
-noise image and the original image, our goal is to reduce the overall
-difference between $G_X^l$ and $G_A^l$. In this sense,
-Contribution of layer $l$ to the total loss is
+Given $G_x^l$ and $G_a^l$ as respective Gram matrices of the noise image and
+the original image, our goal is to reduce the overall difference between
+$G_x^l$ and $G_a^l$. In this sense, Contribution of layer $l$ to the total
+loss is
+
 \begin{equation}
-    E_l = \frac{1}{4N_l^2M_l^2} \sum_{i}^{N_l}\sum_{j}^{N_l}{((G^l_X)_{ij} - (G_A^l)_{ij})^2}
-    = \mathbf{1}^T(\mathbf{G^l_X} - \mathbf{G^l_A})(\mathbf{G^l_X} - \mathbf{G^l_A})^T
+    E_l = \frac{1}{4N_l^2M_l^2} \sum_{i}^{N_l}\sum_{j}^{N_l}{((G^l_x)_{ij} - (G_a^l)_{ij})^2}
+    = \mathbf{1}^T(\mathbf{G^l_x} - \mathbf{G^l_a})(\mathbf{G^l_x} - \mathbf{G^l_a})^T
 \end{equation}
+
 \end{frame}
+
+
 
 \begin{frame}{Style Representation}
 The total style loss is:
@@ -235,15 +295,17 @@ The total style loss is:
     \mathcal{L}_{style}(\mathbf{a}, \mathbf{x}) = \sum_{l=0}^L {w_l E_l }
 \end{equation}
 \begin{equation}
-    \frac{\partial \mathcal{L}_{style}}{\partial (F_X^l)_{ij}} = \frac{\partial E_l}{\partial (F^l_X)_{ij}} =
-    (4(\mathbf{G_X}^l - \mathbf{G_A}^l) \times \mathbf{F_X}^l)_{ij}
+    \frac{\partial \mathcal{L}_{style}}{\partial (F_x^l)_{ij}} = \frac{\partial E_l}{\partial (F^l_x)_{ij}} =
+    (4(\mathbf{G_x}^l - \mathbf{G_a}^l) \times \mathbf{F_x}^l)_{ij}
 \end{equation}
 \end{frame}
 
+
+
 \begin{frame}{Style Representation}
 \begin{equation}
-    \frac{\partial \mathcal{L}_{style}}{\partial (F^l_X)_{ij}} = \frac{\partial E_l}{\partial (F^l_X)_{ij}} =
-    (4(\mathbf{G_X}^l - \mathbf{G_A}^l) \times \mathbf{F}_X^l)_{ij}
+    \frac{\partial \mathcal{L}_{style}}{\partial (F^l_x)_{ij}} = \frac{\partial E_l}{\partial (F^l_x)_{ij}} =
+    (4(\mathbf{G_x}^l - \mathbf{G_a}^l) \times \mathbf{F}_x^l)_{ij}
 \end{equation}
     \begin{figure}
     \begin{tikzpicture}[scale=.84, every node/.style={scale=.7}, transform shape]
@@ -271,46 +333,7 @@ The total style loss is:
     \end{figure}
 \end{frame}
 
-% VGG19 for style transfer
-\begin{frame}{Style Transfer}
-\begin{figure}[ht]
-\centering
-\caption*{Content and Style Loss Layers for Style Transfer}
-\includegraphics[width=0.9\textwidth]{img/vgg19/transfer/layers}
-\end{figure}
-\end{frame}
-% Gatys et al. visualize of network passes
-\begin{frame}{Style Transfer}
-\begin{figure}[ht]
-\centering
-\caption*{Style Transfer Architecture}
-\includegraphics[width=\textwidth]{img/style-transfer}
-\end{figure}
-\end{frame}
 
-
-% white noise and style representation
-\begin{frame}{Style Reconstruction}
-\begin{figure}[ht]
-    \begin{minipage}[b]{0.34\linewidth}
-        \centering
-        \includegraphics[width=\textwidth]{img/content/tubingen}
-        \caption*{artwork image $\mathbf{A}$}
-    \end{minipage}
-    \hspace{0.5cm}
-    \begin{minipage}[b]{0.34\linewidth}
-        \centering
-        \includegraphics[width=\textwidth]{img/style/the-starry-night}
-        \caption*{artwork image $\mathbf{A}$}
-    \end{minipage}
-    \hspace{0.5cm}
-    \begin{minipage}[b]{0.34\linewidth}
-        \centering
-        \includegraphics[width=\textwidth]{img/style/noise}
-        \caption*{white noise image $\mathbf{X}$}
-    \end{minipage}
-\end{figure}
-\end{frame}
 
 % 1:1
 \begin{frame}{Content Reconstruction}
@@ -321,6 +344,8 @@ The total style loss is:
 \end{figure}
 \end{frame}
 
+
+
 \begin{frame}{Content Reconstruction}
 \begin{figure}[ht]
 \centering
@@ -328,6 +353,8 @@ The total style loss is:
 \caption*{Block 1 Conv 1}
 \end{figure}
 \end{frame}
+
+
 
 % 2:1
 \begin{frame}{Content Reconstruction}
@@ -345,6 +372,8 @@ The total style loss is:
 \end{figure}
 \end{frame}
 
+
+
 % 3:1
 \begin{frame}{Content Reconstruction}
 \begin{figure}[ht]
@@ -361,6 +390,8 @@ The total style loss is:
 \end{figure}
 \end{frame}
 
+
+
 % 4:1
 \begin{frame}{Content Reconstruction}
 \begin{figure}[ht]
@@ -376,6 +407,8 @@ The total style loss is:
 \caption*{Block 4 Conv 1}
 \end{figure}
 \end{frame}
+
+
 
 % 5:1
 \begin{frame}{Content Reconstruction}
@@ -411,6 +444,8 @@ The total style loss is:
 \end{figure}
 \end{frame}
 
+
+
 % [1,2]:1
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
@@ -426,6 +461,8 @@ The total style loss is:
 \caption*{Conv 1 of Block 1, 2}
 \end{figure}
 \end{frame}
+
+
 
 % [1,2,3]:1
 \begin{frame}{Style Reconstruction}
@@ -443,6 +480,8 @@ The total style loss is:
 \end{figure}
 \end{frame}
 
+
+
 % [1,2,3,4]:1
 \begin{frame}{Style Reconstruction}
 \begin{figure}[ht]
@@ -458,6 +497,8 @@ The total style loss is:
 \caption*{Conv 1 of Block 1, 2, 3, 4}
 \end{figure}
 \end{frame}
+
+
 
 % [1,2,3,4,5]:1
 \begin{frame}{Style Reconstruction}
@@ -493,6 +534,54 @@ where $\alpha$ and $\beta$ are the arbitrary weighting factors of the content
 and style loss respectively. Gatys et al. find the best results using a ratio
 of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
 \end{frame}
+
+
+% VGG19 for style transfer
+\begin{frame}{Style Transfer}
+\begin{figure}[ht]
+\centering
+\caption*{Content and Style Loss Layers for Style Transfer}
+\includegraphics[width=0.9\textwidth]{img/vgg19/transfer/layers}
+\end{figure}
+\end{frame}
+
+
+
+% Gatys et al. visualize of network passes
+\begin{frame}{Style Transfer}
+\begin{figure}[ht]
+\centering
+\caption*{Style Transfer Architecture}
+\includegraphics[width=\textwidth]{img/style-transfer}
+\end{figure}
+\end{frame}
+
+
+
+% white noise and style representation
+\begin{frame}{Style Transfer}
+\begin{figure}[ht]
+    \begin{minipage}[b]{0.34\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/content/tubingen}
+        \caption*{content image $\mathbf{P}$}
+    \end{minipage}
+    \hspace{0.5cm}
+    \begin{minipage}[b]{0.34\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/style/the-starry-night}
+        \caption*{artwork image $\mathbf{A}$}
+    \end{minipage}
+    \hspace{0.5cm}
+    \begin{minipage}[b]{0.34\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/style/noise}
+        \caption*{white noise image $\mathbf{X}$}
+    \end{minipage}
+\end{figure}
+\end{frame}
+
+
 
 \begin{frame}[allowframebreaks]{Note on Optimization methods}
 
@@ -548,6 +637,9 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
         \end{tabular}
     \end{table}
 \end{frame}
+
+
+
 % picture of Tubingen, the content image p
 \begin{frame}{Style Transfer}
 \begin{figure}[H]
@@ -556,6 +648,8 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
 \caption*{Content Image \textbf{P}, Tubingen Germany}
 \end{figure}
 \end{frame}
+
+
 
 % 4 pane with the 4 Artworks for stylization
 \begin{frame}{Style Transfer}
@@ -591,6 +685,8 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
 \end{figure}
 \end{frame}
 
+
+
 % 4 pane with the 4 stylized artworks
 \begin{frame}{Style Transfer}
 \begin{figure}
@@ -625,6 +721,8 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
 \end{figure}
 \end{frame}
 
+
+
 \begin{frame}{Literature Review}
     Comparable to generative Adversarial
     Networks \cite{dosovitskiy2016generating}.
@@ -640,9 +738,13 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
     \end{itemize}
 \end{frame}
 
+
+
 \begin{frame}[allowframebreaks]{References}
     \bibliographystyle{apacite}
     \bibliography{references}
 \end{frame}
+
+
 
 \end{document}
