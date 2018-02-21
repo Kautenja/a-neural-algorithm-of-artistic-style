@@ -151,7 +151,9 @@
 
 \begin{frame}{Approach in this paper}
     \framesubtitle{Loss function}
+
     Two different loss functions are taken into account:
+
     \begin{enumerate}
         \item $\mathcal{L}_{content}$ captures the difference in content
             between two images by measuring the distance between features at
@@ -160,21 +162,25 @@
             between two images by evaluating the distance between the two
             \textbf{Gram Matrices} at each level.
     \end{enumerate}
+
     The total loss function is a
     \textbf{\color{red} linear combination}
-    of the follwoing two loss functions:
-    $ \mathcal{L}_{total} =
+    of the content and style losses:
+
+    $$
+    \mathcal{L}_{total} =
     \alpha \mathcal{L}_{content} +
-    \beta \mathcal{L}_{style}$
+    \beta \mathcal{L}_{style}
+    $$
 \end{frame}
 
 
 
 \begin{frame}{Notations}
     \begin{itemize}
-        \item $\mathbf{P}$: The original, content image
-        \item $\mathbf{A}$: The original, artwork image
-        \item $\mathbf{X}$: The image to be generated. It is initiated as a
+        \item $\mathbf{p}$: The original, content image
+        \item $\mathbf{a}$: The original, artwork image
+        \item $\mathbf{x}$: The image to be generated. It is initiated as a
             random noise image.
         \item $F^l$: \textbf{Feature Map} at level l, is the result of applying
             filters at level $l$. If $N_l$ filters are applier at level $l$,
@@ -589,7 +595,6 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
         $\mathbf{g}_k = \nabla f_{\theta}(\theta_k) $ \hspace{10mm}
         $\mathbf{H}_k = \nabla^{2} f_{\theta}(\theta_k)$
     \end{center}
-
     \textbf{Methods}:
     \begin{enumerate}
         \item \textbf{Gradient}: $\boldsymbol{\theta}_{k+1} =
@@ -600,17 +605,19 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
             we can solve the linear systems of equations
             $\mathbf{H}_k \mathbf{d}_k = -\mathbf{g}_k$ for $\mathbf{d}_k$.
     \end{enumerate}
+
     \newpage
+
     \begin{center}
         $\mathbf{s}_k = \mathbf {x} _{k+1}-\mathbf {x} _{k}$\\
         $\mathbf{y}_k = \nabla f(\mathbf {x} _{k+1})-
                     \nabla f(\mathbf {x} _{k})
                                 = \mathbf{g}_{k+1} - \mathbf{g}_{k}$. \\
     \end{center}
-    However calculating $H^{-1}_k$ is extensive both in terms of computation and
-    memory. Approximation methods have been proposed:
+    However calculating $H^{-1}_k$ is extensive both in terms of computation
+    and memory. Approximation methods have been proposed:
     \begin{enumerate}
-        \item Imposing quasi-newtonian condition: \\
+        \item Imposing quasi-Newtonian condition: \\
             $H_{k+1}(\mathbf{s}_k)=y_k$\\
 
         \item \textbf{BFGS}: After some math magic we have:
@@ -622,10 +629,11 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
             $H^{-1}_{k+1}=(I-\rho _{k}s_{k}y_{k}^{\top })
             H^{-1}_{k}(I-\rho _{k}y_{k}s_{k}^{\top })+\rho _{k}s_{k}s_{k}^{\top }$\\
             where $\rho_k = \rho_k = \frac{1}{y^{\rm T}_k s_k} $.
-        \item \textbf{L-BFGS}: Instead of estimating the hessian at each iteration
-            the value of $\mathbf{d}_k$ is calculated directly from a history
-            the past m steps $\mathbf{s}_k$s.
+        \item \textbf{L-BFGS}: Instead of estimating the Hessian at each
+            iteration the value of $\mathbf{d}_k$ is calculated directly from
+            a history the past m steps $\mathbf{s}_k$s.
     \end{enumerate}
+
     \begin{table}[]
         \centering
         \caption{My caption}
@@ -636,6 +644,13 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
             $\theta(N^)$ & $\theta(N)$ & $\theta(m)$
         \end{tabular}
     \end{table}
+
+    \begin{figure}
+    \centering
+    \caption*{Minimizing $\mathcal{L}_{total}$ With Different Optimizers}
+    \includegraphics[width=.8\textwidth]{img/loss/plot}
+    \end{figure}
+
 \end{frame}
 
 
@@ -645,7 +660,7 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
 \begin{figure}[H]
 \centering
 \includegraphics[width=.8\textwidth]{img/content/tubingen}
-\caption*{Content Image \textbf{P}, Tubingen Germany}
+\caption*{Content Image \textbf{p}, Tubingen Germany}
 \end{figure}
 \end{frame}
 
@@ -681,7 +696,7 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
     \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/artworks/the-scream}
     \end{figure}
 }
-\caption*{Artwork Image \textbf{A}}
+\caption*{Artwork Image \textbf{a}}
 \end{figure}
 \end{frame}
 
@@ -717,7 +732,7 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
     \includegraphics[width=0.8\textwidth,height=0.27\textheight]{img/transfer/the-scream}
     \end{figure}
 }
-\caption*{Stylized Image \textbf{X}}
+\caption*{Stylized Image \textbf{x}}
 \end{figure}
 \end{frame}
 
