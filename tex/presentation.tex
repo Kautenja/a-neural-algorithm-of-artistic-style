@@ -84,61 +84,48 @@
     Given a source image, synthesize a new texture which preserves the
     semantic content of the original image.
     \item[] Inputs:
-        \begin{enumerate}
+        \begin{itemize}
             \item An input image that represents the content
             \item A work of art that represents the style
-        \end{enumerate}
+        \end{itemize}
     \item[] Output:
-        \begin{enumerate}
+        \begin{itemize}
             \item A new image that is perceptually similar in style to
             the work of art and in content to the original image.
-        \end{enumerate}
+        \end{itemize}
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Literature Review}
-    Comparable to generative Adversarial
-    Networks \cite{dosovitskiy2016generating}.
-    \begin{itemize}
-        \item Trains a generative network
-            that does image generation.
-        \item Solves a different problem:
-            \begin{itemize}
-                \item[] Input: Image category
-                \item[] Output: an image that looks like
-            the items in that category.
-            \end{itemize}
-    \end{itemize}
-\end{frame}
 \begin{frame}{Approach in this paper}
     \begin{enumerate}
-        \item Pick an already trained CNN, in this
-            case, VGG19.
-        \item Train a white noise image based on a
-            loss function that captures both
-            content of the image and style of
-            the work of art.
+        \item Pick a CNN architecture trained for a classification task
+        \begin{itemize}
+            \item in this case we use \textbf{VGG19} trained on
+                \textbf{ImageNet}
+        \end{itemize}
+        \item Design a loss function that balances content of an image with
+            styles and textures from a work of art
+        \item Optimize a white noise image based on this loss function to
+            capture both content of the image and style of the work of art.
     \end{enumerate}
 \end{frame}
+
 \begin{frame}{Approach in this paper}
     \framesubtitle{Loss function}
-    Two types of loss functions are taken into account:
+    Two different loss functions are taken into account:
     \begin{enumerate}
-        \item A loss function that aims at capturing
-            the content of the image by reducing the
-            distance between features, at each level.
-            ($\mathcal{L}_{content}$)
-        \item A loss fuction that aims at capturing
-            the style of the work of art by reducing
-            the distance between the two
-            \textbf{Gram Matrices"} at each level.
-            ($\mathcal{L}_{style}$)
+        \item $\mathcal{L}_{content}$ captures the difference in content
+            between two images by measuring the distance between features at
+            each level.
+        \item $\mathcal{L}_{style}$ captures the the difference in style
+            between two images by evaluating the distance between the two
+            \textbf{Gram Matrices} at each level.
     \end{enumerate}
     The total loss function is a
     \textbf{\color{red} linear combination}
     of the follwoing two loss functions:
-    $ \mathcal{L} =
-    \alpha \mathcal{L}_{content} \times
+    $ \mathcal{L}_{total} =
+    \alpha \mathcal{L}_{content} +
     \beta \mathcal{L}_{style}$
 \end{frame}
 
@@ -148,11 +135,11 @@
         \item $\mathbf{A}$: The original, artwork image
         \item $\mathbf{X}$: The image to be generated. It is initiated as a
             random noise image.
-        \item $F^l$: \textbf{Feature Map} at level l, is the result of appling
+        \item $F^l$: \textbf{Feature Map} at level l, is the result of applying
             filters at level $l$. If $N_l$ filters are applier at level $l$,
             then this feature map has a depth of $N_l$.
         \item $N_l$: The number of filters applier at level $l$. This is
-            the same as the depts of the feature map at level
+            the same as the depths of the feature map at level
             $l$.
         \item $M_l$: the dimension of the feature map at level l, which
             is equal to $N_l \times M_l$.
@@ -188,7 +175,7 @@
 \begin{figure}[H]
 \centering
 \includegraphics[width=.9\textwidth]{img/vgg19/synthesis}
-\caption*{Gatys et al. VGG19 Image Synthesis Architecture}
+\caption*{\citeA{gatys2016image} VGG19 Image Synthesis Architecture}
 \end{figure}
 \end{frame}
 
@@ -636,6 +623,21 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
 }
 \caption*{Stylized Image \textbf{X}}
 \end{figure}
+\end{frame}
+
+\begin{frame}{Literature Review}
+    Comparable to generative Adversarial
+    Networks \cite{dosovitskiy2016generating}.
+    \begin{itemize}
+        \item Trains a generative network
+            that does image generation.
+        \item Solves a different problem:
+            \begin{itemize}
+                \item[] Input: Image category
+                \item[] Output: an image that looks like
+            the items in that category.
+            \end{itemize}
+    \end{itemize}
 \end{frame}
 
 \begin{frame}[allowframebreaks]{References}
