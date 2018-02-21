@@ -12,6 +12,7 @@ tex/*.toc
 tex/*.bbl
 tex/*.blg
 tex/*.brf
+tex/*.swp
 
 #
 # MacOS
