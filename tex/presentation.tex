@@ -188,34 +188,6 @@
 
 
 
-\begin{frame}{Notations}
-    \begin{itemize}
-        \item $\mathbf{p}$: The original, content image
-        \item $\mathbf{a}$: The original, artwork image
-        \item $\mathbf{x}$: The image to be generated. It is initiated as a
-            random noise image.
-        \item $F^l$: \textbf{Feature Map} at level l, is the result of applying
-            filters at level $l$. If $N_l$ filters are applier at level $l$,
-            then this feature map has a depth of $N_l$.
-        \item $N_l$: The number of filters applier at level $l$. This is
-            the same as the depths of the feature map at level
-            $l$.
-        \item $M_l$: the dimension of the feature map at level l, which
-            is equal to $N_l \times M_l$.
-    \end{itemize}
-\end{frame}
-
-
-
-\begin{frame}{Notations}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=.8\textwidth]{img/levels}
-    \end{figure}
-\end{frame}
-
-
-
 \begin{frame}{VGG19}
 \begin{figure}[H]
 \centering
@@ -242,6 +214,34 @@
 \includegraphics[width=.9\textwidth]{img/vgg19/synthesis}
 \caption*{\citeA{gatys2016image} VGG19 Image Synthesis Architecture}
 \end{figure}
+\end{frame}
+
+
+
+\begin{frame}{Notations}
+    \begin{itemize}
+        \item $\mathbf{p}$: The original, content image
+        \item $\mathbf{a}$: The original, artwork image
+        \item $\mathbf{x}$: The image to be generated. It is initiated as a
+            random noise image.
+        \item $F^l$: \textbf{Feature Map} at level l, is the result of applying
+            filters at level $l$. If $N_l$ filters are applier at level $l$,
+            then this feature map has a depth of $N_l$.
+        \item $N_l$: The number of filters applier at level $l$. This is
+            the same as the depths of the feature map at level
+            $l$.
+        \item $M_l$: the dimension of the feature map at level l, which
+            is equal to $N_l \times M_l$.
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Notations}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=.8\textwidth]{img/levels}
+    \end{figure}
 \end{frame}
 
 
@@ -277,76 +277,20 @@
 
 
 
-\begin{frame}{Style Representation}
-Style representation is achieved via the ``Gram Matrix'' $G$. Gram matrix is
-an $N_l \times N_l$ matrix which calculates the correlations between
-different filter responses.
-
-\begin{equation}
-    \mathbf{G^l}_{ij} = \mathbf{{F^l}^T}_i \times \mathbf{F^l}_j
-    = (\mathbf{{F^l}^T} \times \mathbf{F^l})_{ij}
-\end{equation}
-\end{frame}
-
-
-
-\begin{frame}{Style Representation}
-Given $G_x^l$ and $G_a^l$ as respective Gram matrices of the noise image and
-the original image, our goal is to reduce the overall difference between
-$G_x^l$ and $G_a^l$. In this sense, Contribution of layer $l$ to the total
-loss is
-
-\begin{equation}
-    E_l = \frac{1}{4N_l^2M_l^2} \sum_{i}^{N_l}\sum_{j}^{N_l}{((G^l_x)_{ij} - (G_a^l)_{ij})^2}
-    = \mathbf{1}^T(\mathbf{G^l_x} - \mathbf{G^l_a})(\mathbf{G^l_x} - \mathbf{G^l_a})^T
-\end{equation}
-
-\end{frame}
-
-
-
-\begin{frame}{Style Representation}
-The total style loss is:
-\begin{equation}
-    \mathcal{L}_{style}(\mathbf{a}, \mathbf{x}) = \sum_{l=0}^L {w_l E_l }
-\end{equation}
-\begin{equation}
-    \frac{\partial \mathcal{L}_{style}}{\partial (F_x^l)_{ij}} = \frac{\partial E_l}{\partial (F^l_x)_{ij}} =
-    (4(\mathbf{G_x}^l - \mathbf{G_a}^l) \times \mathbf{F_x}^l)_{ij}
-\end{equation}
-\end{frame}
-
-
-
-\begin{frame}{Style Representation}
-\begin{equation}
-    \frac{\partial \mathcal{L}_{style}}{\partial (F^l_x)_{ij}} = \frac{\partial E_l}{\partial (F^l_x)_{ij}} =
-    (4(\mathbf{G_x}^l - \mathbf{G_a}^l) \times \mathbf{F}_x^l)_{ij}
-\end{equation}
-    \begin{figure}
-    \begin{tikzpicture}[scale=.84, every node/.style={scale=.7}, transform shape]
-        \node (a) at (-5, 0) {};
-        \node [mystyle] (b) [right=2cm of a] {$ \times X^T$};
-        \draw [myEdgeStyle] (a.east) to  node [auto] (ab) {$\mathbf{F^l}_{N_l \times M_l}$}(b.west);
-        \draw [myEdgeStyle] (a.east) to  node [red] [below] (ab) {$2(\mathbf{G} - \mathbf{A}) \times 2\mathbf{F}$}(b.west);
-        \node [mystyle, ellipse, text height = .5cm, text width = 2cm] (c) [right=2cm of b] {$ (\mathbf{X} - \mathbf{A}_l)^2$};
-        \draw [myEdgeStyle] (b.east) to node [auto] (bc) {$\mathbf{G}_{N_l \times N_l}$} (c.west) ;
-        \draw [myEdgeStyle] (b.east) to node  [red][below] (bc) {$2(\mathbf{G} - \mathbf{A})_{N_l \times N_l}$} (c.west) ;
-        \node [mystyle] (d) [right=2cm of c] {$\times$};
-        \draw [myEdgeStyle] (c.east) to node [auto] (cd) {$(G - A)^2_{N_l \times N_l}$} (d.west) ;
-        \draw [myEdgeStyle] (c.east) to node  [red][below] (cd) {$1_{N_l \times N_l}$} (d.west) ;
-        \node (bcd) [below=1cm of cd] {};
-        \draw [myEdgeStyle] (bcd.east) -| node [above left= .1and .4cm] {$\mathbf{1}_{N_l \times 1}$} (d.south) ;
-        \node [mystyle] (e) [right=2cm of d] {$\times$};
-        \draw [myEdgeStyle] (d.east) to node [above] (de) {$E'_{N_l \times 1}$} (e.west) ;
-        \draw [myEdgeStyle] (d.east) to node  [red][below] (de) {$\mathbf{1}_{N_l \times 1}$} (e.west) ;
-        \node (bde) [below=1cm of de] {};
-        \draw [myEdgeStyle] (bde.east) -| node [above left= .1and .4cm] {$\mathbf{1}^T_{1 \times N_l}$} (e.south) ;
-        \node (f) [right=1.5cm of e] {};
-        \draw [myEdgeStyle] (e.east) to node [auto] (ef) {$E$} (f.west) ;
-        \draw [myEdgeStyle] (e.east) to node  [red][below] (ef2) {$1$} (f.west) ;
-    \end{tikzpicture}
-    \end{figure}
+\begin{frame}{Content Reconstruction}
+\begin{figure}[ht]
+    \begin{minipage}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/content/noise}
+        \caption*{White Noise Image $\mathbf{x}$}
+    \end{minipage}
+    \hspace{0.5cm}
+    \begin{minipage}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/content/tubingen}
+        \caption*{Content Image $\mathbf{p}$}
+    \end{minipage}
+\end{figure}
 \end{frame}
 
 
@@ -439,6 +383,99 @@ The total style loss is:
 \centering
 \includegraphics[width=.8\textwidth]{img/content/block5_conv1}
 \caption*{Block 5 Conv 1}
+\end{figure}
+\end{frame}
+
+
+
+
+\begin{frame}{Style Representation}
+Style representation is achieved via the ``Gram Matrix'' $G$. Gram matrix is
+an $N_l \times N_l$ matrix which calculates the correlations between
+different filter responses.
+
+\begin{equation}
+    \mathbf{G^l}_{ij} = \mathbf{{F^l}^T}_i \times \mathbf{F^l}_j
+    = (\mathbf{{F^l}^T} \times \mathbf{F^l})_{ij}
+\end{equation}
+\end{frame}
+
+
+
+\begin{frame}{Style Representation}
+Given $G_x^l$ and $G_a^l$ as respective Gram matrices of the noise image and
+the original image, our goal is to reduce the overall difference between
+$G_x^l$ and $G_a^l$. In this sense, Contribution of layer $l$ to the total
+loss is
+
+\begin{equation}
+    E_l = \frac{1}{4N_l^2M_l^2} \sum_{i}^{N_l}\sum_{j}^{N_l}{((G^l_x)_{ij} - (G_a^l)_{ij})^2}
+    = \mathbf{1}^T(\mathbf{G^l_x} - \mathbf{G^l_a})(\mathbf{G^l_x} - \mathbf{G^l_a})^T
+\end{equation}
+
+\end{frame}
+
+
+
+\begin{frame}{Style Representation}
+The total style loss is:
+\begin{equation}
+    \mathcal{L}_{style}(\mathbf{a}, \mathbf{x}) = \sum_{l=0}^L {w_l E_l }
+\end{equation}
+\begin{equation}
+    \frac{\partial \mathcal{L}_{style}}{\partial (F_x^l)_{ij}} = \frac{\partial E_l}{\partial (F^l_x)_{ij}} =
+    (4(\mathbf{G_x}^l - \mathbf{G_a}^l) \times \mathbf{F_x}^l)_{ij}
+\end{equation}
+\end{frame}
+
+
+
+\begin{frame}{Style Representation}
+\begin{equation}
+    \frac{\partial \mathcal{L}_{style}}{\partial (F^l_x)_{ij}} = \frac{\partial E_l}{\partial (F^l_x)_{ij}} =
+    (4(\mathbf{G_x}^l - \mathbf{G_a}^l) \times \mathbf{F}_x^l)_{ij}
+\end{equation}
+    \begin{figure}
+    \begin{tikzpicture}[scale=.84, every node/.style={scale=.7}, transform shape]
+        \node (a) at (-5, 0) {};
+        \node [mystyle] (b) [right=2cm of a] {$ \times X^T$};
+        \draw [myEdgeStyle] (a.east) to  node [auto] (ab) {$\mathbf{F^l}_{N_l \times M_l}$}(b.west);
+        \draw [myEdgeStyle] (a.east) to  node [red] [below] (ab) {$2(\mathbf{G} - \mathbf{A}) \times 2\mathbf{F}$}(b.west);
+        \node [mystyle, ellipse, text height = .5cm, text width = 2cm] (c) [right=2cm of b] {$ (\mathbf{X} - \mathbf{A}_l)^2$};
+        \draw [myEdgeStyle] (b.east) to node [auto] (bc) {$\mathbf{G}_{N_l \times N_l}$} (c.west) ;
+        \draw [myEdgeStyle] (b.east) to node  [red][below] (bc) {$2(\mathbf{G} - \mathbf{A})_{N_l \times N_l}$} (c.west) ;
+        \node [mystyle] (d) [right=2cm of c] {$\times$};
+        \draw [myEdgeStyle] (c.east) to node [auto] (cd) {$(G - A)^2_{N_l \times N_l}$} (d.west) ;
+        \draw [myEdgeStyle] (c.east) to node  [red][below] (cd) {$1_{N_l \times N_l}$} (d.west) ;
+        \node (bcd) [below=1cm of cd] {};
+        \draw [myEdgeStyle] (bcd.east) -| node [above left= .1and .4cm] {$\mathbf{1}_{N_l \times 1}$} (d.south) ;
+        \node [mystyle] (e) [right=2cm of d] {$\times$};
+        \draw [myEdgeStyle] (d.east) to node [above] (de) {$E'_{N_l \times 1}$} (e.west) ;
+        \draw [myEdgeStyle] (d.east) to node  [red][below] (de) {$\mathbf{1}_{N_l \times 1}$} (e.west) ;
+        \node (bde) [below=1cm of de] {};
+        \draw [myEdgeStyle] (bde.east) -| node [above left= .1and .4cm] {$\mathbf{1}^T_{1 \times N_l}$} (e.south) ;
+        \node (f) [right=1.5cm of e] {};
+        \draw [myEdgeStyle] (e.east) to node [auto] (ef) {$E$} (f.west) ;
+        \draw [myEdgeStyle] (e.east) to node  [red][below] (ef2) {$1$} (f.west) ;
+    \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+
+
+\begin{frame}{Style Reconstruction}
+\begin{figure}[ht]
+    \begin{minipage}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/style/noise}
+        \caption*{White Noise Image $\mathbf{x}$}
+    \end{minipage}
+    \hspace{0.5cm}
+    \begin{minipage}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{img/style/the-starry-night}
+        \caption*{Artwork Image $\mathbf{a}$}
+    \end{minipage}
 \end{figure}
 \end{frame}
 
@@ -552,27 +589,6 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
 \end{frame}
 
 
-% VGG19 for style transfer
-\begin{frame}{Style Transfer}
-\begin{figure}[ht]
-\centering
-\caption*{Content and Style Loss Layers for Style Transfer}
-\includegraphics[width=0.9\textwidth]{img/vgg19/transfer/layers}
-\end{figure}
-\end{frame}
-
-
-
-% Gatys et al. visualize of network passes
-\begin{frame}{Style Transfer}
-\begin{figure}[ht]
-\centering
-\caption*{Style Transfer Architecture}
-\includegraphics[width=\textwidth]{img/style-transfer}
-\end{figure}
-\end{frame}
-
-
 
 % white noise and style representation
 \begin{frame}{Style Transfer}
@@ -599,68 +615,24 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
 
 
 
-\begin{frame}[allowframebreaks]{Note on Optimization methods}
+% VGG19 for style transfer
+\begin{frame}{Style Transfer}
+\begin{figure}[ht]
+\centering
+\caption*{Content and Style Loss Layers for Style Transfer}
+\includegraphics[width=0.9\textwidth]{img/vgg19/transfer/layers}
+\end{figure}
+\end{frame}
 
-    \begin{center}
-        $\mathbf{g}_k = \nabla f_{\theta}(\theta_k) $ \hspace{10mm}
-        $\mathbf{H}_k = \nabla^{2} f_{\theta}(\theta_k)$
-    \end{center}
-    \textbf{Methods}:
-    \begin{enumerate}
-        \item \textbf{Gradient}: $\boldsymbol{\theta}_{k+1} =
-            \boldsymbol{\theta}_k - \eta_k \mathbf{g}_k$
-        \item \textbf{Hessian}: $\boldsymbol{\theta}_{k+1} = \boldsymbol{\theta}_k - d_k$
-            where $\mathbf{d}_k = \mathbf{H}_k^{-1} \mathbf{g}_k$ \\
-            Rather than computing $\mathbf{d}_k = \mathbf{H}_k^{-1} \mathbf{g}_k$ directly,
-            we can solve the linear systems of equations
-            $\mathbf{H}_k \mathbf{d}_k = -\mathbf{g}_k$ for $\mathbf{d}_k$.
-    \end{enumerate}
 
-    \newpage
 
-    \begin{center}
-        $\mathbf{s}_k = \mathbf {x} _{k+1}-\mathbf {x} _{k}$\\
-        $\mathbf{y}_k = \nabla f(\mathbf {x} _{k+1})-
-                    \nabla f(\mathbf {x} _{k})
-                                = \mathbf{g}_{k+1} - \mathbf{g}_{k}$. \\
-    \end{center}
-    However calculating $H^{-1}_k$ is extensive both in terms of computation
-    and memory. Approximation methods have been proposed:
-    \begin{enumerate}
-        \item Imposing quasi-Newtonian condition: \\
-            $H_{k+1}(\mathbf{s}_k)=y_k$\\
-
-        \item \textbf{BFGS}: After some math magic we have:
-            $H_{k+1}=H_{k}+{\frac {\mathbf {y} _{k}\mathbf {y} _{k}
-            ^{\mathrm {T} }}{\mathbf {y} _{k}^{\mathrm {T} }
-            \mathbf {s} _{k}}}-{\frac {H_{k}\mathbf {s} _{k}\mathbf {s} _{k}^
-            {\mathrm {T} }H_{k}^{\mathrm {T} }}{\mathbf {s} _{k}^
-            {\mathrm {T} }H_{k}\mathbf {s} _{k}}}$\\
-            $H^{-1}_{k+1}=(I-\rho _{k}s_{k}y_{k}^{\top })
-            H^{-1}_{k}(I-\rho _{k}y_{k}s_{k}^{\top })+\rho _{k}s_{k}s_{k}^{\top }$\\
-            where $\rho_k = \rho_k = \frac{1}{y^{\rm T}_k s_k} $.
-        \item \textbf{L-BFGS}: Instead of estimating the Hessian at each
-            iteration the value of $\mathbf{d}_k$ is calculated directly from
-            a history the past m steps $\mathbf{s}_k$s.
-    \end{enumerate}
-
-    \begin{table}[]
-        \centering
-        \caption{My caption}
-        \label{my-label}
-        \begin{tabular}{l|l|l}
-            Gradient Descent              & BFGS        & L-BFGS      \\ \hline
-            $\theta(N^)$ & $\theta(N)$ & $\theta(m)$ \\
-            $\theta(N^)$ & $\theta(N)$ & $\theta(m)$
-        \end{tabular}
-    \end{table}
-
-    \begin{figure}
-    \centering
-    \caption*{Minimizing $\mathcal{L}_{total}$ With Different Optimizers}
-    \includegraphics[width=.8\textwidth]{img/loss/plot}
-    \end{figure}
-
+% Gatys et al. visualize of network passes
+\begin{frame}{Style Transfer}
+\begin{figure}[ht]
+\centering
+\caption*{Style Transfer Architecture}
+\includegraphics[width=\textwidth]{img/style-transfer}
+\end{figure}
 \end{frame}
 
 
@@ -743,6 +715,105 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
     \end{figure}
 }
 \caption*{Stylized Image \textbf{x}}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}[allowframebreaks]{Note on Optimization methods}
+
+    \begin{center}
+        $\mathbf{g}_k = \nabla f_{\theta}(\theta_k) $ \hspace{10mm}
+        $\mathbf{H}_k = \nabla^{2} f_{\theta}(\theta_k)$
+    \end{center}
+    \textbf{Methods}:
+    \begin{enumerate}
+        \item \textbf{Gradient}: $\boldsymbol{\theta}_{k+1} =
+            \boldsymbol{\theta}_k - \eta_k \mathbf{g}_k$
+        \item \textbf{Hessian}: $\boldsymbol{\theta}_{k+1} = \boldsymbol{\theta}_k - d_k$
+            where $\mathbf{d}_k = \mathbf{H}_k^{-1} \mathbf{g}_k$ \\
+            Rather than computing $\mathbf{d}_k = \mathbf{H}_k^{-1} \mathbf{g}_k$ directly,
+            we can solve the linear systems of equations
+            $\mathbf{H}_k \mathbf{d}_k = -\mathbf{g}_k$ for $\mathbf{d}_k$.
+    \end{enumerate}
+
+    \newpage
+
+    \begin{center}
+        $\mathbf{s}_k = \mathbf {x} _{k+1}-\mathbf {x} _{k}$\\
+        $\mathbf{y}_k = \nabla f(\mathbf {x} _{k+1})-
+                    \nabla f(\mathbf {x} _{k})
+                                = \mathbf{g}_{k+1} - \mathbf{g}_{k}$. \\
+    \end{center}
+    However calculating $H^{-1}_k$ is extensive both in terms of computation
+    and memory. Approximation methods have been proposed:
+    \begin{enumerate}
+        \item Imposing quasi-Newtonian condition: \\
+            $H_{k+1}(\mathbf{s}_k)=y_k$\\
+
+        \item \textbf{BFGS}: After some math magic we have:
+            $H_{k+1}=H_{k}+{\frac {\mathbf {y} _{k}\mathbf {y} _{k}
+            ^{\mathrm {T} }}{\mathbf {y} _{k}^{\mathrm {T} }
+            \mathbf {s} _{k}}}-{\frac {H_{k}\mathbf {s} _{k}\mathbf {s} _{k}^
+            {\mathrm {T} }H_{k}^{\mathrm {T} }}{\mathbf {s} _{k}^
+            {\mathrm {T} }H_{k}\mathbf {s} _{k}}}$\\
+            $H^{-1}_{k+1}=(I-\rho _{k}s_{k}y_{k}^{\top })
+            H^{-1}_{k}(I-\rho _{k}y_{k}s_{k}^{\top })+\rho _{k}s_{k}s_{k}^{\top }$\\
+            where $\rho_k = \rho_k = \frac{1}{y^{\rm T}_k s_k} $.
+        \item \textbf{L-BFGS}: Instead of estimating the Hessian at each
+            iteration the value of $\mathbf{d}_k$ is calculated directly from
+            a history the past m steps $\mathbf{s}_k$s.
+    \end{enumerate}
+
+    \begin{table}[]
+        \centering
+        \caption{My caption}
+        \label{my-label}
+        \begin{tabular}{l|l|l}
+            Gradient Descent              & BFGS        & L-BFGS      \\ \hline
+            $\theta(N^)$ & $\theta(N)$ & $\theta(m)$ \\
+            $\theta(N^)$ & $\theta(N)$ & $\theta(m)$
+        \end{tabular}
+    \end{table}
+
+    \begin{figure}
+    \centering
+    \caption*{Minimizing $\mathcal{L}_{total}$ With Different Optimizers}
+    \includegraphics[width=.8\textwidth]{img/loss/plot}
+    \end{figure}
+
+\end{frame}
+
+
+
+\begin{frame}{Optimizers}
+\framesubtitle{Gradient Descent}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{img/loss/SGD}
+\caption*{Samford Hall Styled like \textit{Seated Nude} Using \textbf{Gradient Descent}}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}{Optimizers}
+\framesubtitle{L-BFGS}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{img/loss/L_BFGS}
+\caption*{Samford Hall Styled like \textit{Seated Nude} Using \textbf{L-BFGS}}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}{Optimizers}
+\framesubtitle{Adam}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{img/loss/Adam}
+\caption*{Samford Hall Styled like \textit{Seated Nude} Using \textbf{Adam}}
 \end{figure}
 \end{frame}
 
