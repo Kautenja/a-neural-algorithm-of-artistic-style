@@ -770,20 +770,15 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
 
     \begin{table}[]
         \centering
-        \caption{My caption}
-        \label{my-label}
-        \begin{tabular}{l|l|l}
+        \resizebox{.8\textwidth}{!}{
+        \begin{tabular}{c|l|l}
             Gradient Descent              & BFGS        & L-BFGS      \\ \hline
-            $\theta(N^)$ & $\theta(N)$ & $\theta(m)$ \\
-            $\theta(N^)$ & $\theta(N)$ & $\theta(m)$
-        \end{tabular}
+            $\theta(N^2)$ & $\theta(N)$ & $\theta(m)$ \\
+            $\theta(N^2)$ & $\theta(N)$ & $\theta(m)$
+        \end{tabular}}
+        \caption*{Minimizing $\mathcal{L}_{total}$ With Different Optimizers}
+        \label{my-label}
     \end{table}
-
-    \begin{figure}
-    \centering
-    \caption*{Minimizing $\mathcal{L}_{total}$ With Different Optimizers}
-    \includegraphics[width=.8\textwidth]{img/loss/plot}
-    \end{figure}
 
 \end{frame}
 
