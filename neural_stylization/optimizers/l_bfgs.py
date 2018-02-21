@@ -22,6 +22,8 @@ class L_BFGS(object):
         self.max_evaluations = max_evaluations
         self._loss = None
         self._gradients = None
+        # set the history of loss evaluations to empty list
+        self.loss_history = []
 
     def __repr__(self) -> str:
         """Return an executable string representation of this object."""
@@ -75,6 +77,8 @@ class L_BFGS(object):
             an optimized X about the loss and gradients given
 
         """
+        # reset the history of loss evaluations to empty list
+        self.loss_history = []
         # create a loss and gradients evaluation method for SciPy
         def loss_and_gradients(X):
             """Calculate the loss and gradients with appropriate reshaping."""
@@ -89,6 +93,8 @@ class L_BFGS(object):
             X, min_val, info = fmin_l_bfgs_b(self.loss, X,
                                              fprime=self.gradients,
                                              maxfun=self.max_evaluations)
+            # update the loss history with this loss value
+            self.loss_history += info['funcalls'] * [min_val]
             # pass the values to the callback if any
             if callable(callback):
                 callback(X.reshape(shape), i)

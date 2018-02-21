@@ -19,6 +19,8 @@ class SGD(object):
 
         """
         self.learning_rate = learning_rate
+        # set the history of loss evaluations to empty list
+        self.loss_history = []
 
     def __repr__(self) -> str:
         """Return an executable string representation of this object."""
@@ -48,11 +50,15 @@ class SGD(object):
             an optimized X about the loss and gradients given
 
         """
+        # reset the history of loss evaluations to empty list
+        self.loss_history = []
         for i in tqdm(range(iterations)):
             # pass the input through the loss function and generate gradients
             loss_i, grads_i = loss_grads([X])
             # move the input based on the gradients and learning rate
             X -= self.learning_rate * grads_i
+            # update the loss history with this loss value
+            self.loss_history.append(loss_i)
             # pass the values to the callback if any
             if callable(callback):
                 callback(X, i)
