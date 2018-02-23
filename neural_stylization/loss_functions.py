@@ -29,10 +29,13 @@ def gram(x):
         the gram matrix of x
 
     """
+    # use the keras function to access shape opposed to the instance member.
+    # this allows backward compatibility with TF1.2.1 (the version in conda)
+    shape = K.shape(x)
     # flatten the 3D tensor by converting each filter's 2D matrix of points
     # to a vector. thus we have the matrix:
     # [filter_width x filter_height, num_filters]
-    F = K.reshape(x, (x.shape[0] * x.shape[1], x.shape[2]))
+    F = K.reshape(x, (shape[0] * shape[1], shape[2]))
     # take inner product over all the vectors to produce the Gram matrix over
     # the number of filters
     return K.dot(K.transpose(F), F)
