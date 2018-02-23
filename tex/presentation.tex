@@ -457,12 +457,12 @@ The total style loss is:
         \node (a) at (-5, 0) {};
         \node [mystyle] (b) [right=2cm of a] {$ \times X^T$};
         \draw [myEdgeStyle] (a.east) to  node [auto] (ab) {$\mathbf{F^l}_{N_l \times M_l}$}(b.west);
-        \draw [myEdgeStyle] (a.east) to  node [red] [below] (ab) {$2(\mathbf{G} - \mathbf{A}) \times 2\mathbf{F}$}(b.west);
-        \node [mystyle, ellipse, text height = .5cm, text width = 2cm] (c) [right=2cm of b] {$ (\mathbf{X} - \mathbf{A}_l)^2$};
-        \draw [myEdgeStyle] (b.east) to node [auto] (bc) {$\mathbf{G}_{N_l \times N_l}$} (c.west) ;
-        \draw [myEdgeStyle] (b.east) to node  [red][below] (bc) {$2(\mathbf{G} - \mathbf{A})_{N_l \times N_l}$} (c.west) ;
+        \draw [myEdgeStyle] (a.east) to  node [red] [below] (ab) {$2(\mathbf{G_x} - \mathbf{G_a}) \times 2\mathbf{F}$}(b.west);
+        \node [mystyle, ellipse, text height = .5cm, text width = 2cm] (c) [right=2cm of b] {$ (\mathbf{X} - \mathbf{G_a}_l)^2$};
+        \draw [myEdgeStyle] (b.east) to node [auto] (bc) {$\mathbf{G_x}_{N_l \times N_l}$} (c.west) ;
+        \draw [myEdgeStyle] (b.east) to node  [red][below] (bc) {$2(\mathbf{G_x} - \mathbf{G_a})_{N_l \times N_l}$} (c.west) ;
         \node [mystyle] (d) [right=2cm of c] {$\times$};
-        \draw [myEdgeStyle] (c.east) to node [auto] (cd) {$(G - A)^2_{N_l \times N_l}$} (d.west) ;
+        \draw [myEdgeStyle] (c.east) to node [auto] (cd) {$(G_x - G_a)^2_{N_l \times N_l}$} (d.west) ;
         \draw [myEdgeStyle] (c.east) to node  [red][below] (cd) {$1_{N_l \times N_l}$} (d.west) ;
         \node (bcd) [below=1cm of cd] {};
         \draw [myEdgeStyle] (bcd.east) -| node [above left= .1and .4cm] {$\mathbf{1}_{N_l \times 1}$} (d.south) ;
