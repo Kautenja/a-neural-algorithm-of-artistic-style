@@ -843,7 +843,7 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
     \end{figure}
 \end{frame}
 
-\begin{frame}{Literature Review}
+\begin{frame}[allowframebreaks]{Literature Review}
     \framesubtitle{Fast Neural Style}
     Inspired the work of \citeA{2016arXiv160308155J}.
     \begin{itemize}
@@ -851,6 +851,22 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
         \item Trains a feed forward network for image \textit{transformation}
         instead of \textit{classification} to perform real-time style transfer
     \end{itemize}
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{.45\textwidth}
+            \includegraphics[width=\textwidth]{img/fast-neural-style/chicago.jpg}
+        \end{subfigure}
+        \begin{subfigure}[b]{.45\textwidth}
+            \includegraphics[width=\textwidth]{img/fast-neural-style/chicago_scream.jpg}
+        \end{subfigure}
+        \begin{subfigure}[b]{.45\textwidth}
+            \includegraphics[width=\textwidth]{img/fast-neural-style/chicago_mosaic.jpg}
+        \end{subfigure}
+        \begin{subfigure}[b]{.45\textwidth}
+            \includegraphics[width=\textwidth]{img/fast-neural-style/chicago_starry_night.jpg}
+        \end{subfigure}
+        \caption*{}
+    \end{figure}
 \end{frame}
 
 \begin{frame}{Literature Review}
@@ -865,21 +881,6 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
         \end{subfigure}
         \caption*{}
     \end{figure}
-\end{frame}
-
-\begin{frame}{Literature Review}
-    Comparable to generative Adversarial
-    Networks \cite{dosovitskiy2016generating}.
-    \begin{itemize}
-        \item Trains a generative network
-            that does image generation.
-        \item Solves a different problem:
-            \begin{itemize}
-                \item[] Input: Image category
-                \item[] Output: an image that looks like
-            the items in that category.
-            \end{itemize}
-    \end{itemize}
 \end{frame}
 
 \begin{frame}[allowframebreaks]{References}
