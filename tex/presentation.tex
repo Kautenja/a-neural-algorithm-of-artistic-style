@@ -235,18 +235,20 @@
 
 \begin{frame}{Notations}
     \begin{itemize}
-        \item $\mathbf{p}$: The original, content image
-        \item $\mathbf{a}$: The original, artwork image
-        \item $\mathbf{x}$: The image to be generated. It is initiated as a
+        \item $\mathbf{P}$: The original, content image
+        \item $\mathbf{A}$: The original, artwork image
+        \item $\mathbf{X}$: The image to be generated. It is initiated as a
             random noise image.
-        \item $F^l$: \textbf{Feature Map} at level l, is the result of applying
+        \item $F^l$: \textbf{Feature Map} or \textbf{Activation Map}
+            at level l, is the result of applying
             filters at level $l$. If $N_l$ filters are applier at level $l$,
             then this feature map has a depth of $N_l$.
         \item $N_l$: The number of filters applier at level $l$. This is
             the same as the depths of the feature map at level
             $l$.
         \item $M_l$: the dimension of the feature map at level l, which
-            is equal to $N_l \times M_l$.
+            is equal to $w_l \times h_l$.
+        \item The feature map is $M_l \times N_l$.
     \end{itemize}
 \end{frame}
 
@@ -264,13 +266,13 @@
 \begin{frame}{Content Representation}
     \begin{itemize}
         \item Perform gradient descent optimization on a white noise image
-            ($\mathbf{x}$) and a content image ($\mathbf{p}$)
-        \item $F_x^l$ and $F_p^l$: Respective feature maps of the noise image
+            ($\mathbf{X}$) and a content image ($\mathbf{P}$)
+        \item $F_X^l$ and $F_P^l$: Respective feature maps of the noise image
             and the original image
         \item Goal: Reduce the squared-error loss between $F^l$ and $P^l$.
     \begin{equation}
-        \mathcal{L}_{content}(\mathbf{p}, \mathbf{x}, l) =
-        \frac{1}{2} \sum_{i=1}^{N_l}\sum_{j=1}^{M_l}{(F^l_{ij} - P^l_{ij})^2}
+        \mathcal{L}_{content}(\mathbf{P}, \mathbf{X}, l) =
+        \frac{1}{2} \sum_{i=1}^{N_l}\sum_{j=1}^{M_l}{((F_X)^l_{ij} - (F_P)^l_{ij})^2}
     \end{equation}
     \end{itemize}
 \end{frame}
@@ -284,8 +286,8 @@
         \frac{\partial \mathcal{L}_{content}}{\partial F^l_{ij}}
         =
         \begin{cases}
-            (F^l_x - F^l_p)_{ij} & \iff (F^l_x)_{ij} > 0 \\
-            0 & \iff (F^l_x)_{ij} < 0 \\
+            (F^l_x - F^l_p)_{ij} & \iff (F^l_X)_{ij} > 0 \\
+            0 & \iff (F^l_X)_{ij} < 0 \\
         \end{cases}
     \end{equation}
 \end{frame}
@@ -757,24 +759,13 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
     \begin{center}
         $\mathbf{s}_k = \mathbf {x} _{k+1}-\mathbf {x} _{k}$\\
         $\mathbf{y}_k = \nabla f(\mathbf {x} _{k+1})-
-                    \nabla f(\mathbf {x} _{k})
-                                = \mathbf{g}_{k+1} - \mathbf{g}_{k}$. \\
+                    \nabla f(\mathbf {x} _{k})$
     \end{center}
     However calculating $H^{-1}_k$ is extensive both in terms of computation
     and memory. Approximation methods have been proposed:
     \begin{enumerate}
-        \item Imposing quasi-Newtonian condition: \\
-            $H_{k+1}(\mathbf{s}_k)=y_k$\\
-
         \item \textbf{BFGS}: After some math magic we have:
-            $H_{k+1}=H_{k}+{\frac {\mathbf {y} _{k}\mathbf {y} _{k}
-            ^{\mathrm {T} }}{\mathbf {y} _{k}^{\mathrm {T} }
-            \mathbf {s} _{k}}}-{\frac {H_{k}\mathbf {s} _{k}\mathbf {s} _{k}^
-            {\mathrm {T} }H_{k}^{\mathrm {T} }}{\mathbf {s} _{k}^
-            {\mathrm {T} }H_{k}\mathbf {s} _{k}}}$\\
-            $H^{-1}_{k+1}=(I-\rho _{k}s_{k}y_{k}^{\top })
-            H^{-1}_{k}(I-\rho _{k}y_{k}s_{k}^{\top })+\rho _{k}s_{k}s_{k}^{\top }$\\
-            where $\rho_k = \rho_k = \frac{1}{y^{\rm T}_k s_k} $.
+            $H_{k+1}=H_{k}+{\frac {\mathbf {y} _{k}\mathbf {y} _{k}^{\mathrm {T} }}{\mathbf {y} _{k}^{\mathrm {T} }\mathbf {s} _{k}}}-{\frac {H_{k}\mathbf {s} _{k}\mathbf {s} _{k}^{\mathrm {T} }H_{k}}{\mathbf {s} _{k}^{\mathrm {T} }H_{k}\mathbf {s} _{k}}}$
         \item \textbf{L-BFGS}: Instead of estimating the Hessian at each
             iteration the value of $\mathbf{d}_k$ is calculated directly from
             a history the past m steps $\mathbf{s}_k$s.
@@ -784,17 +775,14 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
         \centering
         \resizebox{.8\textwidth}{!}{
         \begin{tabular}{c|l|l}
-            Gradient Descent              & BFGS        & L-BFGS      \\ \hline
-            $\theta(N^2)$ & $\theta(N)$ & $\theta(m)$ \\
-            $\theta(N^2)$ & $\theta(N)$ & $\theta(m)$
+            Hessian       & BFGS        & L-BFGS      \\ \hline
+            $O(N^2)$ & $O(N)$ & $O(m)$ \\
+            $O(N^2)$ & $O(N)$ & $O(m)$
         \end{tabular}}
         \caption*{Minimizing $\mathcal{L}_{total}$ With Different Optimizers}
         \label{my-label}
     \end{table}
-
 \end{frame}
-
-
 
 \begin{frame}{Optimizers}
 \framesubtitle{Gradient Descent}
@@ -829,6 +817,31 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
 
 
 
+\begin{frame}{Literature Review}
+    \framesubtitle{Prevous works}
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{.3\textwidth} 
+            \includegraphics[width=.8\textwidth]{img/previous_works_style.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{.3\textwidth} 
+            \includegraphics[width=.8\textwidth]{img/previous_works_content.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{.3\textwidth} 
+            \includegraphics[width=.8\textwidth]{img/previous_works_transfer.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{.3\textwidth} 
+            \includegraphics[width=.8\textwidth]{img/previous_worksII_style.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{.3\textwidth} 
+            \includegraphics[width=.8\textwidth]{img/previous_worksII_content.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{.3\textwidth} 
+            \includegraphics[width=.8\textwidth]{img/previous_worksII_transfer.png}
+        \end{subfigure}
+        \caption*{Images from \citeA{efros2001image}}
+    \end{figure}
+\end{frame}
 
 \begin{frame}{Literature Review}
     \framesubtitle{Fast Neural Style}
@@ -840,7 +853,19 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
     \end{itemize}
 \end{frame}
 
-
+\begin{frame}{Literature Review}
+    \framesubtitle{More recent works}
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b]{.8\textwidth} 
+            \includegraphics[width=\textwidth]{img/discoGanI.png}
+        \end{subfigure}
+        \begin{subfigure}[b]{.8\textwidth} 
+            \includegraphics[width=\textwidth]{img/discoGanII.png}
+        \end{subfigure}
+        \caption*{}
+    \end{figure}
+\end{frame}
 
 \begin{frame}{Literature Review}
     Comparable to generative Adversarial
@@ -857,13 +882,9 @@ of $\alpha, \beta \in [5\times10^{-4}, 5\times10^{-3}]$.
     \end{itemize}
 \end{frame}
 
-
-
 \begin{frame}[allowframebreaks]{References}
     \bibliographystyle{apacite}
     \bibliography{references}
 \end{frame}
-
-
 
 \end{document}
