@@ -287,8 +287,8 @@ conv1. Oddly, our implementation produces vastly different results using the
 same configuration and initial images. We believe this attributes to the
 $\theta$ of VGG19 that we acquire from \cite{chollet2015keras} differing from
 the $\theta$ of \cite{2015arXiv150806576G} that they likely came about
-manually. Fig. \ref{style-transfer} shows the results of the algorithm for a
-single content image and four different styles.
+manually. Fig. \ref{fig:style-transfer} shows the results of the algorithm for
+a single content image and four different styles.
 
 \section{Strengths}
 
@@ -389,13 +389,13 @@ Different Style Loss Layer Sets}
 
 For the content loss, they selection block4 conv2 because they find the
 representation at this activation map allows the content to blend better with
-the style. This provides a better "painting" effect of the content by
+the style. This provides a more realistic "painting" effect of the content by
 smoothing out sharp lines and corners as if they were placed by a paint brush.
 Fig. \ref{fig:content-layers-effect} shows the effect of using five different
 layers for content loss. The first image portrays more of an overlaying effect
 than a blending of styles. And, the last image contains almost no content,
 instead blending it into the background. As such, the optimal layer must sit
-some where between these. That said, "optimal" depends on the viewers taste in
+somewhere between these. That said, "optimal" depends on the viewers' taste in
 images.
 
 \begin{figure}[htp]
@@ -432,7 +432,7 @@ Different Content Loss Layers}
 
 
 \paragraph{Photo-realistic Style Transfer} \textit{Has there been any work to
-use a real image a style and transfer live content to another content?}
+use a real image as a style and transfer content to another content?}
 
 \cite{gatys2016image} include a section on \textit{photo-realistic style
 transfer} in the published version of \textit{A Neural Algorithm of Artistic
@@ -463,14 +463,11 @@ photo of Atlanta at day, resulting in a new image of Atlanta at dusk.
 \paragraph{Affect of Transfer Learning} \textit{How does the choice of the
 dataset affect the results?}
 
-% TODO: reference
-% https://github.com/chrisying/style-transfer
-
 The model and dataset selection have a serious impact on the output results.
 For instance, Fig. \ref{fig:alex-net-transfer} shows the effects of a GitHub
-project using AlexNet. Contrary to the results from VGG19, the AlexNet results
-hardly resembles either image, let alone a transfer of style from one to
-another.
+project by \cite{alexnet-transfer} using AlexNet. Contrary to the results
+from VGG19, the AlexNet results hardly resembles either image, let alone a
+transfer of style from one to another.
 
 \begin{figure}[htp]
 \centering
@@ -490,12 +487,10 @@ another.
     \end{minipage}
 \end{figure}
 
-% TODO: References
-
-However, Google's \textit{Deep Dream} project implements this method on top
-of their \textit{Inception} architecture to great effect. Fig.
-\ref{fig:deep-dream} shows Vincent Van Gogh's \textit{The Starry Night} styled in
-a "deep dream".
+However, the \textit{Deep Dream} project of \cite{deep-dream} implements this
+method on top of their \textit{Inception} architecture to great effect. Fig.
+\ref{fig:deep-dream} shows Vincent Van Gogh's \textit{The Starry Night}
+styled in a "deep dream".
 
 \begin{figure}[htp]
 \centering
@@ -507,39 +502,57 @@ a "deep dream".
 \paragraph{Automatic Hyperparameter Selection} \textit{Has there been any
 work to find an optimal configuration of layers automatically?}
 
+% TODO:
+
 \paragraph{Marketing and Social Media} \textit{Have their been any marketing
 or social media campaigns utilizing this technology?}
+
+\cite{2017arXiv170104928J} integrate impressionism into film using neural
+style transfer. Interestingly, Kristen Stewart is a co-author for this paper.
+Style transfer also appears in music videos by artists such as \cite{MGMT}.
+Aside from these artistic applications, it doesn't seem that neural style
+transfer has made an impact on advertising, marketing, and social media yet.
 
 \paragraph{Dreamscope} \textit{Does Dreamscope (a mobile app) use this
 neural method in their image filters?}
 
-% https://itunes.apple.com/us/app/dreamscope/id1025303078?mt=8
-
-% TODO: reference app store listing and article
-
 Their app store listing ambiguously states that they use cutting edge AI
 techniques. However, articles confirm that at least one of their filters
-utilizes Google's Deep Dream. Deep Dream, based on the "Inception" network,
-utilizes the same transfer learning and optimization technique to style
-images. However, the results are vastly different; Fig. \ref{fig:deep-dream}
-shows how Deep Dream works by blending content (images, buildings, etc.)
-into a style.
+utilizes Deep Dream, first presented by \cite{deep-dream}. Deep Dream, based
+on the "Inception" network, uses the same transfer learning and optimization
+technique to style images. However, the results are vastly different; Fig.
+\ref{fig:deep-dream} shows how Deep Dream works by blending content (images,
+buildings, etc.) into a style.
 
 \paragraph{Camouflage} \textit{Are there any papers of this for hyper
 localized camouflage?}
+
+To the best of our finding, no current work focuses on the synthesis of new
+camouflage patterns using this technique. However, \cite{camo-nn} present a
+neural model for the detection of camouflage targets in an image. A potential
+future research direction might explore using transfer learning in this domain
+to produce new camouflage textures.
 
 \paragraph{Style Transfer Detection} \textit{Is there any work on detecting
 if this process has been applied to any image? i.e detecting the difference
 between a real painting and a synthetic one?}
 
+No current work attempts to detect whether a picture is genuine or synthetic.
+An interesting future research direction might explore how to detect such a
+phenomenon. One could potentially us a \ac{GAN} with a dataset of real and
+synthetic artwork to learn the general differences between the real and fake.
+
 \paragraph{Content as a Video} \textit{When this technique is applied to
 videos, how do we ensure adjacent frames are similar enough to make the video
 smooth?}
+
+% TODO:
 
 \paragraph{Resource Consumption of Videos} \textit{Knowing that the current
 machine (using 4x nVidia K80) is slow to process a single frame, how can we
 efficiently process video at 60fps?}
 
+% TODO:
 
 
 % MARK: bibliography
@@ -550,11 +563,12 @@ efficiently process video at 60fps?}
 
 
 % MARK: appendix
-\appendix
+% \appendix
 
 \begin{figure}[ht]
 \centering
 \caption{Style Transfer}
+\label{fig:style-transfer}
 
     \begin{minipage}{0.45\linewidth}
     \centering
@@ -622,6 +636,7 @@ efficiently process video at 60fps?}
 % a collection of Acronyms
 \begin{acronym}
 \acro{CNN}{Convolutional Neural Network}
+\acro{GAN}{Generative Adversarial Network}
 \end{acronym}
 
 \end{document}
