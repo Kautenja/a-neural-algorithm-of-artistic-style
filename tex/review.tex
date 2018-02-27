@@ -540,13 +540,21 @@ between a real painting and a synthetic one?}
 No current work attempts to detect whether a picture is genuine or synthetic.
 An interesting future research direction might explore how to detect such a
 phenomenon. One could potentially us a \ac{GAN} with a dataset of real and
-synthetic artwork to learn the general differences between the real and fake.
+synthetic artwork to learn the general differences between the real and fake
+images.
 
 \paragraph{Content as a Video} \textit{When this technique is applied to
 videos, how do we ensure adjacent frames are similar enough to make the video
 smooth?}
 
-% TODO:
+\cite{2016arXiv160408610R} study the potential of this method for styling
+videos. They utilize \textit{optical flow} to ensure the motion perceived by
+the sequence of frames is preserved. They initialize the first frame of the
+video using random noise, but then recursively use the output from the last
+frame as input for the next frame optimization. Additionally, they weight the
+input frame by the combination of forward (current frame $\to$ next frame) and
+backward (next frame $\to$ current frame) optical flow to focus the agitation
+of the noise to the moving parts of the next frame.
 
 \paragraph{Resource Consumption of Videos} \textit{Knowing that the current
 machine (using 4x nVidia K80) is slow to process a single frame, how can we
