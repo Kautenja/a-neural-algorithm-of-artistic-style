@@ -552,9 +552,8 @@ videos. They utilize \textit{optical flow} to ensure the motion perceived by
 the sequence of frames is preserved. They initialize the first frame of the
 video using random noise, but then recursively use the output from the last
 frame as input for the next frame optimization. Additionally, they weight the
-input frame by the combination of forward (current frame $\to$ next frame) and
-backward (next frame $\to$ current frame) optical flow to focus the agitation
-of the noise to the moving parts of the next frame.
+input frames by the joint combination of forward and backward optical flow to
+focus the agitation of the noise to the moving regions between the frames.
 
 \paragraph{Resource Consumption of Videos} \textit{Knowing that the current
 machine (using 4x nVidia K80) is slow to process a single frame, how can we
