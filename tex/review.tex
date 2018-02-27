@@ -270,14 +270,46 @@ smoothen across the noise image $\textbf{x}$.
 \hypertarget{strengths}{%
 \section{Strengths}\label{strengths}}
 
+As the preliminary paper on neural style transfer, the strength of this work
+lies in the novelty of the problem \& solution. \cite{2015arXiv150806576G} loosely define
+a new problem of \textit{style transfer} and present an optimization method
+for solving it.
+% this sentance sucks. pull it out and replace it
+Additionally, the problem raises new questions as to what
+composes content vs style and where to draw the line between the two.
+
+Despite involving complex technology, the actual method is beautifully simple.
+Utilizing a network pre-trained to detect objects provides a strong analog to
+a human artist. Different layer, hyperparameter, and initial noise selection,
+resembles how different humans may experience similar things, but produce
+vastly different artistic style. Their work may not focus on neuro-science,
+but it provides a unique window into a theory of how visual creativity might
+function on a base level.
+
 \hypertarget{weaknesses}{%
 \section{Weaknesses}\label{weaknesses}}
+
+Although the work of \cite{2015arXiv150806576G} shows many strengths, it
+demonstrates a level of weakness as well. Because the problem they're solving
+is loosely defined and largely based on subjective opinion, a truly objective
+measure of either methods or solutions is unattainable. As such, comparing new
+methods to this one presents a challenge for future work to dismantle.
+
+Despite reporting the best results using L-BFGS to optimize noise,
+\cite{2015arXiv150806576G} present no substantiation or comparative metrics
+against other optimization techniques. It's understandable that they might
+gloss over this detail given the subjectivity of the end result, but
+nonetheless, it seems to lack scientific rigor. We find that the Adam
+optimizer produces better results at a fraction of the complexity, both
+computational, and mathematical.
 
 \hypertarget{future-work}{%
 \section{Future Work}\label{future-work}}
 
 \hypertarget{qa}{%
 \section{Questions \& Answers}\label{qa}}
+
+
 
 \bibliographystyle{my-unsrtnat}
 \bibliography{references}
