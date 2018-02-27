@@ -427,6 +427,45 @@ photo of Atlanta at day, resulting in a new image of Atlanta at dusk.
 \paragraph{Affect of Transfer Learning} \textit{How does the choice of the
 dataset affect the results?}
 
+% TODO: reference
+% https://github.com/chrisying/style-transfer
+
+The model and dataset selection have a serious impact on the output results.
+For instance, Fig. \ref{fig:alex-net-transfer} shows the effects of a GitHub
+project using AlexNet. Contrary to the results from VGG19, the AlexNet results
+hardly resembles either image, let alone a transfer of style from one to
+another.
+
+\begin{figure}[htp]
+\centering
+\caption{Style Transfer Using AlexNet}
+\label{fig:alex-net-transfer}
+    \begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\textwidth]{img/other-models/alex-net-p}
+    \captionof*{figure}{$\textbf{p}$}
+    \end{minipage}
+    \begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\textwidth]{img/other-models/alex-net-a}
+    \captionof*{figure}{$\textbf{a}$}
+    \end{minipage}
+    \begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\textwidth]{img/other-models/alex-net-x}
+    \captionof*{figure}{$\textbf{x}$}
+    \end{minipage}
+\end{figure}
+
+However, Google's \textit{Deep Dream} project implements this method on top
+of their \textit{Inception} architecture to great effect. Fig.
+\ref{fig:deep-dream} shows Vincent Van Gogh's \textit{The Starry Night} styled in
+a "deep dream".
+
+\begin{figure}[htp]
+\centering
+\caption{Style Transfer Using Inception (Deep Dream)}
+\label{fig:deep-dream}
+\includegraphics[width=0.9\textwidth]{img/deep-dream}
+\end{figure}
+
 \paragraph{Automatic Hyperparameter Selection} \textit{Has there been any
 work to find an optimal configuration of layers automatically?}
 
