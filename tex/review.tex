@@ -287,25 +287,25 @@ conv1. Oddly, our implementation produces vastly different results using the
 same configuration and initial images. We believe this attributes to the
 $\theta$ of VGG19 that we acquire from \cite{chollet2015keras} differing from
 the $\theta$ of \cite{2015arXiv150806576G} that they likely came about
-manually.
+manually. Fig. \ref{style-transfer} shows the results of the algorithm for a
+single content image and four different styles.
 
 \section{Strengths}
 
 As the preliminary paper on neural style transfer, the strength of this work
 lies in the novelty of the problem \& solution. \cite{2015arXiv150806576G}
 loosely define a new problem of \textit{style transfer} and present an
-optimization method for solving it.
-% this sentance sucks. pull it out and replace it
-Additionally, the problem raises new questions as to what
-composes content vs style and where to draw the line between the two.
+optimization method for solving it. Although the \textit{transfer problem} had
+been studied prior, no work had successfully blended styles with content in a
+way that resembled a painting.
 
 Despite involving complex technology, the actual method is beautifully simple.
 Utilizing a network pre-trained to detect objects provides a strong analog to
-a human artist. Different layer, hyperparameter, and initial noise selections,
+a human artist. Different layer, hyperparameter, and initial noise selection,
 resembles how different humans may experience similar things, but produce
-vastly different artistic styles. Their work may not focus on neuro-science,
-but it provides a unique window into a theory of how visual creativity might
-function on a base level.
+vastly different artistic styles. This work may not focus on neuro-science,
+but it provides a unique window into how visual creativity functions from a
+purely mathematical perspective.
 
 
 
@@ -324,6 +324,16 @@ gloss over this detail given the subjectivity of the end result. But, it
 seems to lack scientific rigor. We find that the Adam optimizer produces
 better results at a fraction of the complexity, both computational, and
 mathematical.
+
+A final weakness of this solution is the complexity and wall clock time.
+VGG19 is a large network with over 4M parameters making the optimization task
+resource intensive. \cite{2015arXiv150806576G} note wall clock times of up to
+an hour to produce single images running their algorithm on high-end GPUs.
+However, using the Adam optimizer on a GTX1070, we were able to achieve good
+results in $\approx 5$m. Additionally, high resolution images require
+massive amounts of RAM. This ultimately results in bottlenecking as the GPU
+falls back on system RAM if VRAM runs out. These limitations make it difficult
+to process HD images or video in a reasonable amount of time.
 
 
 
@@ -539,7 +549,7 @@ efficiently process video at 60fps?}
 
 
 
-% MARK: Appendix
+% MARK: appendix
 \appendix
 
 \begin{figure}[ht]
@@ -606,6 +616,9 @@ efficiently process video at 60fps?}
 
 \end{figure}
 
+
+
+% MARK: acronyms
 % a collection of Acronyms
 \begin{acronym}
 \acro{CNN}{Convolutional Neural Network}
