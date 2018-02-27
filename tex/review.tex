@@ -8,6 +8,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[pagebackref=true]{hyperref}
 \usepackage[nolist,nohyperlinks]{acronym}
+\usepackage[section]{placeins}
 
 %% Import general packages
 \usepackage{
@@ -254,10 +255,39 @@ texture spread and smoothen across the noise image $\textbf{x}$.
 
 
 
-\subsection{Transfer}
+\subsection{Transfer Representation}
+
+With representations of style $\mathcal{L}_{style}$ and content
+$\mathcal{L}_{content}$, we can form a final, blended, representation
+$\mathcal{L}_{transfer}$ as the joint loss between the two. Eq.
+\ref{eq:transfer-loss} shows a formulation of this loss metric using arbitrary
+weighting factors $\alpha$ and $\beta$. \cite{2015arXiv150806576G} present no
+technique for finding an optimal set of these parameters. However, they note
+the best subjective results using a ratio $\frac{\alpha}{\beta} \in
+[5e-4, 5e-3]$. All sets of $\alpha$ and $\beta$ with the same ratio will
+produce the same results despite having differing values of
+$\mathcal{L}_{transfer}$.
+
+\begin{equation}
+\label{eq:transfer-loss}
+    \mathcal{L}_{transfer}(\mathbf{p}, \mathbf{a}, \mathbf{x}) =
+    \alpha \mathcal{L}_{content}(\mathbf{p}, \mathbf{x}) +
+    \beta \mathcal{L}_{style}(\mathbf{a}, \mathbf{x})
+\end{equation}
 
 
+\subsubsection{Style Transfer}
 
+\cite{2015arXiv150806576G} use the same set of layers for each image they
+present, but use differing values of $\alpha$ and $\beta$ to tune the results
+to their liking. For content representation, they use block4 conv2. And, for
+style representation, they use five layers with a weight of $\frac{1}{5}$
+each: block1 conv1, block2 conv1, block3 conv1, block4 conv1, and block5
+conv1. Oddly, our implementation produces vastly different results using the
+same configuration and initial images. We believe this attributes to the
+$\theta$ of VGG19 that we acquire from \cite{chollet2015keras} differing from
+the $\theta$ of \cite{2015arXiv150806576G} that they likely came about
+manually.
 
 \section{Strengths}
 
@@ -450,6 +480,8 @@ another.
     \end{minipage}
 \end{figure}
 
+% TODO: References
+
 However, Google's \textit{Deep Dream} project implements this method on top
 of their \textit{Inception} architecture to great effect. Fig.
 \ref{fig:deep-dream} shows Vincent Van Gogh's \textit{The Starry Night} styled in
@@ -457,7 +489,7 @@ a "deep dream".
 
 \begin{figure}[htp]
 \centering
-\caption{Style Transfer Using Inception (Deep Dream)}
+\caption{\textit{Deep Dream}: Style Transfer Using Inception Net}
 \label{fig:deep-dream}
 \includegraphics[width=0.9\textwidth]{img/deep-dream}
 \end{figure}
@@ -471,10 +503,17 @@ or social media campaigns utilizing this technology?}
 \paragraph{Dreamscope} \textit{Does Dreamscope (a mobile app) use this
 neural method in their image filters?}
 
+% https://itunes.apple.com/us/app/dreamscope/id1025303078?mt=8
+
+% TODO: reference app store listing and article
+
 Their app store listing ambiguously states that they use cutting edge AI
 techniques. However, articles confirm that at least one of their filters
 utilizes Google's Deep Dream. Deep Dream, based on the "Inception" network,
-utilizes the same optimization technique to style images
+utilizes the same transfer learning and optimization technique to style
+images. However, the results are vastly different; Fig. \ref{fig:deep-dream}
+shows how Deep Dream works by blending content (images, buildings, etc.)
+into a style.
 
 \paragraph{Camouflage} \textit{Are there any papers of this for hyper
 localized camouflage?}
@@ -492,9 +531,80 @@ machine (using 4x nVidia K80) is slow to process a single frame, how can we
 efficiently process video at 60fps?}
 
 
+
+% MARK: bibliography
 %% print the bibliography using the custom NIPS bib style
 \bibliographystyle{my-unsrtnat}
 \bibliography{references}
+
+
+
+% MARK: Appendix
+\appendix
+
+\begin{figure}[ht]
+\centering
+\caption{Style Transfer}
+
+    \begin{minipage}{0.45\linewidth}
+    \centering
+    \captionof*{figure}{Content Image \textbf{p}, \textit{T\"{u}bingen, Germany}}
+    \includegraphics[width=0.9\textwidth,height=1.5in]{img/content/tubingen}
+    \end{minipage}
+
+\medskip
+
+    \begin{minipage}{0.45\linewidth}
+    \centering
+    \captionof*{figure}{\textit{The Shipwreck of The Minotaur}}
+    \includegraphics[width=0.9\textwidth,height=1.5in]{img/artworks/the-shipwreck-of-the-minotaur}
+    \end{minipage}
+    \begin{minipage}{0.45\linewidth}
+    \centering
+    \captionof*{figure}{Transfer Image \textbf{x}}
+    \includegraphics[width=0.9\textwidth,height=1.5in]{img/transfer/the-shipwreck-of-the-minotaur}
+    \end{minipage}
+
+\medskip
+
+    \begin{minipage}{0.45\linewidth}
+    \centering
+    \captionof*{figure}{\textit{The Starry Night}}
+    \includegraphics[width=0.9\textwidth,height=1.5in]{img/artworks/the-starry-night}
+    \end{minipage}
+    \begin{minipage}{0.45\linewidth}
+    \centering
+    \captionof*{figure}{Transfer Image \textbf{x}}
+    \includegraphics[width=0.9\textwidth,height=1.5in]{img/transfer/the-starry-night}
+    \end{minipage}
+
+\medskip
+
+    \begin{minipage}{0.45\linewidth}
+    \centering
+    \captionof*{figure}{\textit{Seated Nude}}
+    \includegraphics[width=0.9\textwidth,height=1.5in]{img/artworks/seated-nude}
+    \end{minipage}
+    \begin{minipage}{0.45\linewidth}
+    \centering
+    \captionof*{figure}{Transfer Image \textbf{x}}
+    \includegraphics[width=0.9\textwidth,height=1.5in]{img/transfer/seated-nude}
+    \end{minipage}
+
+\medskip
+
+    \begin{minipage}{0.45\linewidth}
+    \centering
+    \captionof*{figure}{\textit{The Scream}}
+    \includegraphics[width=0.9\textwidth,height=1.5in]{img/artworks/the-scream}
+    \end{minipage}
+    \begin{minipage}{0.45\linewidth}
+    \centering
+    \captionof*{figure}{Transfer Image \textbf{x}}
+    \includegraphics[width=0.9\textwidth,height=1.5in]{img/transfer/the-scream}
+    \end{minipage}
+
+\end{figure}
 
 % a collection of Acronyms
 \begin{acronym}
