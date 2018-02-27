@@ -314,16 +314,86 @@ convolutional layers? Could there be more or less?}
 \cite{2015arXiv150806576G} select the 5 style layers based on their results
 for style reconstruction. The five layers in question provide results that
 they find the most aesthetically pleasing. That said, there can be as few as
-1 layer used for style loss or as many as necessary.
+1 layer used for style loss or as many as necessary. Fig.
+\ref{fig:style-layers-effect} shows the effect of different sets of style
+layers in the style loss. We see that the additional layers do in fact help
+transfer more of the style.
 
-% TODO: reference future work that does mutliple styles
+\begin{figure}[htp]
+\centering
+\caption{Samford Hall Styled as Pablo Picasso's \textit{Seated Nude} Using
+Different Style Loss Layer Sets}
+\label{fig:style-layers-effect}
+
+    \begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\textwidth]{img/style-layer-selection/block1_conv1}
+    \captionof*{figure}{block1 conv1}
+    \end{minipage}
+    \begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\textwidth]{img/style-layer-selection/block2_conv1}
+    \captionof*{figure}{block1,2 conv1}
+    \end{minipage}
+    \begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\textwidth]{img/style-layer-selection/block3_conv1}
+    \captionof*{figure}{block1,2,3 conv1}
+    \end{minipage}
+
+\medskip
+
+    \begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\textwidth]{img/style-layer-selection/block4_conv1}
+    \captionof*{figure}{block1,2,3,4 conv1}
+    \end{minipage}
+    \begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\textwidth]{img/style-layer-selection/block5_conv1}
+    \captionof*{figure}{block1,2,3,4,5 conv1}
+    \end{minipage}
+
+\end{figure}
 
 For the content loss, they selection block4 conv2 because they find the
 representation at this activation map allows the content to blend better with
 the style. This provides a better "painting" effect of the content by
 smoothing out sharp lines and corners as if they were placed by a paint brush.
+Fig. \ref{fig:content-layers-effect} shows the effect of using five different
+layers for content loss. The first image portrays more of an overlaying effect
+than a blending of styles. And, the last image contains almost no content,
+instead blending it into the background. As such, the optimal layer must sit
+some where between these. That said, "optimal" depends on the viewers taste in
+images.
 
-% TODO: insert three close up images?
+\begin{figure}[htp]
+\centering
+\caption{Samford Hall Styled as Pablo Picasso's \textit{Seated Nude} Using
+Different Content Loss Layers}
+\label{fig:content-layers-effect}
+
+    \begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\textwidth]{img/content-layer-selection/block1_conv1}
+    \captionof*{figure}{block1 conv1}
+    \end{minipage}
+    \begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\textwidth]{img/content-layer-selection/block2_conv1}
+    \captionof*{figure}{block2 conv1}
+    \end{minipage}
+    \begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\textwidth]{img/content-layer-selection/block3_conv1}
+    \captionof*{figure}{block3 conv1}
+    \end{minipage}
+
+\medskip
+
+    \begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\textwidth]{img/content-layer-selection/block4_conv1}
+    \captionof*{figure}{block4 conv1}
+    \end{minipage}
+    \begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\textwidth]{img/content-layer-selection/block5_conv1}
+    \captionof*{figure}{block5 conv1}
+    \end{minipage}
+
+\end{figure}
+
 
 \paragraph{Photo-realistic Style Transfer} \textit{Has there been any work to
 use a real image a style and transfer live content to another content?}
