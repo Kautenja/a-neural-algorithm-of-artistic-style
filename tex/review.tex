@@ -56,9 +56,7 @@ noise image $\textbf{x}$. Put simply, their algorithm paints photographs using
 arbitrary works of art as a palette for colors and textures.
 
 
-\subsection{Content}
-
-\subsubsection{Representation}
+\subsection{Content Representation}
 
 This work relies heavily on the understanding of convolutional layers. As a
 collection of image filters, each layer extracts unique features from its
@@ -95,7 +93,7 @@ $\frac{1}{2}$ to simplify the formulation of the analytical gradient in Eq.
 \end{cases}
 \end{equation}
 
-\subsubsection{Reconstruction}
+\subsubsection{Content Reconstruction}
 
 By back propagating the error from the $\mathcal{L}_{content}$ loss, we can
 minimize the difference between a content image $\textbf{p}$ and a noise image
@@ -149,9 +147,7 @@ other images while still preserving the global features of the content.
 
 
 
-\subsection{Style}
-
-\subsubsection{Representation}
+\subsection{Style Representation}
 
 Much like the content representation, style representation relies on the
 feature responses of particular layers in the \ac{CNN}. However, this
@@ -207,7 +203,7 @@ $\textbf{x}$.
 \end{cases}
 \end{equation}
 
-\subsubsection{Reconstruction}
+\subsubsection{Style Reconstruction}
 
 \cite{2015arXiv150806576G} use the first convolutional layer of each block
 (yielding five layers total) in their style loss. The selection of layers
