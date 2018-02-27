@@ -502,6 +502,8 @@ styled in a "deep dream".
 \paragraph{Automatic Hyperparameter Selection} \textit{Has there been any
 work to find an optimal configuration of layers automatically?}
 
+Unfortunately, this work features abundant hyperparameters with little way of
+
 % TODO:
 
 \paragraph{Marketing and Social Media} \textit{Have their been any marketing
@@ -557,9 +559,21 @@ focus the agitation of the noise to the moving regions between the frames.
 
 \paragraph{Resource Consumption of Videos} \textit{Knowing that the current
 machine (using 4x nVidia K80) is slow to process a single frame, how can we
-efficiently process video at 60fps?}
+efficiently process video at $60fps$?}
 
-% TODO:
+The optimization technique discussed in these works is resource intensive
+and slow. \cite{2016arXiv160308155J} combat this weakness by defining a faster
+method. Opposed to optimizing a noise image using a network trained on
+classification, they postulate training a network to do one-shot style
+transfer of a noise image. That is to say, their network takes a content image
+as input and outputs a stylized version in a single pass-through. Using an
+nVidia TitanX, they are able to reduce the time to style a content image to
+$\approx 50ms$ with no loss in transfer quality. Although this technique
+looses the ability to quickly generalize to new styles, a production
+application using a preset style could utilize this network to style videos at
+$60fps$ in a reasonable amount of time. A future research direction might
+explore reducing this time even further. A consistent $16ms$ per frame would
+allow for real-time processing of frames at $\approx 60Hz$.
 
 
 % MARK: bibliography
