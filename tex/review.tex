@@ -1,23 +1,19 @@
 %% define the main template style for the document
 \documentclass{article}
-
-%\usepackage{nips_2017}
-% to compile a camera-ready version, add the [final] option, e.g.:
+%% import the NIPS package for LaTeX style
 \usepackage[final]{nips_2017}
 
+%% import packages that have custom options
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[pagebackref=true]{hyperref}
-\usepackage{url}
-\usepackage{nicefrac}
-\usepackage{microtype}
 \usepackage[nolist,nohyperlinks]{acronym}
 
 %% Import general packages
 \usepackage{
-  amsmath, amssymb, amsfonts,
-  algorithmic, textcomp, listings,
-  graphicx, subfig,
+  amsmath, amssymb, amsfonts, nicefrac,
+  algorithmic, textcomp, listings, url,
+  graphicx, subfig, microtype,
   booktabs, longtable
 }
 
@@ -25,12 +21,15 @@
 \begin{document}
 \title{Review: A Neural Algorithm of Artistic Style}
 
+%% TODO: notations section?
+%% TODO: clarify notations for both content and styl representation (N_l etc.)
+
 \author{
     James C. Kauten \\
     Department of Software Engineering \\
     Auburn University \\
     Auburn, AL 36832 \\
-    \texttt{jck0022@auburn.edu} \\
+    \texttt{kautenja@auburn.edu} \\
     \And
     Behnam Rasoolian \\
     Department of Industrial Engineering \\
@@ -41,16 +40,15 @@
 
 \maketitle
 
-\hypertarget{paper-summary}{%
-\section{Paper Summary}\label{paper-summary}}
+\section{Paper Summary}
 
 In their arXiv preprint, \textit{A Neural Algorithm of Artistic Style},
 \cite{2015arXiv150806576G} prove a level of separability between the
-\textit{content} of an image, and the \textit{style} that characterizes it.
+\textit{content} of an image and the \textit{style} that characterizes it.
 Using a \ac{CNN} trained to classify images on the ImageNet benchmark, they
-transfer the style of famous works of art, onto the content of arbitrary
-photographs. To do so, they define loss functions between the activation maps
-of various layers in the network that measure either content, or style loss.
+transfer the style of famous works of art onto the content of arbitrary
+photographs. They define loss functions between the activation maps of
+various layers in the network that measure either content or style loss.
 Minimizing the joint loss between a noise image $\textbf{x}$ and both a
 content image $\textbf{p}$ and style image $\textbf{a}$ transfers the global
 features of $\textbf{p}$, with the local styles of $\textbf{a}$ onto the
@@ -65,12 +63,11 @@ arbitrary works of art as a palette for colors and textures.
 This work relies heavily on the understanding of convolutional layers. As a
 collection of image filters, each layer extracts unique features from its
 input image. As such, \cite{2015arXiv150806576G} postulate that as the layer
-depth increases, the network cares more about the \textit{content} of the
-image. That is to say, deeper layers have a more specific understanding of
-what composes a given image, whereas the shallower layers primarily understand
-the image as raw pixels. This leads to their definition of
-\textit{content representation} as the activations from deep layers in the
-network.
+depth increases, the network cares more about the content of the image. That
+is to say, deeper layers have a more specific understanding of what composes
+a given image. Whereas, the shallower layers primarily understand the image
+as raw pixels. This leads to their definition of \textit{content
+representation} as the activations from deep layers in the network.
 
 To objectively measure the difference of content between two images,
 \cite{2015arXiv150806576G} define a loss function $\mathcal{L}_{content}$.
@@ -104,20 +101,20 @@ By back propagating the error from the $\mathcal{L}_{content}$ loss, we can
 minimize the difference between a content image $\textbf{p}$ and a noise image
 $\textbf{x}$ based on a given layer $l$. \cite{2015arXiv150806576G} find that
 the second convolutional layer of the fourth block (\textit{block4\_conv2}) of
-VGG19 produces the most desirable results. Naturally, this is assessment is
-subjective to the beholders tastes.
+VGG19 produces the most desirable results.
+% Fuck this sentence
+Naturally, this is assessment is subjective to the beholders tastes.
 
-To better understand the raw effect of this loss metric, we reconstructed a
-content image by taking the content loss at five separate layers in VGG19.
-We use the first convolutional layer from each of the five blocks to produce
-the five content reconstructions depicted in Fig.
-\ref{fig:content-reconstruction}. We can see that the first three layers
-(block1\_conv1, block2\_conv1, block3\_conv1) reproduce the input image in
-nearly full detail. However, the fourth and fifth layers (block4\_conv1,
-block5\_conv1) reconstruct the image with looser form. Deeper layers tend to
-work better for style transfer because this looser representation allows
-the content to blend more smoothly with other images while still preserving
-the global features.
+To better understand the raw effect of this loss metric, we reconstructed an
+image by taking the content loss at five separate layers in VGG19. We use the
+first convolutional layer from each of the five blocks to produce the five
+content reconstructions depicted in Fig. \ref{fig:content-reconstruction}. We
+can see that the first three layers (block1\_conv1, block2\_conv1,
+block3\_conv1) reproduce the input image in nearly full detail. However, the
+fourth and fifth layers (block4\_conv1, block5\_conv1) reconstruct the image
+with looser form. Deeper layers tend to work better for style transfer because
+this looser representation allows the content to blend more smoothly with
+other images while still preserving the global features of the content.
 
 \begin{figure}[htp]
 \centering
@@ -159,11 +156,10 @@ the global features.
 Much like the content representation, style representation relies on the
 feature responses of particular layers in the \ac{CNN}. However, this
 representation uses a different feature space. Converting each activation
-map to a \textit{gram matrix}, allows the extraction of just the
-\textit{texture} from a given image. It does so by computing the correlations
-between different filters in an arbitrary convolutional layer $l$. More
-simply, the gram matrix $G^l$ for an activation map $F^l$ is the inner product
-of feature maps:
+map to a \textit{gram matrix} allows the extraction of just the texture from
+a given image. It does so by computing the correlations between different
+filters in an arbitrary convolutional layer $l$. Simply put, the gram matrix
+$G^l$ for an activation map is the inner product of feature maps:
 
 \begin{equation}
 G_{i j}^l = \sum_{k}^{M_l} F_{i k}^l F_{j k}^l
@@ -187,8 +183,8 @@ E_l =
 
 \cite{2015arXiv150806576G} incorporate multiple layers in the style loss using
 a weighted sum. In their experiments, they simply use a static weight
-$w_l = \frac{1}{L}$ where $L$ is the number of layers contributing to the style
-loss. Eq. \ref{eq:style-loss} displays the final formulation of the
+$w_l = \frac{1}{L}$ where $L$ is the number of layers contributing to the
+style loss. Eq. \ref{eq:style-loss} displays the final formulation of the
 $\mathcal{L}_{style}$ loss between $\textbf{a}$ and $\textbf{x}$ for some set
 of layers bounded by $L$.
 
@@ -213,21 +209,21 @@ $\textbf{x}$.
 
 \subsubsection{Reconstruction}
 
-\cite{2015arXiv150806576G} use the first
-convolutional layer of \textit{each} block (yielding five layers total) in
-their style loss. Like the content reconstruction however, the selection of
-layers for style reconstruction is subjective. To visualize the implications
-of layer selection, we reconstruct style using five different sets of layers
-from VGG19. Fig. \ref{fig:style-reconstruction} shows the output based on each
-of the five sets. Unlike the content reconstruction, the style reconstruction
-preserves none of the global content. Instead, it selects raw colors and
-textures from the style, rearranging them around the new canvas $\textbf{x}$.
+\cite{2015arXiv150806576G} use the first convolutional layer of each block
+(yielding five layers total) in their style loss. The selection of layers
+for style reconstruction is similar to content reconstruction in that it is
+subjective. To visualize the implications of layer selection, we reconstruct
+style using five different sets of layers from VGG19. Fig.
+\ref{fig:style-reconstruction} shows the output based on each of the five
+sets. Unlike the content reconstruction, the style reconstruction preserves
+none of the global content. Instead, it selects raw colors and textures from
+the style, rearranging them around the new canvas $\textbf{x}$.
 
 Like the content loss, additional layers provide a more in-depth understanding
-of the style. The first convolutional layer alone seems to extract simple
-points of color based on the color distribution of the style $\textbf{a}$. As
-more layers contribute to the loss, the details of the texture spread and
-smoothen across the noise image $\textbf{x}$.
+of the style. The first convolutional layer of the first block seems to
+extract simple points of color based on the color distribution of the style
+$\textbf{a}$. As more layers contribute to the loss, the details of the
+texture spread and smoothen across the noise image $\textbf{x}$.
 
 \begin{figure}[htp]
 \centering
@@ -267,27 +263,27 @@ smoothen across the noise image $\textbf{x}$.
 
 
 
-\hypertarget{strengths}{%
-\section{Strengths}\label{strengths}}
+\section{Strengths}
 
 As the preliminary paper on neural style transfer, the strength of this work
-lies in the novelty of the problem \& solution. \cite{2015arXiv150806576G} loosely define
-a new problem of \textit{style transfer} and present an optimization method
-for solving it.
+lies in the novelty of the problem \& solution. \cite{2015arXiv150806576G}
+loosely define a new problem of \textit{style transfer} and present an
+optimization method for solving it.
 % this sentance sucks. pull it out and replace it
 Additionally, the problem raises new questions as to what
 composes content vs style and where to draw the line between the two.
 
 Despite involving complex technology, the actual method is beautifully simple.
 Utilizing a network pre-trained to detect objects provides a strong analog to
-a human artist. Different layer, hyperparameter, and initial noise selection,
+a human artist. Different layer, hyperparameter, and initial noise selections,
 resembles how different humans may experience similar things, but produce
-vastly different artistic style. Their work may not focus on neuro-science,
+vastly different artistic styles. Their work may not focus on neuro-science,
 but it provides a unique window into a theory of how visual creativity might
 function on a base level.
 
-\hypertarget{weaknesses}{%
-\section{Weaknesses}\label{weaknesses}}
+
+
+\section{Weaknesses}
 
 Although the work of \cite{2015arXiv150806576G} shows many strengths, it
 demonstrates a level of weakness as well. Because the problem they're solving
@@ -298,19 +294,100 @@ methods to this one presents a challenge for future work to dismantle.
 Despite reporting the best results using L-BFGS to optimize noise,
 \cite{2015arXiv150806576G} present no substantiation or comparative metrics
 against other optimization techniques. It's understandable that they might
-gloss over this detail given the subjectivity of the end result, but
-nonetheless, it seems to lack scientific rigor. We find that the Adam
-optimizer produces better results at a fraction of the complexity, both
-computational, and mathematical.
-
-\hypertarget{future-work}{%
-\section{Future Work}\label{future-work}}
-
-\hypertarget{qa}{%
-\section{Questions \& Answers}\label{qa}}
+gloss over this detail given the subjectivity of the end result. But, it
+seems to lack scientific rigor. We find that the Adam optimizer produces
+better results at a fraction of the complexity, both computational, and
+mathematical.
 
 
 
+\section{Future Work}
+
+
+
+
+\section{Questions \& Answers}
+
+\paragraph{Layers Used in Loss Functions} \textit{Why do [the authors] use 5
+convolutional layers? Could there be more or less?}
+
+\cite{2015arXiv150806576G} select the 5 style layers based on their results
+for style reconstruction. The five layers in question provide results that
+they find the most aesthetically pleasing. That said, there can be as few as
+1 layer used for style loss or as many as necessary.
+
+% TODO: reference future work that does mutliple styles
+
+For the content loss, they selection block4 conv2 because they find the
+representation at this activation map allows the content to blend better with
+the style. This provides a better "painting" effect of the content by
+smoothing out sharp lines and corners as if they were placed by a paint brush.
+
+% TODO: insert three close up images?
+
+\paragraph{Photo-realistic Style Transfer} \textit{Has there been any work to
+use a real image a style and transfer live content to another content?}
+
+\cite{gatys2016image} include a section on \textit{photo-realistic style
+transfer} in the published version of \textit{A Neural Algorithm of Artistic
+Style}. They find that they can transfer styles between content images with
+relative success. As an example, Fig. \ref{fig:photo-realistic-style-transfer}
+portrays how the algorithm can use a photo of New York at night to style a
+photo of Atlanta at day, resulting in a new image of Atlanta at dusk.
+
+\begin{figure}[htp]
+\centering
+\caption{Photo-realistic Style Transfer}
+\label{fig:photo-realistic-style-transfer}
+    \begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\textwidth]{img/photo-transfer/p}
+    \captionof*{figure}{$\textbf{p:}$ Atlanta at Day}
+    \end{minipage}
+    \begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\textwidth]{img/photo-transfer/a}
+    \captionof*{figure}{$\textbf{a:}$ New York at Night}
+    \end{minipage}
+    \begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\textwidth]{img/photo-transfer/x}
+    \captionof*{figure}{$\textbf{x:}$ Atlanta at Dusk}
+    \end{minipage}
+\end{figure}
+
+
+\paragraph{Affect of Transfer Learning} \textit{How does the choice of the
+dataset affect the results?}
+
+\paragraph{Automatic Hyperparameter Selection} \textit{Has there been any
+work to find an optimal configuration of layers automatically?}
+
+\paragraph{Marketing and Social Media} \textit{Have their been any marketing
+or social media campaigns utilizing this technology?}
+
+\paragraph{Dreamscope} \textit{Does Dreamscope (a mobile app) use this
+neural method in their image filters?}
+
+Their app store listing ambiguously states that they use cutting edge AI
+techniques. However, articles confirm that at least one of their filters
+utilizes Google's Deep Dream. Deep Dream, based on the "Inception" network,
+utilizes the same optimization technique to style images
+
+\paragraph{Camouflage} \textit{Are there any papers of this for hyper
+localized camouflage?}
+
+\paragraph{Style Transfer Detection} \textit{Is there any work on detecting
+if this process has been applied to any image? i.e detecting the difference
+between a real painting and a synthetic one?}
+
+\paragraph{Content as a Video} \textit{When this technique is applied to
+videos, how do we ensure adjacent frames are similar enough to make the video
+smooth?}
+
+\paragraph{Resource Consumption of Videos} \textit{Knowing that the current
+machine (using 4x nVidia K80) is slow to process a single frame, how can we
+efficiently process video at 60fps?}
+
+
+%% print the bibliography using the custom NIPS bib style
 \bibliographystyle{my-unsrtnat}
 \bibliography{references}
 
