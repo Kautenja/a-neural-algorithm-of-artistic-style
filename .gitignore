@@ -13,6 +13,7 @@ tex/*.bbl
 tex/*.blg
 tex/*.brf
 tex/*.swp
+tex/*.nlo
 
 #
 # MacOS

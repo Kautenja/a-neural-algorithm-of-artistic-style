@@ -24,7 +24,7 @@ build:
 # delete all the stupid garbage that LaTeX generates. Run this before and
 # after to ensure that each build is completely fresh.
 delete_tex_garbage:
-	cd tex && rm -f *.aux *.nav *.log *.out *.snm *.toc *.bbl *.blg *.brf *.swp
+	cd tex && rm -f *.aux *.nav *.log *.out *.snm *.toc *.bbl *.blg *.brf *.swp *.nlo
 
 # make the presentation
 presentation: build delete_tex_garbage
