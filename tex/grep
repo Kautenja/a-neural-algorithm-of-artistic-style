@@ -1,0 +1,522 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./presentation.tex
+LaTeX2e <2017-04-15>
+Babel <3.10> and hyphenation patterns for 84 language(s) loaded.
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamer.cls
+Document Class: beamer 2017/01/23 v3.41 A class for typesetting presentations
+(/usr/local/texlive/2017/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbasemodes.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbasedecode.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ifpdf.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbaseoptions.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/keyval.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/geometry/geometry.sty
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ifvtex.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/ifxetex/ifxetex.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/base/size11.clo)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-def/pdftex.def
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/infwarerr.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ltxcmds.sty))))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.te
+x
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-li
+sts.tex))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+(/usr/local/texlive/2017/texmf-dist/tex/latex/ms/everyshi.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex))
+
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.c
+ode.tex))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.d
+ef
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-p
+df.def)))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.
+code.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.
+code.tex)) (/usr/local/texlive/2017/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/color.cfg))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.
+tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic
+.code.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigo
+nometric.code.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.rando
+m.code.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.compa
+rison.code.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.
+code.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round
+.code.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.
+code.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integ
+erarithmetics.code.tex)))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex)
+)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
+de.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconst
+ruct.code.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage
+.code.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.co
+de.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
+ate.code.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransform
+ations.code.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.cod
+e.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.c
+ode.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathproce
+ssing.code.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.co
+de.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.cod
+e.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
+e.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.
+code.tex))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.co
+de.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretranspare
+ncy.code.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.
+code.tex)))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/pgf/utilities/xxcolor.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/atbegshi.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/auxhook.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/kvoptions.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/latexconfig/hyperref.cfg)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/url/url.sty)
+
+Package hyperref Message: Stopped early.
+
+)
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbaserequires.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbasecompatibility.st
+y) (/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbasefont.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/amssymb.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/sansmathaccent/sansmathaccent.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/filehook/filehook.sty)))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbasetranslator.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/translator/translator.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/translator/translator-lang
+uage-mappings.tex)))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbasemisc.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbasetwoscreens.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbaseoverlay.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbasetitle.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbasesection.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbaseframe.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbaseverbatim.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbaseframesize.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbaseframecomponents.
+sty) (/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbasecolor.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbasenotes.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbasetoc.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbasetemplates.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbaseauxtemplates.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbaseboxes.sty)))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbaselocalstructure.s
+ty (/usr/local/texlive/2017/texmf-dist/tex/latex/tools/enumerate.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbasenavigation.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbasetheorems.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amscls/amsthm.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/beamerbasethemes.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/themes/theme/beamerthemede
+fault.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/themes/font/beamerfontthem
+edefault.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/themes/color/beamercolorth
+emedefault.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/themes/inner/beamerinnerth
+emedefault.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/themes/outer/beamerouterth
+emedefault.sty)))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/apacite/apacite.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/caption/caption.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/caption/caption3.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/caption/subcaption.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/textpos/textpos.sty
+Package: textpos 2016/06/07 1.8, absolute positioning of text on the page
+Grid set 16 x 16 = 22.7622pt x 17.07166pt
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/themes/theme/beamerthemeDa
+rmstadt.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/themes/outer/beamerouterth
+emesmoothbars.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/themes/inner/beamerinnerth
+emerounded.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/themes/color/beamercolorth
+emeorchid.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/themes/color/beamercolorth
+emewhale.sty)) (/usr/local/texlive/2017/texmf-dist/tex/latex/float/float.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/blindtext/blindtext.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/tools/xspace.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/koma-script/scrextend.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/koma-script/scrkbase.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/koma-script/scrbase.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/koma-script/scrlfile.sty
+Package scrlfile, 2017/04/13 v3.23 KOMA-Script package (loading files)
+                  Copyright (C) Markus Kohm
+
+) (/usr/local/texlive/2017/texmf-dist/tex/latex/filehook/filehook-scrlfile.sty)
+))) (/usr/local/texlive/2017/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.cod
+e.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.
+tex)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-0-65.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-1-18.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)
+) (/usr/local/texlive/2017/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.cod
+e.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
+dlers.code.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
+e.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarytopaths.code.tex)))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.code.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.geometric.code.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.geometric.code.tex))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.misc.code.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.misc.code.tex))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.symbols.code.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.symbols.code.tex))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.arrows.code.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.arrows.code.tex))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.callouts.code.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.callouts.code.tex))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.multipart.code.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.multipart.code.tex)))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarypositioning.code.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryarrows.code.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.
+code.tex))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryfit.code.tex)
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarydecorations.pathreplacing.code.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarydecorations.code.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/modules/pgfmoduledecoration
+s.code.tex))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/libraries/decorations/pgfli
+brarydecorations.pathreplacing.code.tex))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/pgf-blur/tikzlibraryshadows.blur.
+code.tex  v1.01, 2012/04/24
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshadows.code.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryfadings.code.tex
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/libraries/pgflibraryfadings
+.code.tex)))
+(/usr/local/texlive/2017/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarycalc.code.tex))
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<def>-command' on input line 61.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\BCAY' on input line 61.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\<def>-command' on input line 61.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\citeauthoryear' on input line 61.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\@ifnextchar' on input line 61.
+
+No file presentation.aux.
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+(/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/grfext.sty)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+ABD: EveryShipout initializing macros
+(/usr/local/texlive/2017/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/translator/dicts/translato
+r-basic-dictionary/translator-basic-dictionary-English.dict)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/translator/dicts/translato
+r-bibliography-dictionary/translator-bibliography-dictionary-English.dict)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/translator/dicts/translato
+r-environment-dictionary/translator-environment-dictionary-English.dict)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/translator/dicts/translato
+r-months-dictionary/translator-months-dictionary-English.dict)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/translator/dicts/translato
+r-numbers-dictionary/translator-numbers-dictionary-English.dict)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/beamer/translator/dicts/translato
+r-theorem-dictionary/translator-theorem-dictionary-English.dict)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/apacite/english.apc)
+No file presentation.nav.
+
+LaTeX Warning: Citation `gatys2016image' undefined on input line 94.
+
+
+LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
+(Font)              size <5> substituted on input line 94.
+
+[1{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+[2] <img/content/samford-sign.jpg, id=69, 762.85pt x 401.5pt>
+<use img/content/samford-sign.jpg> [3 <./img/content/samford-sign.jpg>]
+<img/artworks/seated-nude.jpg, id=75, 1183.42125pt x 1541.76pt>
+<use img/artworks/seated-nude.jpg> [4 <./img/artworks/seated-nude.jpg>]
+<img/loss/Adam.png, id=82, 762.85pt x 401.5pt> <use img/loss/Adam.png> [5 <./im
+g/loss/Adam.png (PNG copy)>] [6]
+<img/vgg19/classification.png, id=95, 473.51906pt x 272.51813pt>
+<use img/vgg19/classification.png> [7 <./img/vgg19/classification.png>]
+<img/vgg19/feature-extraction.png, id=105, 414.79968pt x 272.51813pt>
+<use img/vgg19/feature-extraction.png> [8 <./img/vgg19/feature-extraction.png>]
+ <img/vgg19/synthesis.png, id=112, 414.79968pt x 272.51813pt>
+<use img/vgg19/synthesis.png>
+
+LaTeX Warning: Citation `gatys2016image' undefined on input line 193.
+
+
+LaTeX Warning: Citation `gatys2016image' undefined on input line 193.
+
+[9 <./img/vgg19/synthesis.png>]
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
+) [10] <img/style-transfer.png, id=131, 770.12718pt x 427.5975pt>
+<use img/style-transfer.png> [11 <./img/style-transfer.png>] [12]
+<img/levels.jpg, id=144, 597.73312pt x 433.62pt> <use img/levels.jpg> [13 <./im
+g/levels.jpg>] [14] [15] <img/content/noise.jpg, id=162, 1027.84pt x 770.88pt>
+<use img/content/noise.jpg>
+<img/content/tubingen.jpg, id=163, 1027.84pt x 770.88pt>
+<use img/content/tubingen.jpg> [16 <./img/content/noise.jpg> <./img/content/tub
+ingen.jpg>]
+<img/vgg19/content/block1_conv1.png, id=169, 414.79968pt x 272.51813pt>
+<use img/vgg19/content/block1_conv1.png> [17 <./img/vgg19/content/block1_conv1.
+png>] <img/content/block1_conv1.png, id=176, 1027.84pt x 770.88pt>
+<use img/content/block1_conv1.png> [18 <./img/content/block1_conv1.png (PNG cop
+y)>] <img/vgg19/content/block2_conv1.png, id=182, 414.79968pt x 272.51813pt>
+<use img/vgg19/content/block2_conv1.png> [19 <./img/vgg19/content/block2_conv1.
+png>] <img/content/block2_conv1.png, id=190, 1027.84pt x 770.88pt>
+<use img/content/block2_conv1.png> [20 <./img/content/block2_conv1.png (PNG cop
+y)>] <img/vgg19/content/block3_conv1.png, id=197, 414.79968pt x 272.51813pt>
+<use img/vgg19/content/block3_conv1.png> [21 <./img/vgg19/content/block3_conv1.
+png>] <img/content/block3_conv1.png, id=204, 1027.84pt x 770.88pt>
+<use img/content/block3_conv1.png> [22 <./img/content/block3_conv1.png (PNG cop
+y)>] <img/vgg19/content/block4_conv1.png, id=210, 414.79968pt x 272.51813pt>
+<use img/vgg19/content/block4_conv1.png> [23 <./img/vgg19/content/block4_conv1.
+png>] <img/content/block4_conv1.png, id=217, 1027.84pt x 770.88pt>
+<use img/content/block4_conv1.png> [24 <./img/content/block4_conv1.png (PNG cop
+y)>] <img/vgg19/content/block5_conv1.png, id=223, 414.79968pt x 272.51813pt>
+<use img/vgg19/content/block5_conv1.png> [25 <./img/vgg19/content/block5_conv1.
+png>] <img/content/block5_conv1.png, id=231, 1027.84pt x 770.88pt>
+<use img/content/block5_conv1.png> [26 <./img/content/block5_conv1.png (PNG cop
+y)>] [27] [28] [29]
+Overfull \hbox (29.00623pt too wide) in paragraph at lines 492--492
+ [] 
+[30] <img/style/noise.jpg, id=258, 5018.75pt x 3973.84625pt>
+<use img/style/noise.jpg>
+<img/style/the-starry-night.jpg, id=259, 5018.75pt x 3973.84625pt>
+<use img/style/the-starry-night.jpg> [31 <./img/style/noise.jpg> <./img/style/t
+he-starry-night.jpg>]
+<img/vgg19/style/block1_conv1.png, id=266, 414.79968pt x 272.51813pt>
+<use img/vgg19/style/block1_conv1.png> [32 <./img/vgg19/style/block1_conv1.png>
+] <img/style/block1_conv1.png, id=273, 1027.84pt x 770.88pt>
+<use img/style/block1_conv1.png> [33 <./img/style/block1_conv1.png (PNG copy)>]
+ <img/vgg19/style/block2_conv1.png, id=279, 414.79968pt x 272.51813pt>
+<use img/vgg19/style/block2_conv1.png> [34 <./img/vgg19/style/block2_conv1.png>
+] <img/style/block2_conv1.png, id=286, 1027.84pt x 770.88pt>
+<use img/style/block2_conv1.png> [35 <./img/style/block2_conv1.png (PNG copy)>]
+ <img/vgg19/style/block3_conv1.png, id=292, 414.79968pt x 272.51813pt>
+<use img/vgg19/style/block3_conv1.png> [36 <./img/vgg19/style/block3_conv1.png>
+] <img/style/block3_conv1.png, id=299, 1027.84pt x 770.88pt>
+<use img/style/block3_conv1.png> [37 <./img/style/block3_conv1.png (PNG copy)>]
+ <img/vgg19/style/block4_conv1.png, id=306, 414.79968pt x 272.51813pt>
+<use img/vgg19/style/block4_conv1.png> [38 <./img/vgg19/style/block4_conv1.png>
+] <img/style/block4_conv1.png, id=313, 1027.84pt x 770.88pt>
+<use img/style/block4_conv1.png> [39 <./img/style/block4_conv1.png (PNG copy)>]
+ <img/vgg19/style/block5_conv1.png, id=319, 414.79968pt x 272.51813pt>
+<use img/vgg19/style/block5_conv1.png> [40 <./img/vgg19/style/block5_conv1.png>
+] <img/style/block5_conv1.png, id=326, 1027.84pt x 770.88pt>
+<use img/style/block5_conv1.png> [41 <./img/style/block5_conv1.png (PNG copy)>]
+ [42] <use img/content/tubingen.jpg> <use img/style/the-starry-night.jpg>
+<use img/style/noise.jpg> [43]
+<img/vgg19/transfer/layers.png, id=343, 414.79968pt x 272.51813pt>
+<use img/vgg19/transfer/layers.png> [44 <./img/vgg19/transfer/layers.png>]
+<use img/style-transfer.png> [45] <use img/content/tubingen.jpg> [46]
+<img/artworks/the-shipwreck-of-the-minotaur.jpg, id=361, 230.36063pt x 162.4268
+2pt> <use img/artworks/the-shipwreck-of-the-minotaur.jpg>
+<img/artworks/the-starry-night.jpg, id=362, 5018.75pt x 3973.84625pt>
+<use img/artworks/the-starry-night.jpg> <use img/artworks/seated-nude.jpg>
+<img/artworks/the-scream.jpg, id=363, 1204.5pt x 1534.73375pt>
+<use img/artworks/the-scream.jpg> [47 <./img/artworks/the-shipwreck-of-the-mino
+taur.jpg> <./img/artworks/the-starry-night.jpg> <./img/artworks/the-scream.jpg>
+]
+<img/transfer/the-shipwreck-of-the-minotaur.png, id=369, 1027.84pt x 770.88pt>
+<use img/transfer/the-shipwreck-of-the-minotaur.png>
+<img/transfer/the-starry-night.png, id=370, 1027.84pt x 770.88pt>
+<use img/transfer/the-starry-night.png>
+<img/transfer/seated-nude.png, id=371, 1027.84pt x 770.88pt>
+<use img/transfer/seated-nude.png>
+<img/transfer/the-scream.png, id=372, 1027.84pt x 770.88pt>
+<use img/transfer/the-scream.png> [48 <./img/transfer/the-shipwreck-of-the-mino
+taur.png (PNG copy)> <./img/transfer/the-starry-night.png (PNG copy)> <./img/tr
+ansfer/seated-nude.png (PNG copy)> <./img/transfer/the-scream.png (PNG copy)>]
+[49] [50] [51] <img/loss/SGD.png, id=398, 762.85pt x 401.5pt>
+<use img/loss/SGD.png> [52 <./img/loss/SGD.png (PNG copy)>]
+<img/loss/L_BFGS.png, id=404, 762.85pt x 401.5pt> <use img/loss/L_BFGS.png>
+[53 <./img/loss/L_BFGS.png (PNG copy)>] <use img/loss/Adam.png> [54]
+<img/previous_works_style.png, id=415, 408.52625pt x 268.00125pt>
+<use img/previous_works_style.png>
+<img/previous_works_content.png, id=416, 115.43124pt x 140.525pt>
+<use img/previous_works_content.png>
+<img/previous_works_transfer.png, id=417, 229.85875pt x 281.05pt>
+<use img/previous_works_transfer.png>
+<img/previous_worksII_style.png, id=418, 227.85126pt x 376.40625pt>
+<use img/previous_worksII_style.png>
+<img/previous_worksII_content.png, id=419, 272.01625pt x 356.33125pt>
+<use img/previous_worksII_content.png>
+<img/previous_worksII_transfer.png, id=420, 271.0125pt x 355.3275pt>
+<use img/previous_worksII_transfer.png>
+
+LaTeX Warning: Citation `efros2001image' undefined on input line 857.
+
+
+LaTeX Warning: Citation `efros2001image' undefined on input line 857.
+
+
+Overfull \vbox (15.23883pt too high) detected at line 857
+[55 <./img/previous_works_style.png> <./img/previous_works_content.png> <./img/
+previous_works_transfer.png> <./img/previous_worksII_style.png> <./img/previous
+_worksII_content.png> <./img/previous_worksII_transfer.png>]
+
+LaTeX Warning: Citation `2016arXiv160308155J' undefined on input line 883.
+
+<img/fast-neural-style/chicago.jpg, id=440, 714.67pt x 475.7775pt>
+<use img/fast-neural-style/chicago.jpg>
+<img/fast-neural-style/chicago_scream.jpg, id=441, 1025.8325pt x 684.5575pt>
+<use img/fast-neural-style/chicago_scream.jpg>
+<img/fast-neural-style/chicago_mosaic.jpg, id=442, 1025.8325pt x 684.5575pt>
+<use img/fast-neural-style/chicago_mosaic.jpg>
+<img/fast-neural-style/chicago_starry_night.jpg, id=443, 511.9125pt x 339.2675p
+t> <use img/fast-neural-style/chicago_starry_night.jpg> [56] [57 <./img/fast-ne
+ural-style/chicago.jpg> <./img/fast-neural-style/chicago_scream.jpg> <./img/fas
+t-neural-style/chicago_mosaic.jpg> <./img/fast-neural-style/chicago_starry_nigh
+t.jpg>] <img/discoGanI.png, id=455, 943.525pt x 401.5pt>
+<use img/discoGanI.png>
+<img/discoGanII.png, id=456, 1113.15875pt x 384.43625pt>
+<use img/discoGanII.png> [58 <./img/discoGanI.png> <./img/discoGanII.png>]
+No file presentation.bbl.
+[59] (./presentation.aux)
+
+Package rerunfilecheck Warning: File `presentation.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 1.0pt have occurred.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{cite.2016arXiv160308155J} has been referenced but does not exist, replaced by 
+a fixed one
+
+pdfTeX warning (dest): name{cite.efros2001image} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{cite.gatys2016image} has been referenced but does n
+ot exist, replaced by a fixed one
+
+</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
+/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
+usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></us
+r/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></us
+r/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/l
+ocal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/lo
+cal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/loc
+al/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local
+/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/t
+exlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/
+texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/
+texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/t
+exlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/te
+xlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on presentation.pdf (59 pages, 50440343 bytes).
+Transcript written on presentation.log.
