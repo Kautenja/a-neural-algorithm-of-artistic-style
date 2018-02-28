@@ -8,7 +8,6 @@
 \usepackage[T1]{fontenc}
 \usepackage[pagebackref=true]{hyperref}
 \usepackage[nolist,nohyperlinks]{acronym}
-\usepackage[section]{placeins}
 
 %% Import general packages
 \usepackage{
@@ -56,7 +55,7 @@ arbitrary works of art as a palette for colors and textures. Fig
 T\"{u}bingen, Germany in the style of Claude Monet's \textit{Houses of
 Parliament}.
 
-\begin{figure}
+\begin{figure}[htp!]
 \centering
 \caption{Style Transfer from $\textbf{a}$ to $\textbf{p}$ via $\textbf{x}$}
 \label{basic-example}
@@ -130,7 +129,7 @@ with looser form. Deeper layers tend to work better for style transfer because
 this looser representation allows the content to blend more smoothly with
 other images while still preserving the global features of the content.
 
-\begin{figure}
+\begin{figure}[htp!]
 \centering
 \caption{Content Reconstruction of \textit{T\"{u}bingen, Germany}}
 \label{fig:content-reconstruction}
@@ -240,7 +239,7 @@ extract simple points of color based on the color distribution of the style
 $\textbf{a}$. As more layers contribute to the loss, the details of the
 texture spread and smoothen across the noise image $\textbf{x}$.
 
-\begin{figure}
+\begin{figure}[htp!]
 \centering
 \caption{Style Reconstruction of Vincent Van Gogh's \textit{A Starry Night}}
 \label{fig:style-reconstruction}
@@ -398,7 +397,7 @@ they find the most aesthetically pleasing. That said, there can be as few as
 layers in the style loss. We see that the additional layers do in fact help
 transfer more of the style.
 
-\begin{figure}
+\begin{figure}[htp!]
 \centering
 \caption{Samford Hall Styled as Pablo Picasso's \textit{Seated Nude} Using
 Different Style Loss Layer Sets}
@@ -441,7 +440,7 @@ instead blending it into the background. As such, the optimal layer must sit
 somewhere between these. That said, "optimal" depends on the viewers' taste in
 images.
 
-\begin{figure}
+\begin{figure}[htp!]
 \centering
 \caption{Samford Hall Styled as Pablo Picasso's \textit{Seated Nude} Using
 Different Content Loss Layers}
@@ -484,7 +483,7 @@ relative success. As an example, Fig. \ref{fig:photo-realistic-style-transfer}
 portrays how the algorithm can use a photo of New York at night to style a
 photo of Atlanta at day, resulting in a new image of Atlanta at dusk.
 
-\begin{figure}
+\begin{figure}[htp!]
 \centering
 \caption{Photo-realistic Style Transfer}
 \label{fig:photo-realistic-style-transfer}
@@ -512,7 +511,7 @@ project by \cite{alexnet-transfer} using AlexNet. Contrary to the results
 from VGG19, the AlexNet results hardly resembles either image, let alone a
 transfer of style from one to another.
 
-\begin{figure}
+\begin{figure}[htp!]
 \centering
 \caption{Style Transfer Using AlexNet}
 \label{fig:alex-net-transfer}
@@ -535,7 +534,7 @@ method on top of their \textit{Inception} architecture to great effect. Fig.
 \ref{fig:deep-dream} shows Vincent Van Gogh's \textit{The Starry Night}
 styled in a "deep dream".
 
-\begin{figure}
+\begin{figure}[htp!]
 \centering
 \caption{\textit{Deep Dream}: Style Transfer Using Inception Net}
 \label{fig:deep-dream}
@@ -633,7 +632,7 @@ allow for real-time processing of frames at $\approx 60Hz$.
 % MARK: appendix
 % \appendix
 
-\begin{figure}
+\begin{figure}[htp!]
 \centering
 \caption{Style Transfer}
 \label{fig:style-transfer}
