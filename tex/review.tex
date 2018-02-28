@@ -287,8 +287,8 @@ conv1. Oddly, our implementation produces vastly different results using the
 same configuration and initial images. We believe this attributes to the
 $\theta$ of VGG19 that we acquire from \cite{chollet2015keras} differing from
 the $\theta$ of \cite{2015arXiv150806576G} that they likely came about
-manually. Fig. \ref{fig:style-transfer} shows the results of the algorithm for
-a single content image and four different styles.
+independently. Fig. \ref{fig:style-transfer} shows the results of the
+algorithm for a single content image and four different styles.
 
 \section{Strengths}
 
@@ -560,8 +560,8 @@ frame as input for the next frame optimization. Additionally, they weight the
 input frames by the joint combination of forward and backward optical flow to
 focus the agitation of the noise to the moving regions between the frames.
 
-\paragraph{Resource Consumption of Videos} \textit{Knowing that the current
-machine (using 4x nVidia K80) is slow to process a single frame, how can we
+\paragraph{Resource Consumption During Video Style Transfer} \textit{Knowing
+that the current machine is slow to process a single frame, how can we
 efficiently process video at $60fps$?}
 
 The optimization technique discussed in these works is resource intensive
