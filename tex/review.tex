@@ -17,6 +17,9 @@
   booktabs, longtable
 }
 
+% Define a shortcut for inline code blocks
+\def\code#1{\texttt{#1}}
+
 %% start the document, the Markdown parser takes over from this point
 \begin{document}
 \title{Review: A Neural Algorithm of Artistic Style}
@@ -114,20 +117,21 @@ $\frac{1}{2}$ to simplify the formulation of the analytical gradient in Eq.
 By back propagating the error from the $\mathcal{L}_{content}$ loss, we can
 minimize the difference between a content image $\textbf{p}$ and a noise image
 $\textbf{x}$ based on a given layer $l$. \cite{2015arXiv150806576G} find that
-the second convolutional layer of the fourth block (\textit{block4\_conv2}) of
+the second convolutional layer of the fourth block (\code{block4 conv2}) of
 VGG19 produces the most desirable results. Because "desirable" is highly
-subjective, other's might find better results with other layers.
+subjective, other's might find better results with a different layer.
 
 To better understand the raw effect of this loss metric, we reconstructed an
 image by taking the content loss at five separate layers in VGG19. We use the
 first convolutional layer from each of the five blocks to produce the five
 content reconstructions depicted in Fig. \ref{fig:content-reconstruction}. We
-can see that the first three layers (block1\_conv1, block2\_conv1,
-block3\_conv1) reproduce the input image in nearly full detail. However, the
-fourth and fifth layers (block4\_conv1, block5\_conv1) reconstruct the image
-with looser form. Deeper layers tend to work better for style transfer because
-this looser representation allows the content to blend more smoothly with
-other images while still preserving the global features of the content.
+can see that the first three layers (\code{block1 conv1}, \code{block2 conv1},
+\code{block3 conv1}) reproduce the input image in nearly full detail. However,
+the fourth and fifth layers (\code{block4 conv1}, \code{block5 conv1})
+reconstruct the image with looser form. Deeper layers tend to work better for
+style transfer because this looser representation allows the content to blend
+more smoothly with other images while still preserving the global features of
+the content.
 
 \begin{figure}[htp!]
 \centering
@@ -136,26 +140,26 @@ other images while still preserving the global features of the content.
 
     \begin{minipage}{0.3\linewidth}
     \includegraphics[width=\textwidth]{img/content/block1_conv1}
-    \captionof*{figure}{block1 conv1}
+    \captionof*{figure}{\code{block1 conv1}}
     \end{minipage}
     \begin{minipage}{0.3\linewidth}
     \includegraphics[width=\textwidth]{img/content/block2_conv1}
-    \captionof*{figure}{block2 conv1}
+    \captionof*{figure}{\code{block2 conv1}}
     \end{minipage}
     \begin{minipage}{0.3\linewidth}
     \includegraphics[width=\textwidth]{img/content/block3_conv1}
-    \captionof*{figure}{block3 conv1}
+    \captionof*{figure}{\code{block3 conv1}}
     \end{minipage}
 
 \medskip
 
     \begin{minipage}{0.3\linewidth}
     \includegraphics[width=\textwidth]{img/content/block4_conv1}
-    \captionof*{figure}{block4 conv1}
+    \captionof*{figure}{\code{block4 conv1}}
     \end{minipage}
     \begin{minipage}{0.3\linewidth}
     \includegraphics[width=\textwidth]{img/content/block5_conv1}
-    \captionof*{figure}{block5 conv1}
+    \captionof*{figure}{\code{block5 conv1}}
     \end{minipage}
 
 \end{figure}
@@ -173,7 +177,8 @@ different filters in an arbitrary convolutional layer $l$. Simply put, the
 gram matrix $G^l$ for an activation map is the inner product of feature maps.
 Eq. \ref{eq:gram-matrix} shows a formulation of the gram matrix. Note that
 $F$ is flattened about the height and width dimension. This reduces the two
-dimensions to a new dimension of length $M_l = height * width$.
+dimensions to a new dimension of length $M_l = height * width$. As such, $G^j$
+bears the shape $(M_l, M_l)$.
 
 \begin{equation}
 \label{eq:gram-matrix}
@@ -200,7 +205,7 @@ a weighted sum. In their experiments, they simply use a static weight
 $w_l = \frac{1}{L}$ where $L$ is the number of layers contributing to the
 style loss. Eq. \ref{eq:style-loss} displays the final formulation of the
 $\mathcal{L}_{style}$ loss between $\textbf{a}$ and $\textbf{x}$ for some set
-of layers bounded by $L$.
+of $L$ layers.
 
 \begin{equation}
 \label{eq:style-loss}
@@ -246,26 +251,26 @@ texture spread and smoothen across the noise image $\textbf{x}$.
 
     \begin{minipage}{0.3\linewidth}
     \includegraphics[width=\textwidth]{img/style/block1_conv1}
-    \captionof*{figure}{block1 conv1}
+    \captionof*{figure}{\code{block1 conv1}}
     \end{minipage}
     \begin{minipage}{0.3\linewidth}
     \includegraphics[width=\textwidth]{img/style/block2_conv1}
-    \captionof*{figure}{block1,2 conv1}
+    \captionof*{figure}{\code{block1,2 conv1}}
     \end{minipage}
     \begin{minipage}{0.3\linewidth}
     \includegraphics[width=\textwidth]{img/style/block3_conv1}
-    \captionof*{figure}{block1,2,3 conv1}
+    \captionof*{figure}{\code{block1,2,3 conv1}}
     \end{minipage}
 
 \medskip
 
     \begin{minipage}{0.3\linewidth}
     \includegraphics[width=\textwidth]{img/style/block4_conv1}
-    \captionof*{figure}{block1,2,3,4 conv1}
+    \captionof*{figure}{\code{block1,2,3,4 conv1}}
     \end{minipage}
     \begin{minipage}{0.3\linewidth}
     \includegraphics[width=\textwidth]{img/style/block5_conv1}
-    \captionof*{figure}{block1,2,3,4,5 conv1}
+    \captionof*{figure}{\code{block1,2,3,4,5 conv1}}
     \end{minipage}
 
 \end{figure}
@@ -297,15 +302,15 @@ $\mathcal{L}_{transfer}$.
 
 \cite{2015arXiv150806576G} use the same set of layers for each image they
 present, but use differing values of $\alpha$ and $\beta$ to tune the results
-to their liking. For content representation, they use block4 conv2. And, for
-style representation, they use five layers with a weight of $\frac{1}{5}$
-each: block1 conv1, block2 conv1, block3 conv1, block4 conv1, and block5
-conv1. Oddly, our implementation produces vastly different results using the
-same configuration and initial images. We believe this attributes to the
-$\theta$ of VGG19 that we acquire from \cite{chollet2015keras} differing from
-the $\theta$ of \cite{2015arXiv150806576G} that they likely came about
-independently. Fig. \ref{fig:style-transfer} shows the results of the
-algorithm for a single content image and four different styles.
+to their liking. For content representation, they use \code{block4 conv2}.
+And, for style representation, they use five layers with a weight of
+$\frac{1}{5}$ each: \code{block1 conv1}, \code{block2 conv1},
+\code{block3 conv1}, \code{block4 conv1}, and \code{block5 conv1}. Oddly, our
+implementation produces vastly different results using the same configuration
+and initial images. We believe this attributes to the $\theta$ of VGG19 that
+we acquire from \cite{chollet2015keras} differing from the $\theta$ of
+\cite{2015arXiv150806576G}. Fig. \ref{fig:style-transfer} shows the results of
+the algorithm for a single content image and four different styles.
 
 \section{Strengths}
 
@@ -358,13 +363,13 @@ to process HD images or video in a reasonable amount of time.
 
 In a later publication, \cite{preserving-color-in-neural-style-transfer}
 introduce two independent techniques for preserving the color from the content
-during style transfer. The first method uses a simple linear transformation
-before the algorithm starts to transfer the content's color to the style
-image. The other technique utilizes the YIQ color space (opposed to the usual
-RGB space) during the optimization to constrain style transfer to the
-\textit{luminance} channel (Y). This essentially does the style transfer in
-black and white, then fuses the IQ channels from the content image into the
-stylized output image.
+during style transfer. The first method uses a simple linear transformation to
+transfer the content's color to the style image before the first iteration of
+optimization starts. The other technique utilizes the YIQ color space (opposed
+to the usual RGB space) during the optimization to constrain style transfer to
+the \textit{luminance} channel (Y). This essentially does the style transfer
+in black and white, then fuses the IQ channels from the content image into the
+stylized output image after the last iteration of optimization.
 
 \cite{2016arXiv160308155J} improve upon the method in this paper by removing
 the expensive optimization algorithm. Instead, they train a network to stylize
@@ -392,7 +397,7 @@ convolutional layers? Could there be more or less?}
 \cite{2015arXiv150806576G} select the 5 style layers based on their results
 for style reconstruction. The five layers in question provide results that
 they find the most aesthetically pleasing. That said, there can be as few as
-1 layer used for style loss or as many as necessary. Fig.
+1 layer used for style loss or as many as desired. Fig.
 \ref{fig:style-layers-effect} shows the effect of different sets of style
 layers in the style loss. We see that the additional layers do in fact help
 transfer more of the style.
@@ -405,40 +410,38 @@ Different Style Loss Layer Sets}
 
     \begin{minipage}{0.3\linewidth}
     \includegraphics[width=\textwidth]{img/style-layer-selection/block1_conv1}
-    \captionof*{figure}{block1 conv1}
+    \captionof*{figure}{\code{block1 conv1}}
     \end{minipage}
     \begin{minipage}{0.3\linewidth}
     \includegraphics[width=\textwidth]{img/style-layer-selection/block2_conv1}
-    \captionof*{figure}{block1,2 conv1}
+    \captionof*{figure}{\code{block1,2 conv1}}
     \end{minipage}
     \begin{minipage}{0.3\linewidth}
     \includegraphics[width=\textwidth]{img/style-layer-selection/block3_conv1}
-    \captionof*{figure}{block1,2,3 conv1}
+    \captionof*{figure}{\code{block1,2,3 conv1}}
     \end{minipage}
 
 \medskip
 
     \begin{minipage}{0.3\linewidth}
     \includegraphics[width=\textwidth]{img/style-layer-selection/block4_conv1}
-    \captionof*{figure}{block1,2,3,4 conv1}
+    \captionof*{figure}{\code{block1,2,3,4 conv1}}
     \end{minipage}
     \begin{minipage}{0.3\linewidth}
     \includegraphics[width=\textwidth]{img/style-layer-selection/block5_conv1}
-    \captionof*{figure}{block1,2,3,4,5 conv1}
+    \captionof*{figure}{\code{block1,2,3,4,5 conv1}}
     \end{minipage}
 
 \end{figure}
 
-For the content loss, they selection block4 conv2 because they find the
+For the content loss, they select \code{block4 conv2} because they find the
 representation at this activation map allows the content to blend better with
 the style. This provides a more realistic "painting" effect of the content by
 smoothing out sharp lines and corners as if they were placed by a paint brush.
 Fig. \ref{fig:content-layers-effect} shows the effect of using five different
 layers for content loss. The first image portrays more of an overlaying effect
 than a blending of styles. And, the last image contains almost no content,
-instead blending it into the background. As such, the optimal layer must sit
-somewhere between these. That said, "optimal" depends on the viewers' taste in
-images.
+instead blending it into the background.
 
 \begin{figure}[htp!]
 \centering
@@ -448,26 +451,26 @@ Different Content Loss Layers}
 
     \begin{minipage}{0.3\linewidth}
     \includegraphics[width=\textwidth]{img/content-layer-selection/block1_conv1}
-    \captionof*{figure}{block1 conv1}
+    \captionof*{figure}{\code{block1 conv1}}
     \end{minipage}
     \begin{minipage}{0.3\linewidth}
     \includegraphics[width=\textwidth]{img/content-layer-selection/block2_conv1}
-    \captionof*{figure}{block2 conv1}
+    \captionof*{figure}{\code{block2 conv1}}
     \end{minipage}
     \begin{minipage}{0.3\linewidth}
     \includegraphics[width=\textwidth]{img/content-layer-selection/block3_conv1}
-    \captionof*{figure}{block3 conv1}
+    \captionof*{figure}{\code{block3 conv1}}
     \end{minipage}
 
 \medskip
 
     \begin{minipage}{0.3\linewidth}
     \includegraphics[width=\textwidth]{img/content-layer-selection/block4_conv1}
-    \captionof*{figure}{block4 conv1}
+    \captionof*{figure}{\code{block4 conv1}}
     \end{minipage}
     \begin{minipage}{0.3\linewidth}
     \includegraphics[width=\textwidth]{img/content-layer-selection/block5_conv1}
-    \captionof*{figure}{block5 conv1}
+    \captionof*{figure}{\code{block5 conv1}}
     \end{minipage}
 
 \end{figure}
@@ -508,7 +511,7 @@ dataset affect the results?}
 The model and dataset selection have a serious impact on the output results.
 For instance, Fig. \ref{fig:alex-net-transfer} shows the effects of a GitHub
 project by \cite{alexnet-transfer} using AlexNet. Contrary to the results
-from VGG19, the AlexNet results hardly resembles either image, let alone a
+from VGG19, the AlexNet result hardly resembles either image, let alone a
 transfer of style from one to another.
 
 \begin{figure}[htp!]
@@ -532,7 +535,11 @@ transfer of style from one to another.
 However, the \textit{Deep Dream} project of \cite{deep-dream} implements this
 method on top of their \textit{Inception} architecture to great effect. Fig.
 \ref{fig:deep-dream} shows Vincent Van Gogh's \textit{The Starry Night}
-styled in a "deep dream".
+styled in a "deep dream". This algorithm attempts to mimic the associativity
+of the human brain by blending miscellaneous content into another content
+$\textbf{p}$. We can see Fig. \ref{fig:deep-dream} preserves the global
+features, but replaces their style with common objects and animals fitting the
+space.
 
 \begin{figure}[htp!]
 \centering
@@ -549,7 +556,7 @@ manually on a per image basis. \cite{2017arXiv170108893R} respond to this
 limitation with an automatic hyperparameter optimizer that dynamically
 updates $\alpha$ and $\beta$ (and two other parameters unique to their joint
 loss function) during the optimization process. However, their arXiv print
-doesn't go into enough detail as to how to process functions.
+doesn't go into enough detail as to how the process functions.
 
 \paragraph{Marketing and Social Media} \textit{Have their been any marketing
 or social media campaigns utilizing this technology?}
@@ -571,8 +578,8 @@ technique to style images. However, the results are vastly different; Fig.
 \ref{fig:deep-dream} shows how Deep Dream works by blending content (images,
 buildings, etc.) into a style.
 
-\paragraph{Camouflage} \textit{Are there any papers of this for hyper
-localized camouflage?}
+\paragraph{Camouflage} \textit{Are there any papers applying this algorithm to
+hyper localized camouflage?}
 
 To the best of our finding, no current work focuses on the synthesis of new
 camouflage patterns using this technique. However, \cite{camo-nn} present a
@@ -581,8 +588,8 @@ future research direction might explore using transfer learning in this domain
 to produce new camouflage textures.
 
 \paragraph{Style Transfer Detection} \textit{Is there any work on detecting
-if this process has been applied to any image? i.e detecting the difference
-between a real painting and a synthetic one?}
+if this process has been applied to a given image? i.e detecting the
+difference between a real painting and a synthetic one?}
 
 No current work attempts to detect whether a picture is genuine or synthetic.
 An interesting future research direction might explore how to detect such a
