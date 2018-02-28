@@ -339,6 +339,31 @@ to process HD images or video in a reasonable amount of time.
 
 \section{Future Work}
 
+In a later publication, \cite{preserving-color-in-neural-style-transfer}
+introduce two independent techniques for preserving the color from the content
+during style transfer. The first method uses a simple linear transformation
+before the algorithm starts to transfer the content's color to the style
+image. The other technique utilizes the YIQ color space (opposed to the usual
+RGB space) during the optimization to constrain style transfer to the
+\textit{luminance} channel (Y). This essentially does the style transfer in
+black and white, then fuses the IQ channels from the content image into the
+stylized output image.
+
+\cite{2016arXiv160308155J} improve upon the method in this paper by removing
+the expensive optimization algorithm. Instead, they train a network to stylize
+images in a single pass-through of the network. Using a TitanX GPU, their
+network can style a content image in just $50ms$. This is a massive $7.2e4$x
+faster than the reported time of \cite{2015arXiv150806576G} ($\approx 1h$).
+This work  brings applications like real-time stylization closer to fruition.
+
+\cite{kim2017learning} present a \ac{GAN} model for style transfer. The model
+learns a mapping between two independent sets - their example uses
+\textit{shoes} and \textit{handbags} - of images with no labeling information.
+The trained model can then take a new image belonging to one set and produce
+its complement in the other set. In other words, the model would input a
+picture of a handbag, then output a picture of a new shoe bearing stylistic
+similarities to the handbag.
+
 
 
 
