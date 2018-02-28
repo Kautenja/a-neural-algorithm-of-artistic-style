@@ -312,6 +312,73 @@ we acquire from \cite{chollet2015keras} differing from the $\theta$ of
 \cite{2015arXiv150806576G}. Fig. \ref{fig:style-transfer} shows the results of
 the algorithm for a single content image and four different styles.
 
+\begin{figure}[p!]
+\centering
+\caption{Style Transfer}
+\label{fig:style-transfer}
+
+    \begin{minipage}{0.45\linewidth}
+    \centering
+    \captionof*{figure}{Content Image \textbf{p}, \textit{T\"{u}bingen, Germany}}
+    \includegraphics[width=0.9\textwidth,height=1.5in]{img/content/tubingen}
+    \end{minipage}
+
+\medskip
+
+    \begin{minipage}{0.45\linewidth}
+    \centering
+    \captionof*{figure}{\textit{The Shipwreck of The Minotaur}}
+    \includegraphics[width=0.9\textwidth,height=1.5in]{img/artworks/the-shipwreck-of-the-minotaur}
+    \end{minipage}
+    \begin{minipage}{0.45\linewidth}
+    \centering
+    \captionof*{figure}{Transfer Image \textbf{x}}
+    \includegraphics[width=0.9\textwidth,height=1.5in]{img/transfer/the-shipwreck-of-the-minotaur}
+    \end{minipage}
+
+\medskip
+
+    \begin{minipage}{0.45\linewidth}
+    \centering
+    \captionof*{figure}{\textit{The Starry Night}}
+    \includegraphics[width=0.9\textwidth,height=1.5in]{img/artworks/the-starry-night}
+    \end{minipage}
+    \begin{minipage}{0.45\linewidth}
+    \centering
+    \captionof*{figure}{Transfer Image \textbf{x}}
+    \includegraphics[width=0.9\textwidth,height=1.5in]{img/transfer/the-starry-night}
+    \end{minipage}
+
+\medskip
+
+    \begin{minipage}{0.45\linewidth}
+    \centering
+    \captionof*{figure}{\textit{Seated Nude}}
+    \includegraphics[width=0.9\textwidth,height=1.5in]{img/artworks/seated-nude}
+    \end{minipage}
+    \begin{minipage}{0.45\linewidth}
+    \centering
+    \captionof*{figure}{Transfer Image \textbf{x}}
+    \includegraphics[width=0.9\textwidth,height=1.5in]{img/transfer/seated-nude}
+    \end{minipage}
+
+\medskip
+
+    \begin{minipage}{0.45\linewidth}
+    \centering
+    \captionof*{figure}{\textit{The Scream}}
+    \includegraphics[width=0.9\textwidth,height=1.5in]{img/artworks/the-scream}
+    \end{minipage}
+    \begin{minipage}{0.45\linewidth}
+    \centering
+    \captionof*{figure}{Transfer Image \textbf{x}}
+    \includegraphics[width=0.9\textwidth,height=1.5in]{img/transfer/the-scream}
+    \end{minipage}
+
+\end{figure}
+
+
+
 \section{Strengths}
 
 As the preliminary paper on neural style transfer, the strength of this work
@@ -629,81 +696,8 @@ allow for real-time processing of frames at $\approx 60Hz$.
 
 
 % MARK: bibliography
-%% print the bibliography using the custom NIPS bib style
-\clearpage
 \bibliographystyle{my-unsrtnat}
 \bibliography{references}
-
-
-
-% MARK: appendix
-% \appendix
-
-\begin{figure}[htp!]
-\centering
-\caption{Style Transfer}
-\label{fig:style-transfer}
-
-    \begin{minipage}{0.45\linewidth}
-    \centering
-    \captionof*{figure}{Content Image \textbf{p}, \textit{T\"{u}bingen, Germany}}
-    \includegraphics[width=0.9\textwidth,height=1.5in]{img/content/tubingen}
-    \end{minipage}
-
-\medskip
-
-    \begin{minipage}{0.45\linewidth}
-    \centering
-    \captionof*{figure}{\textit{The Shipwreck of The Minotaur}}
-    \includegraphics[width=0.9\textwidth,height=1.5in]{img/artworks/the-shipwreck-of-the-minotaur}
-    \end{minipage}
-    \begin{minipage}{0.45\linewidth}
-    \centering
-    \captionof*{figure}{Transfer Image \textbf{x}}
-    \includegraphics[width=0.9\textwidth,height=1.5in]{img/transfer/the-shipwreck-of-the-minotaur}
-    \end{minipage}
-
-\medskip
-
-    \begin{minipage}{0.45\linewidth}
-    \centering
-    \captionof*{figure}{\textit{The Starry Night}}
-    \includegraphics[width=0.9\textwidth,height=1.5in]{img/artworks/the-starry-night}
-    \end{minipage}
-    \begin{minipage}{0.45\linewidth}
-    \centering
-    \captionof*{figure}{Transfer Image \textbf{x}}
-    \includegraphics[width=0.9\textwidth,height=1.5in]{img/transfer/the-starry-night}
-    \end{minipage}
-
-\medskip
-
-    \begin{minipage}{0.45\linewidth}
-    \centering
-    \captionof*{figure}{\textit{Seated Nude}}
-    \includegraphics[width=0.9\textwidth,height=1.5in]{img/artworks/seated-nude}
-    \end{minipage}
-    \begin{minipage}{0.45\linewidth}
-    \centering
-    \captionof*{figure}{Transfer Image \textbf{x}}
-    \includegraphics[width=0.9\textwidth,height=1.5in]{img/transfer/seated-nude}
-    \end{minipage}
-
-\medskip
-
-    \begin{minipage}{0.45\linewidth}
-    \centering
-    \captionof*{figure}{\textit{The Scream}}
-    \includegraphics[width=0.9\textwidth,height=1.5in]{img/artworks/the-scream}
-    \end{minipage}
-    \begin{minipage}{0.45\linewidth}
-    \centering
-    \captionof*{figure}{Transfer Image \textbf{x}}
-    \includegraphics[width=0.9\textwidth,height=1.5in]{img/transfer/the-scream}
-    \end{minipage}
-
-\end{figure}
-
 
 
 % MARK: acronyms
