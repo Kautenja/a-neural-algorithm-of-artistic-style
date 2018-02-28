@@ -54,8 +54,28 @@ Minimizing the joint loss between a noise image $\textbf{x}$ and both a
 content image $\textbf{p}$ and style image $\textbf{a}$ transfers the global
 features of $\textbf{p}$, with the local styles of $\textbf{a}$ onto the
 noise image $\textbf{x}$. Put simply, their algorithm paints photographs using
-arbitrary works of art as a palette for colors and textures.
+arbitrary works of art as a palette for colors and textures. Fig
+\ref{basic-example} illustrates a basic example of this algorithm by painting
+T\"{u}bingen, Germany in the style of Claude Monet's \textit{Houses of
+Parliament}.
 
+\begin{figure}[htp]
+\centering
+\caption{Style Transfer from $\textbf{a}$ to $\textbf{p}$ via $\textbf{x}$}
+\label{basic-example}
+\begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\textwidth,height=1.25in]{img/content/tubingen}
+    \captionof*{figure}{$\textbf{p}$: T\"{u}bingen, Germany}
+\end{minipage}
+\begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\textwidth,height=1.25in]{img/artworks/houses-of-parliament}
+    \captionof*{figure}{$\textbf{a}$: \textit{Houses of Parliament}}
+\end{minipage}
+\begin{minipage}{0.3\linewidth}
+    \includegraphics[width=\textwidth,height=1.25in]{img/transfer/houses-of-parliament-tv-1e0}
+    \captionof*{figure}{$\textbf{x}$: Stylized T\"{u}bingen}
+\end{minipage}
+\end{figure}
 
 \subsection{Content Representation}
 
@@ -100,9 +120,8 @@ By back propagating the error from the $\mathcal{L}_{content}$ loss, we can
 minimize the difference between a content image $\textbf{p}$ and a noise image
 $\textbf{x}$ based on a given layer $l$. \cite{2015arXiv150806576G} find that
 the second convolutional layer of the fourth block (\textit{block4\_conv2}) of
-VGG19 produces the most desirable results.
-% Fuck this sentence
-Naturally, this is assessment is subjective to the beholders tastes.
+VGG19 produces the most desirable results. Because "desirable" is highly
+subjective, other's might find better results with other layers.
 
 To better understand the raw effect of this loss metric, we reconstructed an
 image by taking the content loss at five separate layers in VGG19. We use the
@@ -614,7 +633,7 @@ allow for real-time processing of frames at $\approx 60Hz$.
 % MARK: appendix
 % \appendix
 
-\begin{figure}[ht]
+\begin{figure}[htp]
 \centering
 \caption{Style Transfer}
 \label{fig:style-transfer}
