@@ -21,33 +21,40 @@ install:
 build:
 	mkdir -p ${BUILD}
 
+# delete all the stupid garbage that LaTeX generates. Run this before and
+# after to ensure that each build is completely fresh.
+delete_tex_garbage:
+	cd tex && rm -f *.aux *.nav *.log *.out *.snm *.toc *.bbl *.blg *.brf *.swp *.nlo
+
 # make the presentation
-presentation: build
-	cd tex && pdflatex presentation
+presentation: build delete_tex_garbage
+	cd tex && ${PDFLATEX} -halt-on-error presentation | grep -a3 "^!" || true
 	cp tex/presentation.pdf ${BUILD}
+	@make delete_tex_garbage
 
 # make the presentation using bibtex to compile references
-presentation_w_ref: build
-	cd tex && \
-		${PDFLATEX} presentation && \
-		${BIBTEX} presentation && \
-		${PDFLATEX} presentation && \
-		${PDFLATEX} presentation
+presentation_w_ref: build delete_tex_garbage
+	cd tex && ${PDFLATEX} -halt-on-error presentation | grep -a3 "^!" || true
+	cd tex && ${BIBTEX} presentation
+	cd tex && ${PDFLATEX} -halt-on-error presentation | grep -a3 "^!" || true
+	cd tex && ${PDFLATEX} -halt-on-error presentation | grep -a3 "^!" || true
 	cp tex/presentation.pdf ${BUILD}
+	@make delete_tex_garbage
 
 # make the review without references
-review: build
-	cd tex && ${PDFLATEX} review
+review: build delete_tex_garbage
+	cd tex && ${PDFLATEX} review | grep -a3 "^!" || true
 	cp tex/review.pdf ${BUILD}
+	@make delete_tex_garbage
 
 # make the review using bibtex to compile references
-review_w_ref: build
-	cd tex && \
-		${PDFLATEX} review && \
-		${BIBTEX} review && \
-		${PDFLATEX} review && \
-		${PDFLATEX} review
+review_w_ref: build delete_tex_garbage
+	cd tex && ${PDFLATEX} -halt-on-error review | grep -a3 "^!" || true
+	cd tex && ${BIBTEX} review | grep -a3 "^!" || true
+	cd tex && ${PDFLATEX} -halt-on-error review | grep -a3 "^!" || true
+	cd tex && ${PDFLATEX} -halt-on-error review | grep -a3 "^!" || true
 	cp tex/review.pdf ${BUILD}
+	@make delete_tex_garbage
 
 # Convert the frames in a given directory to a video of the directories name
 # in its parent directory.

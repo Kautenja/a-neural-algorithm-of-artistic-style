@@ -1,1 +1,0 @@
-pdflatex $1
