@@ -22,9 +22,6 @@
 \begin{document}
 \title{Review: A Neural Algorithm of Artistic Style}
 
-%% TODO: notations section?
-%% TODO: clarify notations for both content and styl representation (N_l etc.)
-
 \author{
     James C. Kauten \\
     Department of Software Engineering \\
@@ -59,7 +56,7 @@ arbitrary works of art as a palette for colors and textures. Fig
 T\"{u}bingen, Germany in the style of Claude Monet's \textit{Houses of
 Parliament}.
 
-\begin{figure}[htp]
+\begin{figure}
 \centering
 \caption{Style Transfer from $\textbf{a}$ to $\textbf{p}$ via $\textbf{x}$}
 \label{basic-example}
@@ -98,11 +95,10 @@ then measures the $\mathcal{L}_{content}$ loss between $P^l$ and $F^l$. Eq.
 $\frac{1}{2}$ to simplify the formulation of the analytical gradient in Eq.
 \ref{eq:content-grad}.
 
-% TODO: note the M_l and N_l variables in the above paragraph
 \begin{equation}
 \label{eq:content-loss}
 \mathcal{L}_{content}(\mathbf{p}, \mathbf{x}, l) =
-\frac{1}{2} \sum_{i=1}^{N_l}\sum_{j=1}^{M_l}{(F^l_{ij} - P^l_{ij})^2}
+\frac{1}{2} \sum_{i,j}{(F^l_{ij} - P^l_{ij})^2}
 \end{equation}
 
 \begin{equation}
@@ -134,7 +130,7 @@ with looser form. Deeper layers tend to work better for style transfer because
 this looser representation allows the content to blend more smoothly with
 other images while still preserving the global features of the content.
 
-\begin{figure}[htp]
+\begin{figure}
 \centering
 \caption{Content Reconstruction of \textit{T\"{u}bingen, Germany}}
 \label{fig:content-reconstruction}
@@ -173,12 +169,16 @@ Much like the content representation, style representation relies on the
 feature responses of particular layers in the \ac{CNN}. However, this
 representation uses a different feature space. Converting each activation
 map to a \textit{gram matrix} allows the extraction of just the texture from
-a given image. It does so by computing the correlations between different
-filters in an arbitrary convolutional layer $l$. Simply put, the gram matrix
-$G^l$ for an activation map is the inner product of feature maps:
+a given image. It does so by computing the correlations between $N_l$
+different filters in an arbitrary convolutional layer $l$. Simply put, the
+gram matrix $G^l$ for an activation map is the inner product of feature maps.
+Eq. \ref{eq:gram-matrix} shows a formulation of the gram matrix. Note that
+$F$ is flattened about the height and width dimension. This reduces the two
+dimensions to a new dimension of length $M_l = height * width$.
 
 \begin{equation}
-G_{i j}^l = \sum_{k}^{M_l} F_{i k}^l F_{j k}^l
+\label{eq:gram-matrix}
+G_{i j}^l = \sum_{k}^{N_l} F_{i k}^l F_{j k}^l
 \end{equation}
 
 With a new feature space representation of raw texture,
@@ -188,13 +188,12 @@ $\textbf{x}$ for some convolutional layer $l$. First, the activations at $l$
 for $\textbf{a}$ and $\textbf{x}$ are transformed to their respective gram
 matrices $A^l$, and $G^l$. Then, much like the content loss, we define
 the style loss for a given layer as the squared euclidean distance between the
-gram matrices $A^l$, and $G^l$:
+gram matrices $A^l$, and $G^l$. Eq. \ref{eq:style-loss-single-layer} shows the
+formulation of the style loss for a single layer $l$.
 
 \begin{equation}
-E_l =
-\frac{1}{4 N_l^2 M_l^2}
-\sum_{i=1}^{N_l}\sum_{j=1}^{M_l}
-(G^l_{ij} - A^l_{ij})^2
+\label{eq:style-loss-single-layer}
+E_l = \frac{1}{4 N_l^2 M_l^2} \sum_{i,j} (G^l_{ij} - A^l_{ij})^2
 \end{equation}
 
 \cite{2015arXiv150806576G} incorporate multiple layers in the style loss using
@@ -241,7 +240,7 @@ extract simple points of color based on the color distribution of the style
 $\textbf{a}$. As more layers contribute to the loss, the details of the
 texture spread and smoothen across the noise image $\textbf{x}$.
 
-\begin{figure}[htp]
+\begin{figure}
 \centering
 \caption{Style Reconstruction of Vincent Van Gogh's \textit{A Starry Night}}
 \label{fig:style-reconstruction}
@@ -399,7 +398,7 @@ they find the most aesthetically pleasing. That said, there can be as few as
 layers in the style loss. We see that the additional layers do in fact help
 transfer more of the style.
 
-\begin{figure}[htp]
+\begin{figure}
 \centering
 \caption{Samford Hall Styled as Pablo Picasso's \textit{Seated Nude} Using
 Different Style Loss Layer Sets}
@@ -442,7 +441,7 @@ instead blending it into the background. As such, the optimal layer must sit
 somewhere between these. That said, "optimal" depends on the viewers' taste in
 images.
 
-\begin{figure}[htp]
+\begin{figure}
 \centering
 \caption{Samford Hall Styled as Pablo Picasso's \textit{Seated Nude} Using
 Different Content Loss Layers}
@@ -485,7 +484,7 @@ relative success. As an example, Fig. \ref{fig:photo-realistic-style-transfer}
 portrays how the algorithm can use a photo of New York at night to style a
 photo of Atlanta at day, resulting in a new image of Atlanta at dusk.
 
-\begin{figure}[htp]
+\begin{figure}
 \centering
 \caption{Photo-realistic Style Transfer}
 \label{fig:photo-realistic-style-transfer}
@@ -513,7 +512,7 @@ project by \cite{alexnet-transfer} using AlexNet. Contrary to the results
 from VGG19, the AlexNet results hardly resembles either image, let alone a
 transfer of style from one to another.
 
-\begin{figure}[htp]
+\begin{figure}
 \centering
 \caption{Style Transfer Using AlexNet}
 \label{fig:alex-net-transfer}
@@ -536,7 +535,7 @@ method on top of their \textit{Inception} architecture to great effect. Fig.
 \ref{fig:deep-dream} shows Vincent Van Gogh's \textit{The Starry Night}
 styled in a "deep dream".
 
-\begin{figure}[htp]
+\begin{figure}
 \centering
 \caption{\textit{Deep Dream}: Style Transfer Using Inception Net}
 \label{fig:deep-dream}
@@ -625,6 +624,7 @@ allow for real-time processing of frames at $\approx 60Hz$.
 
 % MARK: bibliography
 %% print the bibliography using the custom NIPS bib style
+\clearpage
 \bibliographystyle{my-unsrtnat}
 \bibliography{references}
 
@@ -633,7 +633,7 @@ allow for real-time processing of frames at $\approx 60Hz$.
 % MARK: appendix
 % \appendix
 
-\begin{figure}[htp]
+\begin{figure}
 \centering
 \caption{Style Transfer}
 \label{fig:style-transfer}
