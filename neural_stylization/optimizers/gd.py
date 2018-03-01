@@ -4,8 +4,8 @@ from tqdm import tqdm
 import numpy as np
 
 
-class SGD(object):
-    """Classic Stochastic Gradient Descent."""
+class GradientDescent(object):
+    """A basic gradient descent optimizer."""
 
     def __init__(self, learning_rate: float=1e-4) -> None:
         """
@@ -66,4 +66,4 @@ class SGD(object):
         return X
 
 
-__all__ = ['SGD']
+__all__ = ['GradientDescent']
