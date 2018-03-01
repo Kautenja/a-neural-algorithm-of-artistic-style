@@ -125,6 +125,37 @@ and colors from **a**.
 
 [style-transfer.ipynb]: style-transfer.ipynb
 
+## Photo-Realistic Style Transfer 
+
+[photo-realistic-style-transfer.ipynb][] describes the photo-realistic style
+transfer process. Opposed to transfering style from an artwork, this notebook 
+explores transfering a nighttime theme from a picture of one city to a 
+daytime picture of another city with mixed results.
+
+[photo-realistic-style-transfer.ipynb]: photo-realistic-style-transfer.ipynb
+
+## Content Layer Selection
+
+[effect-of-content-layer.ipynb][] visualizes how the style transfer is affected
+by using different layers for content loss.
+
+[effect-of-content-layer.ipynb]: effect-of-content-layer.ipynb
+
+## Style Layer Selection
+
+[effect-of-style-layers.ipynb][] visualizes how the style transfer is affected
+by using different sets of layers for style loss.
+
+[effect-of-style-layers.ipynb]: effect-of-style-layers.ipynb
+
+## Optimizers
+
+[optimizers.ipynb][] employs _gradient descent_, _adam_, and _L-BFGS_ to 
+understand the affect of different blackbox optimizers. Gatys et. al use
+L-BFGS, but Adam appears to produce competetive results too.
+
+[optimizers.ipynb]: optimizers.ipynb
+
 # Acknowledgments
 
 -   [keras-team](https://github.com/keras-team) provides `Keras`, a high
