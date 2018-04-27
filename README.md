@@ -2,13 +2,13 @@
 
 An **implementation** of the arXiv preprint
 [_A Neural Algorithm of Artistic Style [1]_](#references)
-& paper 
+& paper
 [_Image Style Transfer Using Convolutional Neural Networks [2]_](#references).
 
 ## Original Photograph: _Tubingen, Germany_
 
 <p float="left" align="center">
-<img src="img/content/tubingen.jpg" width="375"/> 
+<img src="img/content/tubingen.jpg" width="375"/>
 </p>
 
 -----
@@ -16,43 +16,43 @@ An **implementation** of the arXiv preprint
 ## Claude Monet's _Houses of Parliament_
 
 <p float="left" align="center">
-<img src="img/styles/houses-of-parliament.jpg" width="375"/>  
-<img src="tex/img/transfer/houses-of-parliament-tv-1e0.png" width="425"/> 
+<img src="img/styles/houses-of-parliament.jpg" width="375"/>
+<img src="img/transfer/houses-of-parliament-tv-1e0.png" width="425"/>
 </p>
 
 ## Pablo Picasso's _Seated Nude_
 
 <p float="left" align="center">
-<img src="img/styles/seated-nude.jpg" width="245"/>  
-<img src="tex/img/transfer/seated-nude.png" width="425"/> 
+<img src="img/styles/seated-nude.jpg" width="245"/>
+<img src="img/transfer/seated-nude.png" width="425"/>
 </p>
 
 ## Edvard Munch's _The Scream_
 
 <p float="left" align="center">
-<img src="img/styles/the-scream.jpg" width="250"/>  
-<img src="tex/img/transfer/the-scream.png" width="425"/> 
+<img src="img/styles/the-scream.jpg" width="250"/>
+<img src="img/transfer/the-scream.png" width="425"/>
 </p>
 
 ## Vincent van Gogh's _The Starry Night_
 
 <p float="left" align="center">
-<img src="img/styles/the-starry-night.jpg" width="400"/>  
-<img src="tex/img/transfer/the-starry-night.png" width="425"/> 
+<img src="img/styles/the-starry-night.jpg" width="400"/>
+<img src="img/transfer/the-starry-night.png" width="425"/>
 </p>
 
 ## William Turner's _The Shipwreck of The Minotaur_
 
 <p float="left" align="center">
-<img src="img/styles/the-shipwreck-of-the-minotaur.jpg" width="425"/>  
-<img src="tex/img/transfer/the-shipwreck-of-the-minotaur.png" width="400"/> 
+<img src="img/styles/the-shipwreck-of-the-minotaur.jpg" width="425"/>
+<img src="img/transfer/the-shipwreck-of-the-minotaur.png" width="400"/>
 </p>
 
 ## Wassily Kandinsky's _Composition VII_
 
 <p float="left" align="center">
-<img src="img/styles/composition-vii.jpg" width="425"/>  
-<img src="tex/img/transfer/composition-vii.png" width="425"/> 
+<img src="img/styles/composition-vii.jpg" width="425"/>
+<img src="img/transfer/composition-vii.png" width="425"/>
 </p>
 
 # Getting Started
@@ -125,11 +125,11 @@ and colors from **a**.
 
 [style-transfer.ipynb]: style-transfer.ipynb
 
-## Photo-Realistic Style Transfer 
+## Photo-Realistic Style Transfer
 
 [photo-realistic-style-transfer.ipynb][] describes the photo-realistic style
-transfer process. Opposed to transfering style from an artwork, this notebook 
-explores transfering a nighttime theme from a picture of one city to a 
+transfer process. Opposed to transfering style from an artwork, this notebook
+explores transfering a nighttime theme from a picture of one city to a
 daytime picture of another city with mixed results.
 
 [photo-realistic-style-transfer.ipynb]: photo-realistic-style-transfer.ipynb
@@ -150,7 +150,7 @@ by using different sets of layers for style loss.
 
 ## Optimizers
 
-[optimizers.ipynb][] employs _gradient descent_, _adam_, and _L-BFGS_ to 
+[optimizers.ipynb][] employs _gradient descent_, _adam_, and _L-BFGS_ to
 understand the affect of different blackbox optimizers. Gatys et. al use
 L-BFGS, but Adam appears to produce competetive results too.
 
