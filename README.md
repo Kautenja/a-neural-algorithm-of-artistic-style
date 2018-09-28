@@ -1,4 +1,4 @@
-# neural stylization
+# A Neural Algorithm of Artistic Style
 
 An **implementation** of the arXiv preprint
 [_A Neural Algorithm of Artistic Style [1]_](#references)
