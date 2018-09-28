@@ -1,4 +1,4 @@
-# A Neural Algorithm of Artistic Style
+# A Neural Algorithm of Artistic Style (Implementation)
 
 An **implementation** of the arXiv preprint
 [_A Neural Algorithm of Artistic Style [1]_](#references)
@@ -174,18 +174,3 @@ Computer Vision and Pattern Recognition (CVPR), 2016 IEEE Conference on, pages 2
 IEEE, 2016._][ref2]
 
 [ref2]: https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Gatys_Image_Style_Transfer_CVPR_2016_paper.pdf
-
-# How Should I Cite `neural-stylization`?
-
-Please cite `neural-stylization` if you use it in your work using the
-following block:
-
-```latex
-@misc{neural-stylization,
-  author = {Christian Kauten and Behnam Rasoolian},
-  title = {neural-stylization},
-  year = {2018},
-  publisher = {GitHub},
-  howpublished = {\url{https://github.com/Kautenja/neural-stylization}},
-}
-```
