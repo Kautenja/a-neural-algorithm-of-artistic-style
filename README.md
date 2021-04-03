@@ -260,7 +260,9 @@ L-BFGS, but Adam appears to produce comparable results without as much overhead.
     </tr>
 </table>
 
-<img src="img/loss/plot.png" width="512"/>
+<p align="center">
+<img src="img/loss/plot.png"/>
+</p>
 
 ### Photo-Realistic Style Transfer
 
