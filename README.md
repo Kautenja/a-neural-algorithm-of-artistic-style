@@ -14,7 +14,7 @@ An **implementation** of the arXiv preprint
     <tr>
         <td><b>Claude Monet</b> <i>Houses of Parliament</i></td>
         <td><img src="img/styles/houses-of-parliament.jpg" width="375"/></td>
-        <td><img src="img/transfer/houses-of-parliament-tv-1e0.png" width="425"/></td>
+        <td><img src="img/transfer/houses-of-parliament.png" width="425"/></td>
     </tr>
     <tr>
         <td><b>Pablo Picasso</b> <i>Seated Nude</i></td>
