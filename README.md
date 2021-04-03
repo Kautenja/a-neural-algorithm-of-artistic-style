@@ -242,10 +242,25 @@ by using different sets of layers for style loss.
 ### Optimizers
 
 [optimizers.ipynb][] employs _gradient descent_, _adam_, and _L-BFGS_ to
-understand the affect of different blackbox optimizers. Gatys et. al use
-L-BFGS, but Adam appears to produce competetive results too.
+understand the effect of different black-box optimizers. Gatys et. al use
+L-BFGS, but Adam appears to produce comparable results without as much overhead.
 
 [optimizers.ipynb]: optimizers.ipynb
+
+<table>
+    <tr>
+        <th>Gradient Descent</th>
+        <th>Adam</th>
+        <th>L-BFGS</th>
+    </tr>
+    <tr>
+        <td><img src="img/loss/GradientDescent.jpg" width="256"/></td>
+        <td><img src="img/loss/Adam.jpg" width="256"/></td>
+        <td><img src="img/loss/L_BFGS.jpg" width="256"/></td>
+    </tr>
+</table>
+
+<img src="img/loss/plot.png" width="512"/>
 
 ### Photo-Realistic Style Transfer
 
