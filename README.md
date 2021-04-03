@@ -136,6 +136,33 @@ by using different sets of layers for style loss.
 
 [effect-of-style-layers.ipynb]: effect-of-style-layers.ipynb
 
+<table>
+    <tr>
+        <td><img src="img/content/samford-sign.jpg"/></td>
+        <td><img src="img/style/seated-nude.jpg"/></td>
+    </tr>
+    <tr>
+        <td><code>block1_conv1</code></td>
+        <td><img src="img/layer-style/block1_conv1.png"/></td>
+    </tr>
+    <tr>
+        <td><code>block2_conv1</code></td>
+        <td><img src="img/layer-style/block2_conv1.png"/></td>
+    </tr>
+    <tr>
+        <td><code>block3_conv1</code></td>
+        <td><img src="img/layer-style/block3_conv1.png"/></td>
+    </tr>
+    <tr>
+        <td><code>block4_conv1</code></td>
+        <td><img src="img/layer-style/block4_conv1.png"/></td>
+    </tr>
+    <tr>
+        <td><code>block5_conv1</code></td>
+        <td><img src="img/layer-style/block5_conv1.png"/></td>
+    </tr>
+</table>
+
 ### Optimizers
 
 [optimizers.ipynb][] employs _gradient descent_, _adam_, and _L-BFGS_ to
