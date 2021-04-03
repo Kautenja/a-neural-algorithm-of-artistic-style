@@ -130,10 +130,10 @@ by using different layers for content loss.
 [effect-of-content-layer.ipynb]: effect-of-content-layer.ipynb
 
 <table>
-    <th>
-        <td>Layer</td>
-        <td>Result</td>
-    </th>
+    <tr>
+        <th>Layer</th>
+        <th>Result</th>
+    </tr>
     <tr>
         <td><code>block1_conv1</code></td>
         <td><img src="img/layer-content/block1_conv1.png"/></td>
@@ -164,10 +164,10 @@ by using different sets of layers for style loss.
 [effect-of-style-layers.ipynb]: effect-of-style-layers.ipynb
 
 <table>
-    <th>
-        <td>Layer</td>
-        <td>Result</td>
-    </th>
+    <tr>
+        <th>Layer</th>
+        <th>Result</th>
+    </tr>
     <tr>
         <td><code>block1_conv1</code></td>
         <td><img src="img/layer-style/block1_conv1.png"/></td>
