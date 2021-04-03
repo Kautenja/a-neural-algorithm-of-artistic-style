@@ -2,18 +2,6 @@
 # Project files
 #
 build/
-tex/*.pdf
-tex/*.aux
-tex/*.nav
-tex/*.log
-tex/*.out
-tex/*.snm
-tex/*.toc
-tex/*.bbl
-tex/*.blg
-tex/*.brf
-tex/*.swp
-tex/*.nlo
 
 #
 # MacOS
