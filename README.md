@@ -139,7 +139,7 @@ by using different sets of layers for style loss.
 <table>
     <tr>
         <td><img src="img/content/samford-sign.jpg"/></td>
-        <td><img src="img/style/seated-nude.jpg"/></td>
+        <td><img src="img/styles/seated-nude.jpg"/></td>
     </tr>
     <tr>
         <td><code>block1_conv1</code></td>
