@@ -165,7 +165,7 @@ by using different sets of layers for style loss.
 
 <table>
     <tr>
-        <th>Layer</th>
+        <th>Layers</th>
         <th>Result</th>
     </tr>
     <tr>
