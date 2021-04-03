@@ -5,28 +5,6 @@ An **implementation** of the arXiv preprint
 & paper
 [_Image Style Transfer Using Convolutional Neural Networks [2]_](#references).
 
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your
-local machine for development and testing purposes. See deployment for notes
-on how to deploy the project on a live system.
-
-### Prerequisites
-
-1.  [python3][] - Programming Environment
-1.  [pip3][] - Python Dependency Management
-
-[python3]: https://python.org
-[pip3]: https://packaging.python.org/tutorials/installing-packages/
-
-### Installing
-
-To install dependent modules:
-
-```shell
-pip3 install -r requirements.txt
-```
-
 ## Usage
 
 [src][] contains Python modules with utility methods and
