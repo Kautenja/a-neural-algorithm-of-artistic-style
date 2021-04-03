@@ -11,7 +11,7 @@ class Adam(object):
                  learning_rate: float=1e-4,
                  beta1: float=0.9,
                  beta2: float=0.999,
-                 epsilon: float=1e-8) -> None:
+                 epsilon: float=1e-6) -> None:
         """
         Initialize a new Adam optimizer.
 

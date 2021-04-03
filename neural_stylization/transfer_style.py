@@ -307,7 +307,7 @@ class Stylizer(object):
         image = image.reshape(canvas.shape)[0]
         # denormalize the image about the ImageNet means. this will invert the
         # channel dimension turning image from BGR to RGB
-        return denormalize(image).astype('uint8')
+        return np.clip(denormalize(image), 0, 255).astype('uint8')
 
 
 # explicitly define the outward facing API of this module
