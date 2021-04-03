@@ -256,6 +256,19 @@ daytime picture of another city with mixed results.
 
 [photo-realistic-style-transfer.ipynb]: photo-realistic-style-transfer.ipynb
 
+<table>
+    <tr>
+        <th>Content</th>
+        <th>Style</th>
+        <th>Result</th>
+    </tr>
+    <tr>
+        <td><img src="img/content/piedmont-park.jpg" width="300"/></td>
+        <td><img src="img/content/piedmont-park-night.jpg" width="300"/></td>
+        <td><img src="img/transfer-photo/piedmont-park-L_BFGS.jpg" width="300"/></td>
+    </tr>
+</table>
+
 ## References
 
 [_[1] L. A. Gatys, A. S. Ecker, and M. Bethge. A neural algorithm of artistic style. arXiv preprint
