@@ -6,41 +6,41 @@ An **implementation** of the arXiv preprint
 [_Image Style Transfer Using Convolutional Neural Networks [2]_](#references).
 
 <table>
-<tr>
-<td><b>Original Photograph</b> <i>Tubingen, Germany</i></td>
-<td></td>
-<td><img src="img/content/tubingen.jpg" width="375"/></td>
-</tr>
-<tr>
-<td><b>Claude Monet</b> <i>Houses of Parliament</i></td>
-<td><img src="img/styles/houses-of-parliament.jpg" width="375"/></td>
-<td><img src="img/transfer/houses-of-parliament-tv-1e0.png" width="425"/></td>
-</tr>
-<tr>
-<td><b>Pablo Picasso</b> <i>Seated Nude</i></td>
-<td><img src="img/styles/seated-nude.jpg" width="245"/></td>
-<td><img src="img/transfer/seated-nude.png" width="425"/></td>
-</tr>
-<tr>
-<td><b>Edvard Munch</b> <i>The Scream</i></td>
-<td><img src="img/styles/the-scream.jpg" width="250"/></td>
-<td><img src="img/transfer/the-scream.png" width="425"/></td>
-</tr>
-<tr>
-<td><b>Vincent van Gogh</b> <i>The Starry Night</i></td>
-<td><img src="img/styles/the-starry-night.jpg" width="400"/></td>
-<td><img src="img/transfer/the-starry-night.png" width="425"/></td>
-</tr>
-<tr>
-<td><b>William Turner</b> <i>The Shipwreck of The Minotaur</i></td>
-<td><img src="img/styles/the-shipwreck-of-the-minotaur.jpg" width="425"/></td>
-<td><img src="img/transfer/the-shipwreck-of-the-minotaur.png" width="400"/></td>
-</tr>
-<tr>
-<td><b>Wassily Kandinsky</b> <i>Composition VII</i></td>
-<td><img src="img/styles/composition-vii.jpg" width="425"/></td>
-<td><img src="img/transfer/composition-vii.png" width="425"/></td>
-</tr>
+    <tr>
+        <td><b>Original Photograph</b> <i>Tubingen, Germany</i></td>
+        <td></td>
+        <td><img src="img/content/tubingen.jpg" width="375"/></td>
+    </tr>
+    <tr>
+        <td><b>Claude Monet</b> <i>Houses of Parliament</i></td>
+        <td><img src="img/styles/houses-of-parliament.jpg" width="375"/></td>
+        <td><img src="img/transfer/houses-of-parliament-tv-1e0.png" width="425"/></td>
+    </tr>
+    <tr>
+        <td><b>Pablo Picasso</b> <i>Seated Nude</i></td>
+        <td><img src="img/styles/seated-nude.jpg" width="245"/></td>
+        <td><img src="img/transfer/seated-nude.png" width="425"/></td>
+    </tr>
+    <tr>
+        <td><b>Edvard Munch</b> <i>The Scream</i></td>
+        <td><img src="img/styles/the-scream.jpg" width="250"/></td>
+        <td><img src="img/transfer/the-scream.png" width="425"/></td>
+    </tr>
+    <tr>
+        <td><b>Vincent van Gogh</b> <i>The Starry Night</i></td>
+        <td><img src="img/styles/the-starry-night.jpg" width="400"/></td>
+        <td><img src="img/transfer/the-starry-night.png" width="425"/></td>
+    </tr>
+    <tr>
+        <td><b>William Turner</b> <i>The Shipwreck of The Minotaur</i></td>
+        <td><img src="img/styles/the-shipwreck-of-the-minotaur.jpg" width="425"/></td>
+        <td><img src="img/transfer/the-shipwreck-of-the-minotaur.png" width="400"/></td>
+    </tr>
+    <tr>
+        <td><b>Wassily Kandinsky</b> <i>Composition VII</i></td>
+        <td><img src="img/styles/composition-vii.jpg" width="425"/></td>
+        <td><img src="img/transfer/composition-vii.png" width="425"/></td>
+    </tr>
 </table>
 
 # Getting Started
