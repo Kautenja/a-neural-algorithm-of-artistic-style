@@ -1,29 +1,27 @@
 """A functional decomposition of the content reconstruction algorithm."""
 from typing import Callable
 import numpy as np
+import tensorflow as tf
 from tensorflow.keras import backend as K
-from .vgg19 import VGG_19
-from .util.img_util import load_image
+from tensorflow.keras.applications.vgg19 import VGG19
 from .util.img_util import normalize
 from .util.img_util import denormalize
-from .util.img_util import image_to_matrix
-from .util.img_util import matrix_to_image
 from .loss_functions import content_loss
 from .optimizers.l_bfgs import L_BFGS
 
 
-def reconstruct_content(content_path: str,
-                        image_shape: tuple=None,
-                        layer_name: str='block4_conv2',
-                        optimize: Callable=L_BFGS(),
-                        iterations: int=10,
-                        noise_range: tuple=(0, 1),
-                        callback: Callable=None):
+def reconstruct_content(content: np.ndarray,
+    layer_name: str='block4_conv2',
+    optimize: Callable=L_BFGS(),
+    iterations: int=10,
+    noise_range: tuple=(0, 1),
+    callback: Callable=None
+):
     """
     Reconstruct the given content image at the given VGG19 layer.
 
     Args:
-        content_path: the path to the content image to reconstruct
+        content: the content image to reconstruct
         layer_name: the layer to reconstruct the content from
         optimize: the optimization method for minimizing the content loss
         iterations: the number of iterations to run the optimizer
@@ -35,15 +33,12 @@ def reconstruct_content(content_path: str,
         at the given layer name
 
     """
-    # load the image with the given shape (or the default shape if there is
-    # no shape provided)
-    content = load_image(content_path, image_shape)
-    # convert the binary image to a 3D NumPy matrix of RGB values
-    content = image_to_matrix(content)
+    # disable eager mode for this operation
+    tf.compat.v1.disable_eager_execution()
+
     # normalize the image's RGB values about the RGB channel means for the
     # ImageNet dataset
-    content = normalize(content)
-
+    content = normalize(content[None, ...].astype(float))
     # load the content image into Keras as a constant, it never changes
     content = K.constant(content, name='Content')
     # create a placeholder for the trained image, this variable trains
@@ -52,14 +47,14 @@ def reconstruct_content(content_path: str,
     # 4D tensor of shape [2, height, width, channels]
     input_tensor = K.concatenate([content, canvas], axis=0)
     # build the model with the 4D input tensor of content and canvas
-    model = VGG_19(include_top=False, input_tensor=input_tensor, pooling='avg')
+    model = VGG19(include_top=False, input_tensor=input_tensor, pooling='avg')
 
     # extract the layer's out that we have interest in for reconstruction
-    layer = model[layer_name]
+    layer = model.get_layer(layer_name)
 
     # calculate the loss between the output of the layer on the content (0)
     # and the canvas (1)
-    loss = content_loss(layer[0], layer[1])
+    loss = content_loss(layer.output[0], layer.output[1])
     # calculate the gradients
     grads = K.gradients(loss, canvas)[0]
     # generate the iteration function for gradient descent optimization
@@ -74,8 +69,8 @@ def reconstruct_content(content_path: str,
     # clear the Keras session
     K.clear_session()
 
-    # denormalize the image (from ImageNet means) and convert back to binary
-    return matrix_to_image(denormalize(image.reshape(canvas.shape)[0]))
+    # de-normalize the image (from ImageNet means) and convert back to binary
+    return denormalize(image.reshape(canvas.shape)[0])
 
 
 # explicitly define the outward facing API of this module
