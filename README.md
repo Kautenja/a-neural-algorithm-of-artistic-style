@@ -66,32 +66,32 @@ and colors from **a**.
     <tr>
         <td><b>Claude Monet</b> <i>Houses of Parliament</i></td>
         <td><img src="img/styles/houses-of-parliament.jpg" width="375"/></td>
-        <td><img src="img/transfer/houses-of-parliament.png" width="425"/></td>
+        <td><img src="img/transfer/houses-of-parliament.jpg" width="425"/></td>
     </tr>
     <tr>
         <td><b>Pablo Picasso</b> <i>Seated Nude</i></td>
         <td><img src="img/styles/seated-nude.jpg" width="245"/></td>
-        <td><img src="img/transfer/seated-nude.png" width="425"/></td>
+        <td><img src="img/transfer/seated-nude.jpg" width="425"/></td>
     </tr>
     <tr>
         <td><b>Edvard Munch</b> <i>The Scream</i></td>
         <td><img src="img/styles/the-scream.jpg" width="250"/></td>
-        <td><img src="img/transfer/the-scream.png" width="425"/></td>
+        <td><img src="img/transfer/the-scream.jpg" width="425"/></td>
     </tr>
     <tr>
         <td><b>Vincent van Gogh</b> <i>The Starry Night</i></td>
         <td><img src="img/styles/the-starry-night.jpg" width="400"/></td>
-        <td><img src="img/transfer/the-starry-night.png" width="425"/></td>
+        <td><img src="img/transfer/the-starry-night.jpg" width="425"/></td>
     </tr>
     <tr>
         <td><b>William Turner</b> <i>The Shipwreck of The Minotaur</i></td>
         <td><img src="img/styles/the-shipwreck-of-the-minotaur.jpg" width="425"/></td>
-        <td><img src="img/transfer/the-shipwreck-of-the-minotaur.png" width="400"/></td>
+        <td><img src="img/transfer/the-shipwreck-of-the-minotaur.jpg" width="400"/></td>
     </tr>
     <tr>
         <td><b>Wassily Kandinsky</b> <i>Composition VII</i></td>
         <td><img src="img/styles/composition-vii.jpg" width="425"/></td>
-        <td><img src="img/transfer/composition-vii.png" width="425"/></td>
+        <td><img src="img/transfer/composition-vii.jpg" width="425"/></td>
     </tr>
 </table>
 
@@ -111,27 +111,27 @@ representation of the networks activation for a given layer _l_.
     </tr>
     <tr>
         <td><code>block1_conv1</code></td>
-        <td><img src="img/content-reconstruction/block1_conv1.png" width="375"/></td>
+        <td><img src="img/content-reconstruction/block1_conv1.jpg" width="375"/></td>
     </tr>
     <tr>
         <td><code>block2_conv1</code></td>
-        <td><img src="img/content-reconstruction/block2_conv1.png" width="375"/></td>
+        <td><img src="img/content-reconstruction/block2_conv1.jpg" width="375"/></td>
     </tr>
     <tr>
         <td><code>block3_conv1</code></td>
-        <td><img src="img/content-reconstruction/block3_conv1.png" width="375"/></td>
+        <td><img src="img/content-reconstruction/block3_conv1.jpg" width="375"/></td>
     </tr>
     <tr>
         <td><code>block4_conv1</code></td>
-        <td><img src="img/content-reconstruction/block4_conv1.png" width="375"/></td>
+        <td><img src="img/content-reconstruction/block4_conv1.jpg" width="375"/></td>
     </tr>
     <tr>
         <td><code>block4_conv2</code></td>
-        <td><img src="img/content-reconstruction/block4_conv2.png" width="375"/></td>
+        <td><img src="img/content-reconstruction/block4_conv2.jpg" width="375"/></td>
     </tr>
     <tr>
         <td><code>block5_conv1</code></td>
-        <td><img src="img/content-reconstruction/block5_conv1.png" width="375"/></td>
+        <td><img src="img/content-reconstruction/block5_conv1.jpg" width="375"/></td>
     </tr>
 </table>
 
@@ -151,23 +151,23 @@ representation of the networks activation for a given set of layers _L_.
     </tr>
     <tr>
         <td><code>block1_conv1</code></td>
-        <td><img src="img/style-reconstruction/block1_conv1.png" width="375"/></td>
+        <td><img src="img/style-reconstruction/block1_conv1.jpg" width="375"/></td>
     </tr>
     <tr>
         <td><code>block1_conv1</code>, <code>block2_conv1</code></td>
-        <td><img src="img/style-reconstruction/block2_conv1.png" width="375"/></td>
+        <td><img src="img/style-reconstruction/block2_conv1.jpg" width="375"/></td>
     </tr>
     <tr>
         <td><code>block1_conv1</code>, <code>block2_conv1</code>, <code>block3_conv1</code></td>
-        <td><img src="img/style-reconstruction/block3_conv1.png" width="375"/></td>
+        <td><img src="img/style-reconstruction/block3_conv1.jpg" width="375"/></td>
     </tr>
     <tr>
         <td><code>block1_conv1</code>, <code>block2_conv1</code>, <code>block3_conv1</code>, <code>block4_conv1</code></td>
-        <td><img src="img/style-reconstruction/block4_conv1.png" width="375"/></td>
+        <td><img src="img/style-reconstruction/block4_conv1.jpg" width="375"/></td>
     </tr>
     <tr>
         <td><code>block1_conv1</code>, <code>block2_conv1</code>, <code>block3_conv1</code>, <code>block4_conv1</code>, <code>block5_conv1</code></td>
-        <td><img src="img/style-reconstruction/block5_conv1.png" width="375"/></td>
+        <td><img src="img/style-reconstruction/block5_conv1.jpg" width="375"/></td>
     </tr>
 </table>
 
@@ -185,23 +185,23 @@ by using different layers for content loss.
     </tr>
     <tr>
         <td><code>block1_conv1</code></td>
-        <td><img src="img/layer-content/block1_conv1.png" width="375"/></td>
+        <td><img src="img/layer-content/block1_conv1.jpg" width="375"/></td>
     </tr>
     <tr>
         <td><code>block2_conv1</code></td>
-        <td><img src="img/layer-content/block2_conv1.png" width="375"/></td>
+        <td><img src="img/layer-content/block2_conv1.jpg" width="375"/></td>
     </tr>
     <tr>
         <td><code>block3_conv1</code></td>
-        <td><img src="img/layer-content/block3_conv1.png" width="375"/></td>
+        <td><img src="img/layer-content/block3_conv1.jpg" width="375"/></td>
     </tr>
     <tr>
         <td><code>block4_conv1</code></td>
-        <td><img src="img/layer-content/block4_conv1.png" width="375"/></td>
+        <td><img src="img/layer-content/block4_conv1.jpg" width="375"/></td>
     </tr>
     <tr>
         <td><code>block5_conv1</code></td>
-        <td><img src="img/layer-content/block5_conv1.png" width="375"/></td>
+        <td><img src="img/layer-content/block5_conv1.jpg" width="375"/></td>
     </tr>
 </table>
 
@@ -219,23 +219,23 @@ by using different sets of layers for style loss.
     </tr>
     <tr>
         <td><code>block1_conv1</code></td>
-        <td><img src="img/layer-style/block1_conv1.png" width="375"/></td>
+        <td><img src="img/layer-style/block1_conv1.jpg" width="375"/></td>
     </tr>
     <tr>
         <td><code>block1_conv1</code>, <code>block2_conv1</code></td>
-        <td><img src="img/layer-style/block2_conv1.png" width="375"/></td>
+        <td><img src="img/layer-style/block2_conv1.jpg" width="375"/></td>
     </tr>
     <tr>
         <td><code>block1_conv1</code>, <code>block2_conv1</code>, <code>block3_conv1</code></td>
-        <td><img src="img/layer-style/block3_conv1.png" width="375"/></td>
+        <td><img src="img/layer-style/block3_conv1.jpg" width="375"/></td>
     </tr>
     <tr>
         <td><code>block1_conv1</code>, <code>block2_conv1</code>, <code>block3_conv1</code>, <code>block4_conv1</code></td>
-        <td><img src="img/layer-style/block4_conv1.png" width="375"/></td>
+        <td><img src="img/layer-style/block4_conv1.jpg" width="375"/></td>
     </tr>
     <tr>
         <td><code>block1_conv1</code>, <code>block2_conv1</code>, <code>block3_conv1</code>, <code>block4_conv1</code>, <code>block5_conv1</code></td>
-        <td><img src="img/layer-style/block5_conv1.png" width="375"/></td>
+        <td><img src="img/layer-style/block5_conv1.jpg" width="375"/></td>
     </tr>
 </table>
 
