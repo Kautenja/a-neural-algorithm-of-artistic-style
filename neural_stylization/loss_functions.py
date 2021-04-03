@@ -1,5 +1,5 @@
 """Methods representing various loss functions."""
-from keras import backend as K
+from tensorflow.keras import backend as K
 
 
 def content_loss(content, combination):
@@ -100,4 +100,9 @@ def total_variation_loss(x, kind='isotropic'):
         raise ValueError("`kind` should be 'anisotropic' or 'isotropic'")
 
 
-__all__ = ['content_loss', 'style_loss', 'total_variation_loss']
+# explicitly define the outward facing API of this module
+__all__ = [
+    content_loss.__name__,
+    style_loss.__name__,
+    total_variation_loss.__name__,
+]

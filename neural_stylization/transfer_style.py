@@ -1,8 +1,7 @@
 """A mechanism for transferring style of art to content."""
-import numpy as np
-from PIL import Image
 from typing import Callable, List
-from keras import backend as K
+import numpy as np
+from tensorflow.keras import backend as K
 from .vgg19 import VGG_19
 from .util.img_util import normalize
 from .util.img_util import denormalize
@@ -267,7 +266,7 @@ class Stylizer(object):
                  image_size: tuple=None,
                  initialization_strat: str='noise',
                  noise_range: tuple=(0, 1),
-                 callback: Callable=None) -> Image:
+                 callback: Callable=None):
         """
         Stylize the given content image with the give style image.
 
@@ -343,4 +342,5 @@ class Stylizer(object):
         return image
 
 
-__all__ = ['Stylizer']
+# explicitly define the outward facing API of this module
+__all__ = [Stylizer.__name__]

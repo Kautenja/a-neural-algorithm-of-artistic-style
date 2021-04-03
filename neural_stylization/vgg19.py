@@ -231,5 +231,5 @@ class VGG_19(Model):
         self.load_weights(weights_path)
 
 
-# explicitly export the public API of the module
-__all__ = ['VGG_19']
+# explicitly define the outward facing API of this module
+__all__ = [VGG_19.__name__]

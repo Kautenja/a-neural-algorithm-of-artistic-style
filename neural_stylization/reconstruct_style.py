@@ -1,8 +1,7 @@
 """A functional decomposition of the style reconstruction algorithm."""
-import numpy as np
-from PIL import Image
 from typing import Callable
-from keras import backend as K
+import numpy as np
+from tensorflow.keras import backend as K
 from .vgg19 import VGG_19
 from .util.img_util import load_image
 from .util.img_util import normalize
@@ -25,7 +24,7 @@ def reconstruct_style(style_path: str,
                       optimize: Callable=L_BFGS(),
                       iterations: int=10,
                       noise_range: tuple=(0, 1),
-                      callback: Callable=None) -> Image:
+                      callback: Callable=None):
     """
     Reconstruct the given content image at the given VGG19 layer.
 
@@ -96,4 +95,5 @@ def reconstruct_style(style_path: str,
     return matrix_to_image(denormalize(image.reshape(canvas.shape)[0]))
 
 
-__all__ = ['reconstruct_style']
+# explicitly define the outward facing API of this module
+__all__ = [reconstruct_style.__name__]
