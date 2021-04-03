@@ -47,82 +47,6 @@ and normalizing image can be found in [src/img_util.py][]. -->
 [src/vgg19.py]: src/vgg19.py
 [src/img_util.py]: src/img_util.py -->
 
-### Content Reconstruction
-
-[content-reconstruction.ipynb][] describes the content reconstruction
-process from white noise. Performing gradient descent of the content loss
-on a white noise input **x** for a given content **p** yields a
-representation of the networks activation for a given layer _l_.
-
-[content-reconstruction.ipynb]: content-reconstruction.ipynb
-
-<table>
-    <tr>
-        <th>Layer</th>
-        <th>Result</th>
-    </tr>
-    <tr>
-        <td><code>block1_conv1</code></td>
-        <td><img src="img/content-reconstruction/block1_conv1.png" width="375"/></td>
-    </tr>
-    <tr>
-        <td><code>block2_conv1</code></td>
-        <td><img src="img/content-reconstruction/block2_conv1.png" width="375"/></td>
-    </tr>
-    <tr>
-        <td><code>block3_conv1</code></td>
-        <td><img src="img/content-reconstruction/block3_conv1.png" width="375"/></td>
-    </tr>
-    <tr>
-        <td><code>block4_conv1</code></td>
-        <td><img src="img/content-reconstruction/block4_conv1.png" width="375"/></td>
-    </tr>
-    <tr>
-        <td><code>block4_conv2</code></td>
-        <td><img src="img/content-reconstruction/block4_conv2.png" width="375"/></td>
-    </tr>
-    <tr>
-        <td><code>block5_conv1</code></td>
-        <td><img src="img/content-reconstruction/block5_conv1.png" width="375"/></td>
-    </tr>
-</table>
-
-### Style Reconstruction
-
-[style-reconstruction.ipynb][] describes the style reconstruction
-process from white noise. Performing gradient descent of the style loss
-on a white noise input **x** for a given artwork **a** yields a
-representation of the networks activation for a given set of layers _L_.
-
-[style-reconstruction.ipynb]: style-reconstruction.ipynb
-
-<table>
-    <tr>
-        <th>Layer</th>
-        <th>Result</th>
-    </tr>
-    <tr>
-        <td><code>block1_conv1</code></td>
-        <td><img src="img/style-reconstruction/block1_conv1.png"/></td>
-    </tr>
-    <tr>
-        <td><code>block2_conv1</code></td>
-        <td><img src="img/style-reconstruction/block2_conv1.png"/></td>
-    </tr>
-    <tr>
-        <td><code>block3_conv1</code></td>
-        <td><img src="img/style-reconstruction/block3_conv1.png"/></td>
-    </tr>
-    <tr>
-        <td><code>block4_conv1</code></td>
-        <td><img src="img/style-reconstruction/block4_conv1.png"/></td>
-    </tr>
-    <tr>
-        <td><code>block5_conv1</code></td>
-        <td><img src="img/style-reconstruction/block5_conv1.png"/></td>
-    </tr>
-</table>
-
 ### Style Transfer
 
 [style-transfer.ipynb][] describes the style transfer process between a white
@@ -180,6 +104,82 @@ daytime picture of another city with mixed results.
 
 [photo-realistic-style-transfer.ipynb]: photo-realistic-style-transfer.ipynb
 
+### Content Reconstruction
+
+[content-reconstruction.ipynb][] describes the content reconstruction
+process from white noise. Performing gradient descent of the content loss
+on a white noise input **x** for a given content **p** yields a
+representation of the networks activation for a given layer _l_.
+
+[content-reconstruction.ipynb]: content-reconstruction.ipynb
+
+<table>
+    <tr>
+        <th>Layer</th>
+        <th>Result</th>
+    </tr>
+    <tr>
+        <td><code>block1_conv1</code></td>
+        <td><img src="img/content-reconstruction/block1_conv1.png" width="375"/></td>
+    </tr>
+    <tr>
+        <td><code>block2_conv1</code></td>
+        <td><img src="img/content-reconstruction/block2_conv1.png" width="375"/></td>
+    </tr>
+    <tr>
+        <td><code>block3_conv1</code></td>
+        <td><img src="img/content-reconstruction/block3_conv1.png" width="375"/></td>
+    </tr>
+    <tr>
+        <td><code>block4_conv1</code></td>
+        <td><img src="img/content-reconstruction/block4_conv1.png" width="375"/></td>
+    </tr>
+    <tr>
+        <td><code>block4_conv2</code></td>
+        <td><img src="img/content-reconstruction/block4_conv2.png" width="375"/></td>
+    </tr>
+    <tr>
+        <td><code>block5_conv1</code></td>
+        <td><img src="img/content-reconstruction/block5_conv1.png" width="375"/></td>
+    </tr>
+</table>
+
+### Style Reconstruction
+
+[style-reconstruction.ipynb][] describes the style reconstruction
+process from white noise. Performing gradient descent of the style loss
+on a white noise input **x** for a given artwork **a** yields a
+representation of the networks activation for a given set of layers _L_.
+
+[style-reconstruction.ipynb]: style-reconstruction.ipynb
+
+<table>
+    <tr>
+        <th>Layer</th>
+        <th>Result</th>
+    </tr>
+    <tr>
+        <td><code>block1_conv1</code></td>
+        <td><img src="img/style-reconstruction/block1_conv1.png" width="375"/></td>
+    </tr>
+    <tr>
+        <td><code>block1_conv1</code>, <code>block2_conv1</code></td>
+        <td><img src="img/style-reconstruction/block2_conv1.png" width="375"/></td>
+    </tr>
+    <tr>
+        <td><code>block1_conv1</code>, <code>block2_conv1</code>, <code>block3_conv1</code></td>
+        <td><img src="img/style-reconstruction/block3_conv1.png" width="375"/></td>
+    </tr>
+    <tr>
+        <td><code>block1_conv1</code>, <code>block2_conv1</code>, <code>block3_conv1</code>, <code>block4_conv1</code></td>
+        <td><img src="img/style-reconstruction/block4_conv1.png" width="375"/></td>
+    </tr>
+    <tr>
+        <td><code>block1_conv1</code>, <code>block2_conv1</code>, <code>block3_conv1</code>, <code>block4_conv1</code>, <code>block5_conv1</code></td>
+        <td><img src="img/style-reconstruction/block5_conv1.png" width="375"/></td>
+    </tr>
+</table>
+
 ### Content Layer Selection
 
 [effect-of-content-layer.ipynb][] visualizes how the style transfer is affected
@@ -194,23 +194,23 @@ by using different layers for content loss.
     </tr>
     <tr>
         <td><code>block1_conv1</code></td>
-        <td><img src="img/layer-content/block1_conv1.png"/></td>
+        <td><img src="img/layer-content/block1_conv1.png" width="375"/></td>
     </tr>
     <tr>
         <td><code>block2_conv1</code></td>
-        <td><img src="img/layer-content/block2_conv1.png"/></td>
+        <td><img src="img/layer-content/block2_conv1.png" width="375"/></td>
     </tr>
     <tr>
         <td><code>block3_conv1</code></td>
-        <td><img src="img/layer-content/block3_conv1.png"/></td>
+        <td><img src="img/layer-content/block3_conv1.png" width="375"/></td>
     </tr>
     <tr>
         <td><code>block4_conv1</code></td>
-        <td><img src="img/layer-content/block4_conv1.png"/></td>
+        <td><img src="img/layer-content/block4_conv1.png" width="375"/></td>
     </tr>
     <tr>
         <td><code>block5_conv1</code></td>
-        <td><img src="img/layer-content/block5_conv1.png"/></td>
+        <td><img src="img/layer-content/block5_conv1.png" width="375"/></td>
     </tr>
 </table>
 
@@ -228,23 +228,23 @@ by using different sets of layers for style loss.
     </tr>
     <tr>
         <td><code>block1_conv1</code></td>
-        <td><img src="img/layer-style/block1_conv1.png"/></td>
+        <td><img src="img/layer-style/block1_conv1.png" width="375"/></td>
     </tr>
     <tr>
         <td><code>block1_conv1</code>, <code>block2_conv1</code></td>
-        <td><img src="img/layer-style/block2_conv1.png"/></td>
+        <td><img src="img/layer-style/block2_conv1.png" width="375"/></td>
     </tr>
     <tr>
         <td><code>block1_conv1</code>, <code>block2_conv1</code>, <code>block3_conv1</code></td>
-        <td><img src="img/layer-style/block3_conv1.png"/></td>
+        <td><img src="img/layer-style/block3_conv1.png" width="375"/></td>
     </tr>
     <tr>
         <td><code>block1_conv1</code>, <code>block2_conv1</code>, <code>block3_conv1</code>, <code>block4_conv1</code></td>
-        <td><img src="img/layer-style/block4_conv1.png"/></td>
+        <td><img src="img/layer-style/block4_conv1.png" width="375"/></td>
     </tr>
     <tr>
         <td><code>block1_conv1</code>, <code>block2_conv1</code>, <code>block3_conv1</code>, <code>block4_conv1</code>, <code>block5_conv1</code></td>
-        <td><img src="img/layer-style/block5_conv1.png"/></td>
+        <td><img src="img/layer-style/block5_conv1.png" width="375"/></td>
     </tr>
 </table>
 
