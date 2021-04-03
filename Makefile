@@ -1,11 +1,12 @@
 # the executable for Python
 PYTHON=python3
-# the directory the main framework exists in
-MAIN=neural_stylization
 # the build directory
 BUILD=build
 # the number of frames of interpolation to use in videos
 INTER_FRAMES=3
+
+all:
+	@echo "dont use the generic 'make' in this project"
 
 # install Python dependencies in the requirements.txt
 install:
@@ -14,11 +15,6 @@ install:
 # make a build directory
 build:
 	mkdir -p ${BUILD}
-
-# delete all the stupid garbage that LaTeX generates. Run this before and
-# after to ensure that each build is completely fresh.
-delete_tex_garbage:
-	cd tex && rm -f *.aux *.nav *.log *.out *.snm *.toc *.bbl *.blg *.brf *.swp *.nlo
 
 # Convert the frames in a given directory to a video of the directories name
 # in its parent directory.
