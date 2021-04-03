@@ -5,7 +5,7 @@ BUILD=build
 # the number of frames of interpolation to use in videos
 INTER_FRAMES=3
 
-all: style_transfer_videos layer_videos reconstruction_videos optimizer_videos tv_loss_videos phot_realistic_style_transfer_videos
+all: style_transfer_videos layer_videos reconstruction_videos optimizer_videos tv_loss_videos photo_realistic_style_transfer_videos
 
 # install Python dependencies in the requirements.txt
 install:
@@ -76,7 +76,7 @@ tv_loss_videos: build
 	$(call frames_to_video,tv/100)
 	$(call frames_to_video,tv/1000)
 
-phot_realistic_style_transfer_videos: build
+photo_realistic_style_transfer_videos: build
 	$(call frames_to_video,photo-realistic-style-transfer/Adam)
 	$(call frames_to_video,photo-realistic-style-transfer/GradientDescent)
 	$(call frames_to_video,photo-realistic-style-transfer/L_BFGS)
