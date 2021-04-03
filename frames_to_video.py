@@ -40,7 +40,7 @@ frames = [cv2.imread('{}/{}'.format(directory, frame)) for frame in frames]
 height, width, dims = frames[0].shape
 
 # setup a video output stream
-fourcc = cv2.VideoWriter_fourcc(*'mp4v') # Be sure to use lower case
+fourcc = cv2.VideoWriter_fourcc(*'h264') # Be sure to use lower case
 out = cv2.VideoWriter(video_name, fourcc, 20.0, (width, height))
 
 # write the frames to the video file
