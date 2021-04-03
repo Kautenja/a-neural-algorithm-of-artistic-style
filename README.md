@@ -7,13 +7,11 @@ An **implementation** of the arXiv preprint
 
 ## Style Transfer
 
-[style-transfer.ipynb][] describes the style transfer process between a white
-noise image **x**, a content image **p**, and a style representation **a**.
-Performing gradient descent of the content loss and style loss with respect
-to **x** impressions the content of **p** into **x**, bearing local styles,
-and colors from **a**.
-
-[style-transfer.ipynb]: style-transfer.ipynb
+[style-transfer.ipynb](style-transfer.ipynb) describes the style transfer
+process between a white noise image **x**, a content image **p**, and a style
+representation **a**. Performing gradient descent of the content loss and
+style loss with respect to **x** impressions the content of **p** into **x**,
+bearing local styles, and colors from **a**.
 
 <table>
     <tr>
@@ -55,12 +53,10 @@ and colors from **a**.
 
 ## Content Reconstruction
 
-[content-reconstruction.ipynb][] describes the content reconstruction
-process from white noise. Performing gradient descent of the content loss
-on a white noise input **x** for a given content **p** yields a
-representation of the networks activation for a given layer _l_.
-
-[content-reconstruction.ipynb]: content-reconstruction.ipynb
+[content-reconstruction.ipynb](content-reconstruction.ipynb) describes the
+content reconstruction process from white noise. Performing gradient descent
+of the content loss on a white noise input **x** for a given content **p**
+yields a representation of the networks activation for a given layer _l_.
 
 <table>
     <tr>
@@ -95,13 +91,11 @@ representation of the networks activation for a given layer _l_.
 
 ## Style Reconstruction
 
-[style-reconstruction.ipynb][] describes the style reconstruction
-process on Wassily Kandinsky's <i>Composition VII</i> from white noise.
-Performing gradient descent of the style loss on a white noise input **x** for
-a given artwork **a** yields a representation of the networks activation for a
-given set of layers _L_.
-
-[style-reconstruction.ipynb]: style-reconstruction.ipynb
+[style-reconstruction.ipynb](style-reconstruction.ipynb) describes the style
+reconstruction process on Wassily Kandinsky's <i>Composition VII</i> from white
+noise. Performing gradient descent of the style loss on a white noise input
+**x** for a given artwork **a** yields a representation of the networks
+activation for a given set of layers _L_.
 
 <table>
     <tr>
@@ -130,12 +124,10 @@ given set of layers _L_.
     </tr>
 </table>
 
-## Content Layer Selection
+## Content Layer
 
-[effect-of-content-layer.ipynb][] visualizes how the style transfer is affected
-by using different layers for content loss.
-
-[effect-of-content-layer.ipynb]: effect-of-content-layer.ipynb
+[content-layer.ipynb](content-layer.ipynb) visualizes how the style transfer
+is affected by using different layers for content loss.
 
 <table>
     <tr>
@@ -164,12 +156,10 @@ by using different layers for content loss.
     </tr>
 </table>
 
-## Style Layer Selection
+## Style Layers
 
-[effect-of-style-layers.ipynb][] visualizes how the style transfer is affected
-by using different sets of layers for style loss.
-
-[effect-of-style-layers.ipynb]: effect-of-style-layers.ipynb
+[style-layers.ipynb](style-layers.ipynb) visualizes how the style transfer is
+affected by using different sets of layers for style loss.
 
 <table>
     <tr>
@@ -200,11 +190,10 @@ by using different sets of layers for style loss.
 
 ## Optimizers
 
-[optimizers.ipynb][] employs _gradient descent_, _adam_, and _L-BFGS_ to
-understand the effect of different black-box optimizers. Gatys et. al use
-L-BFGS, but Adam appears to produce comparable results without as much overhead.
-
-[optimizers.ipynb]: optimizers.ipynb
+[optimizers.ipynb](optimizers.ipynb) employs _gradient descent_, _adam_, and
+_L-BFGS_ to understand the effect of different black-box optimizers. Gatys et.
+al use L-BFGS, but Adam appears to produce comparable results without as much
+overhead.
 
 <table>
     <tr>
@@ -225,12 +214,10 @@ L-BFGS, but Adam appears to produce comparable results without as much overhead.
 
 ## Photo-Realistic Style Transfer
 
-[photo-realistic-style-transfer.ipynb][] describes the photo-realistic style
-transfer process. Opposed to transfering style from an artwork, this notebook
-explores transfering a nighttime theme from a picture of one city to a
-daytime picture of another city with mixed results.
-
-[photo-realistic-style-transfer.ipynb]: photo-realistic-style-transfer.ipynb
+[photo-realistic-style-transfer.ipynb](photo-realistic-style-transfer.ipynb)
+describes the photo-realistic style transfer process. Opposed to transferring
+style from an artwork, this notebook explores transferring a nighttime style
+from a picture of Piedmont Park at night to a daytime picture of Piedmont Park.
 
 <table>
     <tr>
