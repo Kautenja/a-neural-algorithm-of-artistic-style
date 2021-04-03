@@ -39,14 +39,10 @@ def build_callback(out_dir: str=None):
             None
 
         """
-        # clear the existing output
-        display.clear_output(wait=True)
-        # de-normalize the image and convert to binary
         image = np.clip(denormalize(image[0]), 0, 255).astype('uint8')
-        # write the image to disk in the appropriate spot
         if out_dir is not None:
             io.imsave('{}/{}.png'.format(out_dir, i), image)
-        # display the image on the IPython front end
+        display.clear_output(wait=True)
         ax = plt.imshow(image)
         ax.axes.xaxis.set_major_locator(plt.NullLocator())
         ax.axes.yaxis.set_major_locator(plt.NullLocator())
