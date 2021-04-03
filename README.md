@@ -263,9 +263,9 @@ daytime picture of another city with mixed results.
         <th>Result</th>
     </tr>
     <tr>
-        <td><img src="img/content/piedmont-park.jpg" width="300"/></td>
-        <td><img src="img/content/piedmont-park-night.jpg" width="300"/></td>
-        <td><img src="img/transfer-photo/piedmont-park-L_BFGS.jpg" width="300"/></td>
+        <td><img src="img/transfer-photo/content.jpg" width="256"/></td>
+        <td><img src="img/transfer-photo/style.jpg" width="256"/></td>
+        <td><img src="img/transfer-photo/piedmont-park-L_BFGS.jpg" width="256"/></td>
     </tr>
 </table>
 
