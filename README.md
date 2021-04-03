@@ -5,6 +5,8 @@ An **implementation** of the arXiv preprint
 & paper
 [_Image Style Transfer Using Convolutional Neural Networks [2]_](#references).
 
+_Supports TensorFlow 2.4.1._
+
 ## Style Transfer
 
 [style-transfer.ipynb](style-transfer.ipynb) describes the style transfer
