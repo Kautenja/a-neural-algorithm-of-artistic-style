@@ -96,9 +96,10 @@ representation of the networks activation for a given layer _l_.
 ## Style Reconstruction
 
 [style-reconstruction.ipynb][] describes the style reconstruction
-process from white noise. Performing gradient descent of the style loss
-on a white noise input **x** for a given artwork **a** yields a
-representation of the networks activation for a given set of layers _L_.
+process on Wassily Kandinsky's <i>Composition VII</i> from white noise.
+Performing gradient descent of the style loss on a white noise input **x** for
+a given artwork **a** yields a representation of the networks activation for a
+given set of layers _L_.
 
 [style-reconstruction.ipynb]: style-reconstruction.ipynb
 
