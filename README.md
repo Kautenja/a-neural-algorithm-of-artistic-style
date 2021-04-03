@@ -25,7 +25,7 @@ An **implementation** of the arXiv preprint
 </td>
 </tr>
 </table>
-    
+
 ## Pablo Picasso's _Seated Nude_
 
 <table>
@@ -58,6 +58,8 @@ An **implementation** of the arXiv preprint
 <tr>
 <td>
 <img src="img/styles/the-starry-night.jpg" width="400"/>
+</td>
+<td>
 <img src="img/transfer/the-starry-night.png" width="425"/>
 </td>
 </tr>
@@ -85,7 +87,9 @@ An **implementation** of the arXiv preprint
 </td>
 <td>
 <img src="img/transfer/composition-vii.png" width="425"/>
-</p>
+</td>
+</tr>
+</table>
 
 # Getting Started
 
