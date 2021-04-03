@@ -56,6 +56,37 @@ representation of the networks activation for a given layer _l_.
 
 [content-reconstruction.ipynb]: content-reconstruction.ipynb
 
+<table>
+    <tr>
+        <th>Layer</th>
+        <th>Result</th>
+    </tr>
+    <tr>
+        <td><code>block1_conv1</code></td>
+        <td><img src="img/content-reconstruction/block1_conv1.png"/></td>
+    </tr>
+    <tr>
+        <td><code>block2_conv1</code></td>
+        <td><img src="img/content-reconstruction/block2_conv1.png"/></td>
+    </tr>
+    <tr>
+        <td><code>block3_conv1</code></td>
+        <td><img src="img/content-reconstruction/block3_conv1.png"/></td>
+    </tr>
+    <tr>
+        <td><code>block4_conv1</code></td>
+        <td><img src="img/content-reconstruction/block4_conv1.png"/></td>
+    </tr>
+    <tr>
+        <td><code>block4_conv2</code></td>
+        <td><img src="img/content-reconstruction/block4_conv2.png"/></td>
+    </tr>
+    <tr>
+        <td><code>block5_conv1</code></td>
+        <td><img src="img/content-reconstruction/block5_conv1.png"/></td>
+    </tr>
+</table>
+
 ### Style Reconstruction
 
 [style-reconstruction.ipynb][] describes the style reconstruction
@@ -64,6 +95,33 @@ on a white noise input **x** for a given artwork **a** yields a
 representation of the networks activation for a given set of layers _L_.
 
 [style-reconstruction.ipynb]: style-reconstruction.ipynb
+
+<table>
+    <tr>
+        <th>Layer</th>
+        <th>Result</th>
+    </tr>
+    <tr>
+        <td><code>block1_conv1</code></td>
+        <td><img src="img/style-reconstruction/block1_conv1.png"/></td>
+    </tr>
+    <tr>
+        <td><code>block2_conv1</code></td>
+        <td><img src="img/style-reconstruction/block2_conv1.png"/></td>
+    </tr>
+    <tr>
+        <td><code>block3_conv1</code></td>
+        <td><img src="img/style-reconstruction/block3_conv1.png"/></td>
+    </tr>
+    <tr>
+        <td><code>block4_conv1</code></td>
+        <td><img src="img/style-reconstruction/block4_conv1.png"/></td>
+    </tr>
+    <tr>
+        <td><code>block5_conv1</code></td>
+        <td><img src="img/style-reconstruction/block5_conv1.png"/></td>
+    </tr>
+</table>
 
 ### Style Transfer
 
