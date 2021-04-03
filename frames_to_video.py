@@ -31,7 +31,7 @@ video_name = argv[2]
 interpolation_frames = int(argv[3])
 
 # get the frames from the given directory in sorted order
-frames = [filename for filename in listdir(directory) if '.png' in filename]
+frames = [filename for filename in listdir(directory) if '.jpg' in filename]
 # use the integer filename value to account for the lack of 0 padding
 frames = sorted(frames, key=lambda x: int(re.sub(r'[^0-9]+', "", x)))
 # open the frames as images
