@@ -129,6 +129,33 @@ by using different layers for content loss.
 
 [effect-of-content-layer.ipynb]: effect-of-content-layer.ipynb
 
+<table>
+    <tr>
+        <td><img src="img/content/tubingen.jpg" width="375"/></td>
+        <td><img src="img/styles/composition-vii.jpg" width="425"/></td>
+    </tr>
+    <tr>
+        <td><code>block1_conv1</code></td>
+        <td><img src="img/layer-content/block1_conv1.png"/></td>
+    </tr>
+    <tr>
+        <td><code>block2_conv1</code></td>
+        <td><img src="img/layer-content/block2_conv1.png"/></td>
+    </tr>
+    <tr>
+        <td><code>block3_conv1</code></td>
+        <td><img src="img/layer-content/block3_conv1.png"/></td>
+    </tr>
+    <tr>
+        <td><code>block4_conv1</code></td>
+        <td><img src="img/layer-content/block4_conv1.png"/></td>
+    </tr>
+    <tr>
+        <td><code>block5_conv1</code></td>
+        <td><img src="img/layer-content/block5_conv1.png"/></td>
+    </tr>
+</table>
+
 ### Style Layer Selection
 
 [effect-of-style-layers.ipynb][] visualizes how the style transfer is affected
@@ -138,27 +165,27 @@ by using different sets of layers for style loss.
 
 <table>
     <tr>
-        <td><img src="img/content/samford-sign.jpg"/></td>
-        <td><img src="img/styles/seated-nude.jpg"/></td>
+        <td><img src="img/content/tubingen.jpg" width="375"/></td>
+        <td><img src="img/styles/composition-vii.jpg" width="425"/></td>
     </tr>
     <tr>
         <td><code>block1_conv1</code></td>
         <td><img src="img/layer-style/block1_conv1.png"/></td>
     </tr>
     <tr>
-        <td><code>block2_conv1</code></td>
+        <td><code>block1_conv1</code>, <code>block2_conv1</code></td>
         <td><img src="img/layer-style/block2_conv1.png"/></td>
     </tr>
     <tr>
-        <td><code>block3_conv1</code></td>
+        <td><code>block1_conv1</code>, <code>block2_conv1</code>, <code>block3_conv1</code></td>
         <td><img src="img/layer-style/block3_conv1.png"/></td>
     </tr>
     <tr>
-        <td><code>block4_conv1</code></td>
+        <td><code>block1_conv1</code>, <code>block2_conv1</code>, <code>block3_conv1</code>, <code>block4_conv1</code></td>
         <td><img src="img/layer-style/block4_conv1.png"/></td>
     </tr>
     <tr>
-        <td><code>block5_conv1</code></td>
+        <td><code>block1_conv1</code>, <code>block2_conv1</code>, <code>block3_conv1</code>, <code>block4_conv1</code>, <code>block5_conv1</code></td>
         <td><img src="img/layer-style/block5_conv1.png"/></td>
     </tr>
 </table>
