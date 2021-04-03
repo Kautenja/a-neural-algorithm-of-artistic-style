@@ -95,15 +95,6 @@ and colors from **a**.
     </tr>
 </table>
 
-### Photo-Realistic Style Transfer
-
-[photo-realistic-style-transfer.ipynb][] describes the photo-realistic style
-transfer process. Opposed to transfering style from an artwork, this notebook
-explores transfering a nighttime theme from a picture of one city to a
-daytime picture of another city with mixed results.
-
-[photo-realistic-style-transfer.ipynb]: photo-realistic-style-transfer.ipynb
-
 ### Content Reconstruction
 
 [content-reconstruction.ipynb][] describes the content reconstruction
@@ -255,6 +246,15 @@ understand the affect of different blackbox optimizers. Gatys et. al use
 L-BFGS, but Adam appears to produce competetive results too.
 
 [optimizers.ipynb]: optimizers.ipynb
+
+### Photo-Realistic Style Transfer
+
+[photo-realistic-style-transfer.ipynb][] describes the photo-realistic style
+transfer process. Opposed to transfering style from an artwork, this notebook
+explores transfering a nighttime theme from a picture of one city to a
+daytime picture of another city with mixed results.
+
+[photo-realistic-style-transfer.ipynb]: photo-realistic-style-transfer.ipynb
 
 ## References
 
