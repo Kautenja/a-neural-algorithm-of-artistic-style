@@ -5,15 +5,15 @@ team here:
 https://github.com/keras-team/keras/blob/master/keras/applications/vgg19.py
 """
 from typing import Union
-from keras.models import Model
-from keras.layers import Layer
-from keras.layers import Input
-from keras.layers import Conv2D
-from keras.layers import AveragePooling2D
-from keras.layers import MaxPooling2D
-from keras.layers import Flatten
-from keras.layers import Dense
-from keras import backend as K
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Layer
+from tensorflow.keras.layers import Input
+from tensorflow.keras.layers import Conv2D
+from tensorflow.keras.layers import AveragePooling2D
+from tensorflow.keras.layers import MaxPooling2D
+from tensorflow.keras.layers import Flatten
+from tensorflow.keras.layers import Dense
+from tensorflow.keras import backend as K
 
 
 # the definition for a tensor type as defined by Keras
