@@ -4,8 +4,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras import backend as K
 from tensorflow.keras.applications.vgg19 import VGG19
-from .util.img_util import normalize
-from .util.img_util import denormalize
+from .normalize import normalize, denormalize
 from .loss_functions import style_loss
 from .optimizers.l_bfgs import L_BFGS
 

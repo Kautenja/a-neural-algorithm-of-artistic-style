@@ -5,7 +5,7 @@ from IPython import display
 import numpy as np
 import matplotlib.pyplot as plt
 import skimage.io as io
-from .img_util import denormalize
+from .normalize import denormalize
 
 
 class Callback:
