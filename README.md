@@ -254,14 +254,14 @@ L-BFGS, but Adam appears to produce comparable results without as much overhead.
         <th>L-BFGS</th>
     </tr>
     <tr>
-        <td><img src="img/loss/GradientDescent.jpg" width="256"/></td>
-        <td><img src="img/loss/Adam.jpg" width="256"/></td>
-        <td><img src="img/loss/L_BFGS.jpg" width="256"/></td>
+        <td><img src="img/optimizers/GradientDescent.jpg" width="256"/></td>
+        <td><img src="img/optimizers/Adam.jpg" width="256"/></td>
+        <td><img src="img/optimizers/L_BFGS.jpg" width="256"/></td>
     </tr>
 </table>
 
 <p align="center">
-<img src="img/loss/plot.png"/>
+<img src="img/optimizers/plot.png"/>
 </p>
 
 ### Photo-Realistic Style Transfer
@@ -280,9 +280,9 @@ daytime picture of another city with mixed results.
         <th>Result</th>
     </tr>
     <tr>
-        <td><img src="img/transfer-photo/content.jpg" width="256"/></td>
-        <td><img src="img/transfer-photo/style.jpg" width="256"/></td>
-        <td><img src="img/transfer-photo/piedmont-park-L_BFGS.jpg" width="256"/></td>
+        <td><img src="img/photo-realistic-style-transfer/content.jpg" width="256"/></td>
+        <td><img src="img/photo-realistic-style-transfer/style.jpg" width="256"/></td>
+        <td><img src="img/photo-realistic-style-transfer/piedmont-park-L_BFGS.jpg" width="256"/></td>
     </tr>
 </table>
 
