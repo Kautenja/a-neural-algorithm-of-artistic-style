@@ -85,4 +85,5 @@ class Adam(object):
         return X
 
 
-__all__ = ['Adam']
+# explicitly define the outward facing API of this module
+__all__ = [Adam.__name__]

@@ -102,4 +102,5 @@ class L_BFGS(object):
         return X
 
 
-__all__ = ['L_BFGS']
+# explicitly define the outward facing API of this module
+__all__ = [L_BFGS.__name__]

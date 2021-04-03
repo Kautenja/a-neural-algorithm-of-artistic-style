@@ -66,4 +66,5 @@ class GradientDescent(object):
         return X
 
 
-__all__ = ['GradientDescent']
+# explicitly define the outward facing API of this module
+__all__ = [GradientDescent.__name__]
