@@ -38,7 +38,7 @@ def reconstruct_content(content: np.ndarray,
 
     # normalize the image's RGB values about the RGB channel means for the
     # ImageNet dataset
-    content = normalize(content[None, ...].astype(float))
+    content = normalize(content[None, ...].astype('float'))
     # load the content image into Keras as a constant, it never changes
     content = K.constant(content, name='Content')
     # create a placeholder for the trained image, this variable trains
@@ -70,7 +70,7 @@ def reconstruct_content(content: np.ndarray,
     K.clear_session()
 
     # de-normalize the image (from ImageNet means) and convert back to binary
-    return denormalize(image.reshape(canvas.shape)[0])
+    return denormalize(image.reshape(canvas.shape)[0]).astype('uint8')
 
 
 # explicitly define the outward facing API of this module

@@ -1,13 +1,11 @@
 """A mechanism for transferring style of art to content."""
 from typing import Callable, List
 import numpy as np
+import tensorflow as tf
 from tensorflow.keras import backend as K
-from .vgg19 import VGG_19
+from tensorflow.keras.applications.vgg19 import VGG19
 from .util.img_util import normalize
 from .util.img_util import denormalize
-from .util.img_util import load_image
-from .util.img_util import image_to_matrix
-from .util.img_util import matrix_to_image
 from .loss_functions import content_loss, style_loss, total_variation_loss
 
 
@@ -26,18 +24,19 @@ class Stylizer(object):
     """An algorithm for stylizing images based on artwork."""
 
     def __init__(self,
-                 content_layer_name: str='block4_conv2',
-                 content_weight: float=1.0,
-                 style_layer_names: List[str]=[
-                    'block1_conv1',
-                    'block2_conv1',
-                    'block3_conv1',
-                    'block4_conv1',
-                    'block5_conv1'
-                 ],
-                 style_layer_weights: List[float]=None,
-                 style_weight: float=10000.0,
-                 total_variation_weight: float=0.0) -> None:
+        content_layer_name: str='block4_conv2',
+        content_weight: float=1.0,
+        style_layer_names: List[str]=[
+            'block1_conv1',
+            'block2_conv1',
+            'block3_conv1',
+            'block4_conv1',
+            'block5_conv1'
+        ],
+        style_layer_weights: List[float]=None,
+        style_weight: float=10000.0,
+        total_variation_weight: float=0.0
+    ) -> None:
         """
         Initialize a new neural stylization algorithm.
 
@@ -57,14 +56,14 @@ class Stylizer(object):
 
         """
         # get the names of the layers from the model to error check
-        layer_names = VGG_19(include_top=False).output_tensors.keys()
+        layer_names = [l.name for l in VGG19(include_top=False).layers]
 
         # type and value check: content_layer_name
         if not isinstance(content_layer_name, str):
             raise TypeError('`content_layer_name` must be of type: str')
         if content_layer_name not in layer_names:
             raise ValueError(
-                '`content_layer_name` must be a layer name in VGG_19'
+                '`content_layer_name` must be a layer name in VGG19'
             )
         self.content_layer_name = content_layer_name
 
@@ -80,7 +79,7 @@ class Stylizer(object):
             raise TypeError('`style_layer_names` must be of type: list')
         if not all(layer in layer_names for layer in style_layer_names):
             raise ValueError(
-                '`style_layer_names` must be a list of layer names in VGG_19'
+                '`style_layer_names` must be a list of layer names in VGG19'
             )
         self.style_layer_names = style_layer_names
 
@@ -116,6 +115,9 @@ class Stylizer(object):
             raise ValueError('`total_variation_weight` must be >= 0')
         self.total_variation_weight = total_variation_weight
 
+        # disable eager mode for this operation
+        tf.compat.v1.disable_eager_execution()
+
     def __repr__(self) -> str:
         """Return an executable string representation of this object."""
         return TEMPLATE.format(*[
@@ -132,37 +134,6 @@ class Stylizer(object):
     def content_style_ratio(self) -> float:
         """Return the ratio of content weight to style weight."""
         return self.content_weight / self.style_weight
-
-    def _load_images(self,
-                     content_path: str,
-                     style_path: str,
-                     image_size: tuple=None) -> tuple:
-        """
-        Load the content and style images from disk and normalize them.
-
-        Args:
-            content_path: the path to the content image
-            style_path: the path to the style image
-            image_size: the optional image size to load the images as
-
-        Returns:
-            a tuple of content, style NumPy matrices
-
-        """
-        # load the content with the given size or it's default size
-        content = load_image(content_path, image_size)
-        # reassign image size in case it was none before loading the style
-        image_size = content.width, content.height
-        # load the style as the same size as the content
-        style = load_image(style_path, image_size)
-        # convert to 4D matrices
-        content = image_to_matrix(content)
-        style = image_to_matrix(style)
-        # normalize about the means of the ImageNet dataset
-        content = normalize(content)
-        style = normalize(style)
-
-        return content, style
 
     def _build_model(self, content: np.ndarray, style: np.ndarray) -> tuple:
         """
@@ -188,11 +159,11 @@ class Stylizer(object):
         # axis (0) into a 4D tensor of shape [3, height, width, channels]
         tensor = K.concatenate([content_tensor, style_tensor, canvas], axis=0)
         # build the model with the input tensor of content, style, and canvas
-        model = VGG_19(include_top=False, input_tensor=tensor, pooling='avg')
+        model = VGG19(include_top=False, input_tensor=tensor, pooling='avg')
 
         return model, canvas
 
-    def _build_loss_grads(self, model: VGG_19, canvas: 'Tensor') -> Callable:
+    def _build_loss_grads(self, model, canvas: 'Tensor') -> Callable:
         """
         Build the optimization methods for stylizing the image from a model.
 
@@ -209,7 +180,7 @@ class Stylizer(object):
 
         # CONTENT LOSS
         # extract the content layer tensor for optimizing content loss
-        content_layer_output = model[self.content_layer_name]
+        content_layer_output = model.get_layer(self.content_layer_name).output
         # calculate the loss between the output of the layer on the
         # content (0) and the canvas (2)
         cl = content_loss(content_layer_output[0],
@@ -222,7 +193,7 @@ class Stylizer(object):
         for style_layer_name, layer_weight in zip(self.style_layer_names,
                                                   self.style_layer_weights):
             # extract the layer out that we have interest in
-            style_layer_output = model[style_layer_name]
+            style_layer_output = model.get_layer(style_layer_name).output
             # calculate the loss between the output of the layer on the
             # style (1) and the canvas (2).
             sl = sl + layer_weight * style_loss(style_layer_output[1],
@@ -258,21 +229,18 @@ class Stylizer(object):
         #         to the loss
         return K.function([canvas], [loss, grads])
 
-    def __call__(self,
-                 content_path: str,
-                 style_path: str,
-                 optimize: Callable,
-                 iterations: int=10,
-                 image_size: tuple=None,
-                 initialization_strat: str='noise',
-                 noise_range: tuple=(0, 1),
-                 callback: Callable=None):
+    def __call__(self, content: np.ndarray, style: np.ndarray, optimize: Callable,
+            iterations: int = 10,
+            initialization_strat: str = 'noise',
+            noise_range: tuple = (0, 1),
+            callback: Callable = None
+        ):
         """
         Stylize the given content image with the give style image.
 
         Args:
-            content_path: the path to the content image to load
-            style_path: the path to the style image to load
+            content: the content image to use
+            style: the style image to use
             optimize: the black-box optimizer to use. This is a callable
                 method conforming to the API for optimizers
             iterations: the number of optimization iterations to perform
@@ -292,8 +260,12 @@ class Stylizer(object):
             the image as a result of blending content with style
 
         """
-        # load the images
-        content, style = self._load_images(content_path, style_path, image_size)
+        # normalize the input data
+        content = normalize(content[None, ...].astype('float'))
+        style = normalize(style[None, ...].astype('float'))
+
+        # disable eager mode for this operation
+        tf.compat.v1.disable_eager_execution()
         # build the inputs tensor from the images
         model, canvas = self._build_model(content, style)
         # build the iteration function
@@ -335,11 +307,7 @@ class Stylizer(object):
         image = image.reshape(canvas.shape)[0]
         # denormalize the image about the ImageNet means. this will invert the
         # channel dimension turning image from BGR to RGB
-        image = denormalize(image)
-        # convert the image to a binary image object to view, save, etc.
-        image = matrix_to_image(image)
-
-        return image
+        return denormalize(image).astype('uint8')
 
 
 # explicitly define the outward facing API of this module

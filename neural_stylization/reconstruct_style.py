@@ -88,7 +88,7 @@ def reconstruct_style(style: np.ndarray,
     K.clear_session()
 
     # de-normalize the image (from ImageNet means) and convert back to binary
-    return denormalize(image.reshape(canvas.shape)[0])
+    return denormalize(image.reshape(canvas.shape)[0]).astype('uint8')
 
 
 # explicitly define the outward facing API of this module
