@@ -212,6 +212,38 @@ overhead.
 <img src="img/optimizers/plot.png"/>
 </p>
 
+## TV Loss
+
+[tv-loss.ipynb](tv-loss.ipynb) introduces total-variation loss to reduce
+impulse noise in the images.
+
+<table>
+    <tr>
+        <th>TV Loss Scale Factor</th>
+        <th>Result</th>
+    </tr>
+    <tr>
+        <td><code>0</code></td>
+        <td><img src="img/tv/0.jpg" width="375"/></td>
+    </tr>
+    <tr>
+        <td><code>1</code></td>
+        <td><img src="img/tv/1.jpg" width="375"/></td>
+    </tr>
+    <tr>
+        <td><code>10</code></td>
+        <td><img src="img/tv/10.jpg" width="375"/></td>
+    </tr>
+    <tr>
+        <td><code>100</code></td>
+        <td><img src="img/tv/100.jpg" width="375"/></td>
+    </tr>
+    <tr>
+        <td><code>1000</code></td>
+        <td><img src="img/tv/1000.jpg" width="375"/></td>
+    </tr>
+</table>
+
 ## Photo-Realistic Style Transfer
 
 [photo-realistic-style-transfer.ipynb](photo-realistic-style-transfer.ipynb)
