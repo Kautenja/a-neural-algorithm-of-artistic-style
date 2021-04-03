@@ -63,27 +63,27 @@ representation of the networks activation for a given layer _l_.
     </tr>
     <tr>
         <td><code>block1_conv1</code></td>
-        <td><img src="img/content-reconstruction/block1_conv1.png"/></td>
+        <td><img src="img/content-reconstruction/block1_conv1.png" width="375"/></td>
     </tr>
     <tr>
         <td><code>block2_conv1</code></td>
-        <td><img src="img/content-reconstruction/block2_conv1.png"/></td>
+        <td><img src="img/content-reconstruction/block2_conv1.png" width="375"/></td>
     </tr>
     <tr>
         <td><code>block3_conv1</code></td>
-        <td><img src="img/content-reconstruction/block3_conv1.png"/></td>
+        <td><img src="img/content-reconstruction/block3_conv1.png" width="375"/></td>
     </tr>
     <tr>
         <td><code>block4_conv1</code></td>
-        <td><img src="img/content-reconstruction/block4_conv1.png"/></td>
+        <td><img src="img/content-reconstruction/block4_conv1.png" width="375"/></td>
     </tr>
     <tr>
         <td><code>block4_conv2</code></td>
-        <td><img src="img/content-reconstruction/block4_conv2.png"/></td>
+        <td><img src="img/content-reconstruction/block4_conv2.png" width="375"/></td>
     </tr>
     <tr>
         <td><code>block5_conv1</code></td>
-        <td><img src="img/content-reconstruction/block5_conv1.png"/></td>
+        <td><img src="img/content-reconstruction/block5_conv1.png" width="375"/></td>
     </tr>
 </table>
 
