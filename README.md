@@ -15,43 +15,75 @@ An **implementation** of the arXiv preprint
 
 ## Claude Monet's _Houses of Parliament_
 
-<p float="left" align="center">
+<table>
+<tr>
+<td>
 <img src="img/styles/houses-of-parliament.jpg" width="375"/>
+</td>
+<td>
 <img src="img/transfer/houses-of-parliament-tv-1e0.png" width="425"/>
-</p>
-
+</td>
+</tr>
+</table>
+    
 ## Pablo Picasso's _Seated Nude_
 
-<p float="left" align="center">
+<table>
+<tr>
+<td>
 <img src="img/styles/seated-nude.jpg" width="245"/>
+</td>
+<td>
 <img src="img/transfer/seated-nude.png" width="425"/>
-</p>
+</td>
+</tr>
+</table>
 
 ## Edvard Munch's _The Scream_
 
-<p float="left" align="center">
+<table>
+<tr>
+<td>
 <img src="img/styles/the-scream.jpg" width="250"/>
+</td>
+<td>
 <img src="img/transfer/the-scream.png" width="425"/>
-</p>
+</td>
+</tr>
+</table>
 
 ## Vincent van Gogh's _The Starry Night_
 
-<p float="left" align="center">
+<table>
+<tr>
+<td>
 <img src="img/styles/the-starry-night.jpg" width="400"/>
 <img src="img/transfer/the-starry-night.png" width="425"/>
-</p>
+</td>
+</tr>
+</table>
 
 ## William Turner's _The Shipwreck of The Minotaur_
 
-<p float="left" align="center">
+<table>
+<tr>
+<td>
 <img src="img/styles/the-shipwreck-of-the-minotaur.jpg" width="425"/>
+</td>
+<td>
 <img src="img/transfer/the-shipwreck-of-the-minotaur.png" width="400"/>
-</p>
+</td>
+</tr>
+</table>
 
 ## Wassily Kandinsky's _Composition VII_
 
-<p float="left" align="center">
+<table>
+<tr>
+<td>
 <img src="img/styles/composition-vii.jpg" width="425"/>
+</td>
+<td>
 <img src="img/transfer/composition-vii.png" width="425"/>
 </p>
 
