@@ -23,32 +23,32 @@ bearing local styles, and colors from **a**.
     </tr>
     <tr>
         <td><b>Claude Monet</b> <i>Houses of Parliament</i></td>
-        <td><img src="img/styles/houses-of-parliament.jpg" width="375"/></td>
+        <td><img src="img/styles-web/houses-of-parliament.jpg" width="375"/></td>
         <td><img src="img/style-transfer/houses-of-parliament.jpg" width="425"/></td>
     </tr>
     <tr>
         <td><b>Pablo Picasso</b> <i>Seated Nude</i></td>
-        <td><img src="img/styles/seated-nude.jpg" width="245"/></td>
+        <td><img src="img/styles-web/seated-nude.jpg" width="245"/></td>
         <td><img src="img/style-transfer/seated-nude.jpg" width="425"/></td>
     </tr>
     <tr>
         <td><b>Edvard Munch</b> <i>The Scream</i></td>
-        <td><img src="img/styles/the-scream.jpg" width="250"/></td>
+        <td><img src="img/styles-web/the-scream.jpg" width="250"/></td>
         <td><img src="img/style-transfer/the-scream.jpg" width="425"/></td>
     </tr>
     <tr>
         <td><b>Vincent van Gogh</b> <i>The Starry Night</i></td>
-        <td><img src="img/styles/the-starry-night.jpg" width="400"/></td>
+        <td><img src="img/styles-web/the-starry-night.jpg" width="400"/></td>
         <td><img src="img/style-transfer/the-starry-night.jpg" width="425"/></td>
     </tr>
     <tr>
         <td><b>William Turner</b> <i>The Shipwreck of The Minotaur</i></td>
-        <td><img src="img/styles/the-shipwreck-of-the-minotaur.jpg" width="425"/></td>
+        <td><img src="img/styles-web/the-shipwreck-of-the-minotaur.jpg" width="425"/></td>
         <td><img src="img/style-transfer/the-shipwreck-of-the-minotaur.jpg" width="400"/></td>
     </tr>
     <tr>
         <td><b>Wassily Kandinsky</b> <i>Composition VII</i></td>
-        <td><img src="img/styles/composition-vii.jpg" width="425"/></td>
+        <td><img src="img/styles-web/composition-vii.jpg" width="425"/></td>
         <td><img src="img/style-transfer/composition-vii.jpg" width="425"/></td>
     </tr>
 </table>
