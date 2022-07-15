@@ -8,7 +8,7 @@ An **implementation** of the arXiv preprint
 _Supports TensorFlow 2.4.1._
 
 <div align="center">
-<img src="img/style-transfer.drawio.png">Style Transfer</img>
+<img src="img/style-transfer.drawio.png"></img>
 </div>
 
 ## Style Transfer
