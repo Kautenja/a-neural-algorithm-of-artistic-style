@@ -7,6 +7,10 @@ An **implementation** of the arXiv preprint
 
 _Supports TensorFlow 2.4.1._
 
+<div align="center">
+<img src="img/style-transfer.drawio.png">Style Transfer</img>
+</div>
+
 ## Style Transfer
 
 [style-transfer.ipynb](style-transfer.ipynb) describes the style transfer
